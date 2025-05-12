@@ -12,6 +12,7 @@ public class Main {
             System.out.println("i = " + i);
             System.out.println("Test123");
             System.out.println("Test321");
+            int i = 0;
         }
 
     }
