@@ -2,9 +2,11 @@ package Trainer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class TrainerController {
@@ -26,7 +28,10 @@ public class TrainerController {
 
     @FXML
     private Button button;
+public void initialisere(){
+    button.setAlignment(Pos.CENTER);
 
+}
     @FXML
     private Button changeColorButton;
 
@@ -53,5 +58,6 @@ public class TrainerController {
         }
         colorChangeButtonPressed = !colorChangeButtonPressed;
     }
+
 
 }
