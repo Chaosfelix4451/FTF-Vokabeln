@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="25.0" prefWidth="35.0">
          <children>
             <Button fx:id="burgerButton" alignment="CENTER" mnemonicParsing="false" onAction="#toggleSideMenu" prefHeight="34.0" prefWidth="34.0" text="≡" />
          </children>
@@ -22,11 +22,11 @@
             <Button mnemonicParsing="false" text="Beenden" />
          </children>
       </VBox>
-      <VBox fx:id="sideMenu" prefHeight="200.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="50.0">
+      <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0" style="-fx-background-color: rgb(77,77,77); -fx-border-color: 000000;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="37.0">
          <children>
-            <Button mnemonicParsing="false" text="Einstellungen">
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
                <VBox.margin>
-                  <Insets left="10.0" top="50.0" />
+                  <Insets left="10.0" />
                </VBox.margin></Button>
          </children></VBox>
    </children>
