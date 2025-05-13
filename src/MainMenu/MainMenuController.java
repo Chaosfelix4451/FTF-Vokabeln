@@ -36,7 +36,7 @@ public class MainMenuController {
      * @param event
      */
     @FXML
-    private void handleButtonPressEvent(ActionEvent event) {
+    private void handleMainMenuViewButtonPressEvent(ActionEvent event) {
         stage.setScene(nextScene);
     }
 

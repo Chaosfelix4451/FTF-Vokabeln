@@ -1,4 +1,5 @@
 import MainMenu.MainMenuController;
+import Settings.SettingsController;
 import Trainer.TrainerController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,17 +21,26 @@ public class Main extends Application {
         mainMenuControllerHandle.setStage(primaryStage);
 
         // Load second view
-        FXMLLoader secondLoader = new FXMLLoader(getClass().getResource("Trainer/Trainer.fxml"));
-        Parent secondRoot = secondLoader.load();
+        FXMLLoader TrainerLoader = new FXMLLoader(getClass().getResource("Trainer/Trainer.fxml"));
+        Parent TrainerRoot = TrainerLoader.load();
         // Retrieve second controller handle
-        TrainerController secondControllerHandle = (TrainerController) secondLoader.getController();
-        secondControllerHandle.setStage(primaryStage);
+        TrainerController TrainerControllerHandle = (TrainerController) TrainerLoader.getController();
+        TrainerControllerHandle.setStage(primaryStage);
+
+        // Load second view
+        FXMLLoader SettingsLoader = new FXMLLoader(getClass().getResource("Settings/Settings.fxml"));
+        Parent SettingsRoot = SettingsLoader.load();
+        // Retrieve Third controller handle
+        SettingsController SettingsControllerHandle = (SettingsController) TrainerLoader.getController();
+        SettingsControllerHandle.setStage(primaryStage);
 
         // Create scenes
         Scene mainScene = new Scene(mainRoot);
-        Scene secondScene = new Scene(secondRoot);
-        mainMenuControllerHandle.setNextScene(secondScene);
-        secondControllerHandle.setNextScene(mainScene);
+        Scene TrainerScene = new Scene(TrainerRoot);
+        Scene SettingsScene = new Scene(SettingsRoot);
+        mainMenuControllerHandle.setNextScene(SettingsScene);
+        TrainerControllerHandle.setNextScene(mainScene);
+        SettingsControllerHandle.setNextScene(SettingsScene);
 
         // Title of the main window
         primaryStage.setTitle("Vokabel Trainer.");
