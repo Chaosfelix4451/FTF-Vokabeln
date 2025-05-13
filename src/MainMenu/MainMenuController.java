@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -37,5 +38,15 @@ public class MainMenuController {
     @FXML
     private void handleButtonPressEvent(ActionEvent event) {
         stage.setScene(nextScene);
+    }
+
+    @FXML
+    private VBox sideMenu;
+
+    @FXML
+    private void toggleSideMenu() {
+        boolean isVisible = sideMenu.isVisible();
+        sideMenu.setVisible(!isVisible);
+        sideMenu.setManaged(!isVisible);
     }
 }
