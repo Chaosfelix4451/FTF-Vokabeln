@@ -8,7 +8,7 @@
    <children>
       <HBox focusTraversable="true" scaleShape="false">
          <children>
-            <TextField text="Vokabel Eingabe" />
+            <TextField text="Vokabel Ausgabe" />
             <Button fx:id="button" mnemonicParsing="false" onAction="#handleButtonPressEvent" text="Schließen">
                <HBox.margin>
                   <Insets top="50.0" />
@@ -19,7 +19,7 @@
                   <Insets left="10.0" top="50.0" />
                </HBox.margin>
             </Button>
-            <TextField text="Vokabel Ausgabe">
+            <TextField text="Vokabel Eingabe">
                <HBox.margin>
                   <Insets />
                </HBox.margin></TextField>
