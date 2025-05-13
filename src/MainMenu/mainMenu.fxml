@@ -18,7 +18,7 @@
                <font>
                   <Font name="System Bold" size="22.0" />
                </font></Label>
-            <Button mnemonicParsing="false" text="Vokabeltrainer starten" />
+            <Button fx:id="button" mnemonicParsing="false" onAction="#handleMainMenuViewButtonPressEvent" text="Vokabeltrainer starten" />
             <Button mnemonicParsing="false" text="Beenden" />
          </children>
       </VBox>
