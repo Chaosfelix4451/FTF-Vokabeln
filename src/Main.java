@@ -12,6 +12,7 @@ public class Main extends Application {
         // Load main view
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
         Parent mainRoot = mainLoader.load();
+
         // Retrieve main controller handle
         MainController mainControllerHandle = (MainController) mainLoader.getController();
         mainControllerHandle.setStage(primaryStage);
