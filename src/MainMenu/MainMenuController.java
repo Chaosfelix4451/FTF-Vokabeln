@@ -2,17 +2,16 @@ package MainMenu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-/**
- * Controller class for the main view.
- *
- * @author Karsten Lehn
- * @version 17.5.2021
- */
+import java.io.IOException;
+
+
 public class MainMenuController {
 
     // Member variable holding a reference to the respective scene (window).
@@ -37,10 +36,26 @@ public class MainMenuController {
      * @param event
      */
     @FXML
-    private void handleMainMenuViewButtonPressEvent(ActionEvent event) {
+    private void handleTrainerViewButtonPressEvent(ActionEvent event) {
         stage.setScene(nextScene);
     }
+    @FXML
+    private void handleSettingsMenuViewButtonPressEvent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Settings/Settings.fxml"));
+            Parent root = loader.load();
 
+            // Optional: Controller-Setup (z. B. Stage übergeben)
+            //MainMenu.MainMenuController controller = loader.getController();
+            //controller.setStage(stage);
+
+            Scene mainScene = new Scene(root);
+            stage.setScene(mainScene);
+
+        } catch (IOException e) {
+            e.printStackTrace(); // oder besser: Logger verwenden
+        }
+    }
     @FXML
     private VBox sideMenu;
 
