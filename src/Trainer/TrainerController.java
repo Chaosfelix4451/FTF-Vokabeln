@@ -1,21 +1,20 @@
+package Trainer;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- * Controller class for the main view.
- *
- * @author Karsten Lehn
- * @version 17.5.2021
- */
-public class MainController {
+public class TrainerController {
 
     // Member variable holding a reference to the respective scene (window).
     private Stage stage = null;
     // Member variable holding a reference to the next scene the controller should switch to.
     private Scene nextScene = null;
+    // Member variable for implementing a simple color switch.
+    private boolean colorChangeButtonPressed = false;
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -28,6 +27,9 @@ public class MainController {
     @FXML
     private Button button;
 
+    @FXML
+    private Button changeColorButton;
+
     /**
      * Button press handle, which changes the current scene.
      * @param event
@@ -36,4 +38,20 @@ public class MainController {
     private void handleButtonPressEvent(ActionEvent event) {
         stage.setScene(nextScene);
     }
+
+    /**
+     * Button press handle, which changes the background color of the root element.
+     * @param event
+     */
+    @FXML
+    private void handleChangeColorButtonPressEvent(ActionEvent event) {
+        Parent root = stage.getScene().getRoot();
+        if (colorChangeButtonPressed) {
+            root.setStyle("-fx-background-color: WHITESMOKE");
+        } else {
+            root.setStyle("-fx-background-color: LIGHTGREEN");
+        }
+        colorChangeButtonPressed = !colorChangeButtonPressed;
+    }
+
 }
