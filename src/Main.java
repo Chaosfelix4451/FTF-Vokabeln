@@ -31,7 +31,7 @@ public class Main extends Application {
         FXMLLoader SettingsLoader = new FXMLLoader(getClass().getResource("Settings/Settings.fxml"));
         Parent SettingsRoot = SettingsLoader.load();
         // Retrieve Third controller handle
-        SettingsController SettingsControllerHandle = (SettingsController) TrainerLoader.getController();
+        SettingsController SettingsControllerHandle = (SettingsController) SettingsLoader.getController();
         SettingsControllerHandle.setStage(primaryStage);
 
         // Create scenes
@@ -39,6 +39,8 @@ public class Main extends Application {
         Scene TrainerScene = new Scene(TrainerRoot);
         Scene SettingsScene = new Scene(SettingsRoot);
         mainMenuControllerHandle.setNextScene(SettingsScene);
+
+
         TrainerControllerHandle.setNextScene(mainScene);
         SettingsControllerHandle.setNextScene(SettingsScene);
 

@@ -22,7 +22,7 @@
             <Button mnemonicParsing="false" text="Beenden" />
          </children>
       </VBox>
-      <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0" style="-fx-background-color: rgb(77,77,77); -fx-border-color: 000000;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="37.0">
+      <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0" style="-fx-background-color: rgb(77,77,77);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="37.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
                <VBox.margin>
