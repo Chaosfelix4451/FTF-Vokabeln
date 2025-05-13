@@ -39,6 +39,8 @@ public class Main extends Application {
         Scene TrainerScene = new Scene(TrainerRoot);
         Scene SettingsScene = new Scene(SettingsRoot);
         mainMenuControllerHandle.setNextScene(SettingsScene);
+
+
         TrainerControllerHandle.setNextScene(mainScene);
         SettingsControllerHandle.setNextScene(SettingsScene);
 

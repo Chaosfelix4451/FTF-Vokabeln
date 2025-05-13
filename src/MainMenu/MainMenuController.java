@@ -20,6 +20,7 @@ public class MainMenuController {
     // Member variable holding a reference to the next scene the controller should switch to.
     private Scene nextScene = null;
 
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
