@@ -39,10 +39,8 @@ public class Main extends Application {
         Scene TrainerScene = new Scene(TrainerRoot);
         Scene SettingsScene = new Scene(SettingsRoot);
         mainMenuControllerHandle.setNextScene(TrainerScene);
-
-
         TrainerControllerHandle.setNextScene(mainScene);
-        SettingsControllerHandle.setNextScene(mainScene);
+
 
         // Title of the main window
         primaryStage.setTitle("Vokabeltrainer");

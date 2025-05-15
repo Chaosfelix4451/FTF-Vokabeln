@@ -21,7 +21,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="button" mnemonicParsing="false" prefHeight="29.0" prefWidth="41.0" text="←">
+      <Button fx:id="button" mnemonicParsing="false" onAction="#handleSettingsMenuViewButtonPressEvent" text="←">
          <font>
             <Font size="14.0" />
          </font>

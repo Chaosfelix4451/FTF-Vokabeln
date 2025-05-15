@@ -3,11 +3,11 @@ package Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,10 +31,10 @@ public class SettingsController {
 
     @FXML
     private Button button;
+    public void initialisere(){
+        button.setAlignment(Pos.CENTER);
 
-    @FXML
-    private Button backButton;
-
+    }
     @FXML
     private Button changeColorButton;
 
@@ -43,8 +43,21 @@ public class SettingsController {
      * @param event
      */
     @FXML
-    private void handleSettingsViewButtonPressEvent(ActionEvent event) {
-        stage.setScene(nextScene);
+    private void handleSettingsMenuViewButtonPressEvent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Settings/Settings.fxml"));
+            Parent root = loader.load();
+
+            // Optional: Controller-Setup (z. B. Stage übergeben)
+            //MainMenu.MainMenuController controller = loader.getController();
+            //controller.setStage(stage);
+
+            //Scene mainScene = new Scene(root);
+            //stage.setScene(mainScene);
+
+        } catch (IOException e) {
+            e.printStackTrace(); // oder besser: Logger verwenden
+        }
     }
 
     /**
@@ -61,6 +74,5 @@ public class SettingsController {
         }
         colorChangeButtonPressed = !colorChangeButtonPressed;
     }
-
 
 }
