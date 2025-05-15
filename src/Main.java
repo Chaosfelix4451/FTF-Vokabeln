@@ -1,6 +1,6 @@
 import MainMenu.MainMenuController;
-import Settings.SettingsController;
 import Trainer.TrainerController;
+import Settings.SettingsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +40,7 @@ public class Main extends Application {
         Scene SettingsScene = new Scene(SettingsRoot);
         mainMenuControllerHandle.setNextScene(TrainerScene);
         TrainerControllerHandle.setNextScene(mainScene);
+        SettingsControllerHandle.setNextScene(mainScene);
 
 
         // Title of the main window
