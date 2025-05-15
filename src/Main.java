@@ -1,6 +1,3 @@
-import MainMenu.MainMenuController;
-import Trainer.TrainerController;
-import Settings.SettingsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,43 +7,16 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+        // Lade NUR die MainMenu-Szene
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu/mainMenu.fxml"));
+        Parent root = loader.load();
 
-        // Load main view
-        FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("MainMenu/mainMenu.fxml"));
-        Parent mainRoot = mainLoader.load();
+        MainMenu.MainMenuController controller = loader.getController();
+        controller.setStage(primaryStage); // Übergibt nur den Stage
 
-        // Retrieve main controller handle
-        MainMenuController mainMenuControllerHandle = (MainMenuController) mainLoader.getController();
-        mainMenuControllerHandle.setStage(primaryStage);
-
-        // Load second view
-        FXMLLoader TrainerLoader = new FXMLLoader(getClass().getResource("Trainer/Trainer.fxml"));
-        Parent TrainerRoot = TrainerLoader.load();
-        // Retrieve second controller handle
-        TrainerController TrainerControllerHandle = (TrainerController) TrainerLoader.getController();
-        TrainerControllerHandle.setStage(primaryStage);
-
-        // Load second view
-        FXMLLoader SettingsLoader = new FXMLLoader(getClass().getResource("Settings/Settings.fxml"));
-        Parent SettingsRoot = SettingsLoader.load();
-        // Retrieve Third controller handle
-        SettingsController SettingsControllerHandle = (SettingsController) SettingsLoader.getController();
-        SettingsControllerHandle.setStage(primaryStage);
-
-        // Create scenes
-        Scene mainScene = new Scene(mainRoot);
-        Scene TrainerScene = new Scene(TrainerRoot);
-        Scene SettingsScene = new Scene(SettingsRoot);
-        mainMenuControllerHandle.setNextScene(TrainerScene);
-        TrainerControllerHandle.setNextScene(mainScene);
-        SettingsControllerHandle.setNextScene(mainScene);
-
-
-        // Title of the main window
         primaryStage.setTitle("Vokabeltrainer");
-        // Set and show initial scene
-        primaryStage.setScene(mainScene);
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

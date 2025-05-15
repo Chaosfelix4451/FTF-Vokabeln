@@ -3,40 +3,37 @@ package Settings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SettingsController {
 
-    // Member variable holding a reference to the respective scene (window).
     private Stage stage = null;
-    // Member variable holding a reference to the next scene the controller should switch to.
-    private Scene nextScene = null;
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    public void setNextScene(Scene nextScene) {
-        this.nextScene = nextScene;
-    }
-
     @FXML
     private Button button;
 
-    /**
-     * Button press handle, which changes the current scene.
-     * @param event
-     */
     @FXML
     private void handleTrainerViewButtonPressEvent(ActionEvent event) {
-        stage.setScene(nextScene);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Trainer/Trainer.fxml"));
+            Parent root = loader.load();
+
+            Trainer.TrainerController controller = loader.getController();
+            controller.setStage(stage);
+
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -45,16 +42,12 @@ public class SettingsController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainMenu/mainMenu.fxml"));
             Parent root = loader.load();
 
-            // Optional: Controller-Setup (z. B. Stage übergeben)
-            //MainMenu.MainMenuController controller = loader.getController();
-            //controller.setStage(stage);
+            MainMenu.MainMenuController controller = loader.getController();
+            controller.setStage(stage);
 
-            Scene mainScene = new Scene(root);
-            stage.setScene(mainScene);
-
+            stage.setScene(new Scene(root));
         } catch (IOException e) {
-            e.printStackTrace(); // oder besser: Logger verwenden
+            e.printStackTrace();
         }
     }
-
 }
