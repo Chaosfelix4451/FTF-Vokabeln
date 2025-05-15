@@ -1,5 +1,6 @@
 package MainMenu;
 
+import Settings.SettingsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

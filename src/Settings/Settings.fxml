@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
+<AnchorPane prefHeight="400.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
    <children>
       <VBox layoutX="16.0" layoutY="77.0" prefHeight="139.0" prefWidth="368.0" AnchorPane.bottomAnchor="183.66666666666666" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="77.0">
          <children>
@@ -16,12 +16,12 @@
                </VBox.margin></ChoiceBox>
          </children>
       </VBox>
-      <Label layoutX="135.0" layoutY="38.0" prefHeight="17.0" prefWidth="129.0" text="Einstellungen" textAlignment="CENTER">
+      <Label layoutX="197.0" layoutY="38.0" prefHeight="17.0" prefWidth="129.0" text="Einstellungen">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="Button" mnemonicParsing="false" onAction="#handleTrainerViewButtonPressEvent" text="←">
+      <Button fx:id="Button" mnemonicParsing="false" onAction="#handleTrainerViewButtonPressEvent" text="←" AnchorPane.bottomAnchor="370.6666666666667" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="477.6666666666667" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
