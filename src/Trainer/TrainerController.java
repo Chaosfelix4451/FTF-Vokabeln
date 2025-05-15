@@ -59,5 +59,4 @@ public void initialisere(){
         colorChangeButtonPressed = !colorChangeButtonPressed;
     }
 
-
 }

@@ -65,4 +65,9 @@ public class MainMenuController {
         sideMenu.setVisible(!isVisible);
         sideMenu.setManaged(!isVisible);
     }
+
+    @FXML
+    private void handleExit() {
+        System.exit(0);
+    }
 }

@@ -42,10 +42,10 @@ public class Main extends Application {
 
 
         TrainerControllerHandle.setNextScene(mainScene);
-        SettingsControllerHandle.setNextScene(SettingsScene);
+        SettingsControllerHandle.setNextScene(mainScene);
 
         // Title of the main window
-        primaryStage.setTitle("Vokabel Trainer.");
+        primaryStage.setTitle("Vokabeltrainer");
         // Set and show initial scene
         primaryStage.setScene(mainScene);
         primaryStage.show();
