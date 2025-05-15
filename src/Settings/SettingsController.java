@@ -24,10 +24,10 @@ public class SettingsController {
     @FXML
     private void handleTrainerViewButtonPressEvent(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Trainer/Trainer.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainMenu/mainMenu.fxml"));
             Parent root = loader.load();
 
-            Trainer.TrainerController controller = loader.getController();
+            MainMenu.MainMenuController controller = loader.getController();
             controller.setStage(stage);
 
             stage.setScene(new Scene(root));
@@ -39,10 +39,10 @@ public class SettingsController {
     @FXML
     private void handleSettingsMenuViewButtonPressEvent(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainMenu/mainMenu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Trainer/Trainer.fxml"));
             Parent root = loader.load();
 
-            MainMenu.MainMenuController controller = loader.getController();
+            Trainer.TrainerController controller = loader.getController();
             controller.setStage(stage);
 
             stage.setScene(new Scene(root));
