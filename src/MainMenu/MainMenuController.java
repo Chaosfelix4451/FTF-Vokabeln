@@ -9,17 +9,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import Utils.SceneLoader;
 
 import java.io.IOException;
 
 public class MainMenuController {
 
-    private Stage stage = null;
+     /* Need for Stage change over functions include this code block in every Controller Class
+    Pls do not delete or change
+     */
 
+    private Stage stage = null;
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+    ////////////////////////
     @FXML
     private Button button;
 
@@ -27,33 +31,12 @@ public class MainMenuController {
     private VBox sideMenu;
 
     @FXML
-    private void handleTrainerViewButtonPressEvent(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Trainer/Trainer.fxml"));
-            Parent root = loader.load();
-
-            Trainer.TrainerController controller = loader.getController();
-            controller.setStage(stage);
-
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void openTrainer(ActionEvent event) {
+        SceneLoader.load("/Trainer/Trainer.fxml");
     }
 
-    @FXML
-    private void handleSettingsMenuViewButtonPressEvent(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Settings/Settings.fxml"));
-            Parent root = loader.load();
-
-            Settings.SettingsController controller = loader.getController();
-            controller.setStage(stage);
-
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void openSettings(ActionEvent event) {
+        SceneLoader.load("/Settings/Settings.fxml");
     }
 
     @FXML

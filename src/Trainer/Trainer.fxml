@@ -9,7 +9,7 @@
       <HBox focusTraversable="true" scaleShape="false">
          <children>
             <TextField text="Vokabel Ausgabe" />
-            <Button fx:id="button" mnemonicParsing="false" onAction="#handleButtonPressEvent" text="Schließen">
+            <Button fx:id="button" mnemonicParsing="false" onAction="#openMainMenu" text="Schließen">
                <HBox.margin>
                   <Insets top="50.0" />
                </HBox.margin>

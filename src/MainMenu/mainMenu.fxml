@@ -18,13 +18,13 @@
                <font>
                   <Font name="System Bold" size="22.0" />
                </font></Label>
-            <Button fx:id="button" mnemonicParsing="false" onAction="#handleTrainerViewButtonPressEvent" text="Vokabeltrainer starten" />
+            <Button fx:id="button" mnemonicParsing="false" onAction="#openTrainer" text="Vokabeltrainer starten" />
             <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleExit" text="Beenden" />
          </children>
       </VBox>
       <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0" style="-fx-background-color: rgb(77,77,77);" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="25.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleSettingsMenuViewButtonPressEvent" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
+            <Button mnemonicParsing="false" onAction="#openSettings" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
