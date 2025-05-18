@@ -10,7 +10,6 @@ import java.net.URL;
 
 public class SceneLoader {
 
-    // 🔒 Interner Stage-Manager
     private static class StageManager {
         private static Stage primaryStage;
 
@@ -23,12 +22,10 @@ public class SceneLoader {
         }
     }
 
-    // 🔓 Öffentliche Methode zum Setzen des globalen Stage
     public static void setPrimaryStage(Stage stage) {
         StageManager.setPrimaryStage(stage);
     }
 
-    // 🔁 Szene laden OHNE manuelles Stage-Weiterreichen
     public static void load(String fxmlPath) {
         Stage stage = StageManager.getPrimaryStage();
         if (stage == null) {
@@ -37,7 +34,6 @@ public class SceneLoader {
         load(stage, fxmlPath);
     }
 
-    // 🔁 Szene laden MIT explizitem Stage (optional, falls du es manuell brauchst)
     public static void load(Stage stage, String fxmlPath) {
         try {
             URL url = SceneLoader.class.getResource(fxmlPath);
@@ -53,8 +49,19 @@ public class SceneLoader {
             if (controller instanceof HasStage) {
                 ((HasStage) controller).setStage(stage);
             }
+            
+            Scene scene = new Scene(root);
 
-            stage.setScene(new Scene(root));
+            // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
+            String cssPath = fxmlPath.replace(".fxml", ".css");
+            URL cssUrl = SceneLoader.class.getResource(cssPath);
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.out.println("⚠️ Keine CSS-Datei gefunden für " + cssPath);
+            }
+
+            stage.setScene(scene);
             stage.show();
 
         } catch (IOException e) {
@@ -62,7 +69,6 @@ public class SceneLoader {
         }
     }
 
-    // 🔗 Schnittstelle für Controller, die Zugriff auf die Stage brauchen
     public interface HasStage {
         void setStage(Stage stage);
     }
