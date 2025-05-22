@@ -15,6 +15,12 @@ Felix Kioschis 👑
 Toby Bernd
 
 Gruppenname: FTF Vokabeltrainer
+Soon:
+Vokabel Kontrolle
+High Score System
+Angabe der Länge von Test
+Vokabel Kategorien
+
  */
 
 
