@@ -16,8 +16,6 @@ public class TrainerController {
     @FXML
     private AnchorPane rootPane;
 
-    private boolean colorChangeButtonPressed = false;
-
     public void setStage(Stage stage) {
         this.stage = stage;
     }
