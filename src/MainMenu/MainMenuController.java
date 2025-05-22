@@ -1,6 +1,7 @@
 package MainMenu;
 
 import Settings.SettingsController;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,6 @@ public class MainMenuController {
 
     @FXML
     private void handleExit() {
-        System.exit(0);
+        Platform.exit();
     }
 }
