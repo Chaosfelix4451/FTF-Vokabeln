@@ -20,13 +20,16 @@ public class TrainerView {
     }
 
     public void buildUI(AnchorPane rootPane) {
-        HBox hbox = new HBox(10);
-        hbox.setPadding(new Insets(10));
+        int i;
+        for(i=0; i<10; i++) {
+            HBox hbox = new HBox(10);
+            hbox.setPadding(new Insets(10));
 
-        TextField outputField = new TextField(initialText);
-        TextField inputField = new TextField("Vokabel Eingabe");
+            TextField outputField = new TextField(initialText);
+            TextField inputField = new TextField("Vokabel Eingabe");
 
-        hbox.getChildren().addAll(outputField, closeButton, changeColorButton, inputField);
-        rootPane.getChildren().add(hbox);
+            hbox.getChildren().addAll(outputField, closeButton, changeColorButton, inputField);
+            rootPane.getChildren().add(hbox);
+        }
     }
 }
