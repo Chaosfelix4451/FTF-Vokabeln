@@ -12,22 +12,16 @@ import java.io.IOException;
 7PG_T2 Vokabeltrainer
 Feras Hassan
 Felix Kioschis 👑
-Toby Berndt
+Toby Bernd
 
 Gruppenname: FTF Vokabeltrainer
 Soon:
-Vokabel Kontrolle (Rote Hinterlegung der Falschen Buchstaben)
+Vokabel Kontrolle
 High Score System
 Vokabel Training Übersicht
 Angabe der Länge von Test
 Vokabel Kategorien
 Design via. CSS
-
-Memorie/Design
-Sounds bzw vorlese button
-Chinesisch / Arabisch
-
-
  */
 public class Main extends Application {
     public static void main(String[] args) {
