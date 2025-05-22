@@ -6,55 +6,68 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-// Die View ist zuständig für Layout und Aufbau
 public class TrainerView {
 
     private final String initialText;
-    private final Button nextbutton;
-    private final Button closeButton;
+    private final Button nextButton;
+    private final Button backButton;
 
-    public TrainerView(String initialText, Button closeButton, Button changeColorButton) {
+    public TrainerView(String initialText, Button backButton, Button nextButton) {
         this.initialText = initialText;
-        this.closeButton = closeButton;
-        this.nextbutton = changeColorButton;
+        this.backButton = backButton;
+        this.nextButton = nextButton;
     }
 
     public void buildUI(AnchorPane rootPane) {
-        FlowPane vocabFlowPane = new FlowPane(10, 10);
-        vocabFlowPane.setPrefWrapLength(500);
-        vocabFlowPane.setPadding(new Insets(10));
-        vocabFlowPane.setAlignment(Pos.CENTER);
+        VBox mainLayout = new VBox(20);
+        mainLayout.setPadding(new Insets(20));
+        mainLayout.setAlignment(Pos.TOP_CENTER);
 
-        for (int i = 0; i < 10; i++) {
-            HBox hbox = new HBox(10);
-            hbox.setPadding(new Insets(10));
-            hbox.setAlignment(Pos.CENTER);
+        // Grid für Vokabeln + Eingabe
+        GridPane vocabGrid = new GridPane();
+        vocabGrid.setHgap(10);
+        vocabGrid.setVgap(10);
+        vocabGrid.setPadding(new Insets(10));
+        vocabGrid.setAlignment(Pos.CENTER);
+
+        // Kopfzeile
+        Label vocabLabel = new Label("Vokabel");
+        Label inputLabel = new Label("Eingabe");
+        vocabLabel.setStyle("-fx-font-weight: bold");
+        inputLabel.setStyle("-fx-font-weight: bold");
+        vocabGrid.add(vocabLabel, 0, 0);
+        vocabGrid.add(inputLabel, 1, 0);
+
+        // Vokabelzeilen
+        for (int i = 1; i <= 10; i++) {
             Label outputField = new Label(initialText);
-            outputField.setAlignment(Pos.CENTER_LEFT);
-            TextField inputField = new TextField("Vokabel Eingabe");
-            inputField.setAlignment(Pos.CENTER_RIGHT);
-            hbox.getChildren().addAll(outputField, inputField);
-            vocabFlowPane.getChildren().add(hbox);
+            outputField.setMinWidth(150);
+            TextField inputField = new TextField();
+            inputField.setPromptText("Vokabel eingeben...");
+            inputField.setMinWidth(200);
+
+            vocabGrid.add(outputField, 0, i);
+            vocabGrid.add(inputField, 1, i);
         }
 
-        HBox buttonBar = new HBox(10);
-        buttonBar.setPadding(new Insets(10));
+        // Button-Leiste
+        HBox buttonBar = new HBox(20);
         buttonBar.setAlignment(Pos.CENTER);
-        buttonBar.getChildren().addAll(nextbutton, closeButton);
+        buttonBar.setPadding(new Insets(10));
+        buttonBar.getChildren().addAll(backButton, nextButton);
 
-        VBox vbox = new VBox(20); // Abstand zwischen Vocab und Buttons
-        vbox.setPadding(new Insets(10));
-        vbox.getChildren().addAll(vocabFlowPane, buttonBar);
-        vbox.setAlignment(Pos.CENTER);
+        // Zusammenbauen
+        mainLayout.getChildren().addAll(vocabGrid, buttonBar);
 
-        rootPane.getChildren().add(vbox);
-        AnchorPane.setTopAnchor(vbox, 0.0);
-        AnchorPane.setLeftAnchor(vbox, 0.0);
-        AnchorPane.setRightAnchor(vbox, 0.0);
-        AnchorPane.setBottomAnchor(vbox, 0.0);
+        // In Root einfügen
+        rootPane.getChildren().add(mainLayout);
+        AnchorPane.setTopAnchor(mainLayout, 0.0);
+        AnchorPane.setBottomAnchor(mainLayout, 0.0);
+        AnchorPane.setLeftAnchor(mainLayout, 0.0);
+        AnchorPane.setRightAnchor(mainLayout, 0.0);
     }
 }
