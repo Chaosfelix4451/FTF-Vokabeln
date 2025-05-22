@@ -1,0 +1,25 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #f0f0f0;
+}
+
+.button {
+    -fx-background-color: #666666;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+}
+.label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+#vocabModeBox {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-border-color: #888;
+}
