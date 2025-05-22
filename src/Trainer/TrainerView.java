@@ -15,7 +15,11 @@ public class TrainerView {
     private final String initialText;
     private final Button nextButton;
     private final Button backButton;
+    public String[] vocabel = {"value1", "value2", "value3"};
 
+    public void setVocab(String[] Vocabs){
+        vocabel = Vocabs;
+    }
     public TrainerView(String initialText, Button backButton, Button nextButton) {
         this.initialText = initialText;
         this.backButton = backButton;
@@ -43,8 +47,8 @@ public class TrainerView {
         vocabGrid.add(inputLabel, 1, 0);
 
         // Vokabelzeilen
-        for (int i = 1; i <= 10; i++) {
-            Label outputField = new Label(initialText);
+        for (int i = 0; i <= 2; i++) {
+            Label outputField = new Label(vocabel[i]);
             outputField.setMinWidth(150);
             TextField inputField = new TextField();
             inputField.setPromptText("Vokabel eingeben...");
