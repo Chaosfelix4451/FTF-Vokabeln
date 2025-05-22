@@ -31,7 +31,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml");
+        primaryStage.setTitle("Vokabeltrainer");
     }
+
 
 
 }
