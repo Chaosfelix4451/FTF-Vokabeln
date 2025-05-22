@@ -22,10 +22,7 @@ Vokabel Training Übersicht
 Angabe der Länge von Test
 Vokabel Kategorien
 Design via. CSS
-
  */
-
-
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
@@ -33,7 +30,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
-        SceneLoader.load("/MainMenu/mainMenu.fxml"); // Kein explizites stage mehr nötig
+        SceneLoader.load("/MainMenu/mainMenu.fxml");
     }
 
 
