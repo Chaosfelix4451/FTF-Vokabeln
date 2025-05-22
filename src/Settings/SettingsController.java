@@ -25,7 +25,6 @@ public class SettingsController implements Initializable {
 
     private Stage stage = null;
 
-    private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
     //@Override
     public void setStage(Stage stage) {
@@ -33,7 +32,7 @@ public class SettingsController implements Initializable {
     }
 
     /// /////////////////////
-
+    private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
     @FXML
     private Button button;
 
