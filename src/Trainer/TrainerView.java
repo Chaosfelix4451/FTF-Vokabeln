@@ -9,17 +9,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import Trainer.TrainerController;
 
 public class TrainerView {
 
     private final String initialText;
     private final Button nextButton;
     private final Button backButton;
-    public String[] vocabel = {"value1", "value2", "value3"};
+    private String[] vocabel = TrainerController.getVocabel();
 
-    public void setVocab(String[] Vocabs){
-        vocabel = Vocabs;
-    }
     public TrainerView(String initialText, Button backButton, Button nextButton) {
         this.initialText = initialText;
         this.backButton = backButton;
@@ -54,8 +52,8 @@ public class TrainerView {
             inputField.setPromptText("Vokabel eingeben...");
             inputField.setMinWidth(200);
 
-            vocabGrid.add(outputField, 0, i);
-            vocabGrid.add(inputField, 1, i);
+            vocabGrid.add(outputField, 0, i + 1);
+            vocabGrid.add(inputField, 1, i + 1);
         }
 
         // Button-Leiste

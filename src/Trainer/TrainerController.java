@@ -13,6 +13,16 @@ public class TrainerController {
 
     private Stage stage = null;
 
+    private static String[] vocabel = {"value1", "value2", "value3"};
+
+    public void setVocab(String[] Vocabs){
+        vocabel = Vocabs;
+    }
+
+    public static String[] getVocabel() {
+        return vocabel;
+    }
+
     @FXML
     private AnchorPane rootPane;
 
