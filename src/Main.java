@@ -26,7 +26,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml"); // Kein explizites stage mehr nötig
-        primaryStage.setTitle("Vokabeltrainer"); //hi
+        primaryStage.setTitle("Vokabeltrainer");
     }
 
 
