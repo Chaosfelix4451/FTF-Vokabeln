@@ -35,7 +35,9 @@ public class MainMenuController {
     public void openTrainer(ActionEvent event) {
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
-
+    public void openTrainerView(ActionEvent event) {
+        SceneLoader.load("/Trainer/TrainerView.fxml");
+    }
     public void openSettings(ActionEvent event) {
         SceneLoader.load("/Settings/Settings.fxml");
     }
