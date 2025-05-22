@@ -12,7 +12,7 @@ import java.io.IOException;
 7PG_T2 Vokabeltrainer
 Feras Hassan
 Felix Kioschis 👑
-Toby Bernd
+Toby Berndt
 
 Gruppenname: FTF Vokabeltrainer
 Soon:
