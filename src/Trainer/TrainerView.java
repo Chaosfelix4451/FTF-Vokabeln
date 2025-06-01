@@ -1,53 +1,50 @@
 package Trainer;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import Trainer.TrainerController;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TrainerView {
 
-    private final String initialText;
-    private final Button nextButton;
-    private final Button backButton;
-    private String[] vocabel = TrainerController.getVocabel();
 
-    public TrainerView(String initialText, Button backButton, Button nextButton) {
-        this.initialText = initialText;
-        this.backButton = backButton;
-        this.nextButton = nextButton;
+    private  TrainerModel model;
+    private  List<TextField> inputFields = new ArrayList<>();
+    private List<Integer> shownIndices = new ArrayList<>();
+    public TrainerView(TrainerModel model) {
+        this.model = model;
     }
 
-    public void buildUI(AnchorPane rootPane) {
+    public List<TextField> getInputFields() {
+        return inputFields;
+    }
+
+    public List<Integer> getShownIndices() {
+        return shownIndices;
+    }
+
+    public void buildUI(GridPane rootPane) {
         VBox mainLayout = new VBox(20);
         mainLayout.setPadding(new Insets(20));
         mainLayout.setAlignment(Pos.TOP_CENTER);
 
-        // Grid für Vokabeln + Eingabe
         GridPane vocabGrid = new GridPane();
         vocabGrid.setHgap(10);
         vocabGrid.setVgap(10);
-        vocabGrid.setPadding(new Insets(10));
-        vocabGrid.setAlignment(Pos.CENTER);
 
-        // Kopfzeile
-        Label vocabLabel = new Label("Vokabel");
-        Label inputLabel = new Label("Eingabe");
-        vocabLabel.setStyle("-fx-font-weight: bold");
-        inputLabel.setStyle("-fx-font-weight: bold");
-        vocabGrid.add(vocabLabel, 0, 0);
-        vocabGrid.add(inputLabel, 1, 0);
+        int maxCount = model.getSize();
+        int count = ThreadLocalRandom.current().nextInt(3, Math.min(10, maxCount) + 1); // max 10
 
-        // Vokabelzeilen
-        for (int i = 0; i <= 2; i++) {
-            Label outputField = new Label(vocabel[i]);
+        for (int i = 0; i < count; i++) {
+            Label outputField = new Label(model.get(i));
             outputField.setMinWidth(150);
+
             TextField inputField = new TextField();
             inputField.setPromptText("Vokabel eingeben...");
             inputField.setMinWidth(200);
@@ -56,20 +53,7 @@ public class TrainerView {
             vocabGrid.add(inputField, 1, i + 1);
         }
 
-        // Button-Leiste
-        HBox buttonBar = new HBox(20);
-        buttonBar.setAlignment(Pos.CENTER);
-        buttonBar.setPadding(new Insets(10));
-        buttonBar.getChildren().addAll(backButton, nextButton);
-
-        // Zusammenbauen
-        mainLayout.getChildren().addAll(vocabGrid, buttonBar);
-
-        // In Root einfügen
+        mainLayout.getChildren().add(vocabGrid);
         rootPane.getChildren().add(mainLayout);
-        AnchorPane.setTopAnchor(mainLayout, 0.0);
-        AnchorPane.setBottomAnchor(mainLayout, 0.0);
-        AnchorPane.setLeftAnchor(mainLayout, 0.0);
-        AnchorPane.setRightAnchor(mainLayout, 0.0);
     }
 }
