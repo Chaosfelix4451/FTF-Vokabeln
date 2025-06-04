@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TrainerController {
+    private final SoundModel soundModel = new SoundModel();
 
     @FXML
     private VBox vocabBox;
@@ -135,7 +136,7 @@ public class TrainerController {
         }
     }
 
-    private void checkAnswers() {
+    public void checkAnswers() {
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
 
@@ -145,6 +146,9 @@ public class TrainerController {
                 char expectedChar = expected.charAt(i);
 
                 if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
+                    //Test ob Sound funktioniert
+                    soundModel.playSound("C:/Users/toby/IdeaProjects/FTF-Vokabeln/src/Ressourcen/sound.mp3");
+
                     field.setStyle("-fx-background-color: lightgreen;");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");

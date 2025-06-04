@@ -2,6 +2,10 @@ package Trainer;
 
 import java.util.Arrays;
 import java.util.List;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
+
 
 /**
  * Das Model hält eine feste Liste von Vokabeln.
@@ -38,3 +42,4 @@ public class TrainerModel {
             return vocabGerman.get(index);
         }
     }
+
