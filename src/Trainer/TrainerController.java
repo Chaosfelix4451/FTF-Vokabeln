@@ -1,12 +1,12 @@
 package Trainer;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,8 +25,7 @@ public class TrainerController {
     private Button nextButton;
 
     private final TrainerModel model = new TrainerModel();
-    private final Map<TextField, String> fieldToVocab = new HashMap<>();
-    private final List<TextField> inputFields = new ArrayList<>();
+    private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private Stage stage;
@@ -35,20 +34,25 @@ public class TrainerController {
         this.stage = stage;
     }
 
+    private static class VocabEntry {
+        String solution;
+        List<TextField> fields = new ArrayList<>();
+    }
+
     @FXML
     private void initialize() {
         loadNextVocabSet();
 
-        nextButton.setOnAction(new EventHandler<ActionEvent>() {
+        nextButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                checkAnswersAndMaybeContinue();
+            public void handle(javafx.event.ActionEvent event) {
+                checkAnswers();
             }
         });
 
-        backButton.setOnAction(new EventHandler<ActionEvent>() {
+        backButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(javafx.event.ActionEvent event) {
                 SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
             }
         });
@@ -56,73 +60,128 @@ public class TrainerController {
 
     private void loadNextVocabSet() {
         vocabBox.getChildren().clear();
-        fieldToVocab.clear();
-        inputFields.clear();
+        vocabEntries.clear();
 
-        // Zufällige Anzahl an Fragen
         questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, model.getSize()) + 1);
         int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
         for (int i = currentIndex; i < endIndex; i++) {
-            String vocab = model.get(i);
-            Label vocabLabel = new Label(vocab);
+            final String sourceWord = model.get(i);
+            final String solutionWord = model.getTranslation(i);
+
+            Label vocabLabel = new Label(sourceWord);
             vocabLabel.setMinWidth(150);
 
-            TextField inputField = new TextField();
-            fieldToVocab.put(inputField, vocab);
-            inputFields.add(inputField);
+            final HBox letterBox = new HBox(5);
+            final VocabEntry entry = new VocabEntry();
+            entry.solution = solutionWord;
 
-            HBox hBox = new HBox(10, vocabLabel, inputField);
-            vocabBox.getChildren().add(hBox);
+            for (int j = 0; j < solutionWord.length(); j++) {
+                final int index = j;
+                final TextField field = new TextField();
+                field.setPrefWidth(30);
+                field.setMaxWidth(30);
+
+                // KeyTyped: Nur 1 Zeichen + Weiterleitung
+                field.setOnKeyTyped(new javafx.event.EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        String character = event.getCharacter();
+                        if (!character.matches("[a-zA-ZäöüÄÖÜß]")) {
+                            event.consume();
+                            return;
+                        }
+
+                        field.setText(character);
+                        event.consume();
+
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                field.positionCaret(1);
+                                if (index < solutionWord.length() - 1) {
+                                    TextField next = entry.fields.get(index + 1);
+                                    next.requestFocus();
+                                }
+                            }
+                        });
+                    }
+                });
+
+                // Backspace → zum vorherigen Feld
+                field.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        if (event.getCode() == KeyCode.BACK_SPACE && field.getText().isEmpty() && index > 0) {
+                            final TextField prev = entry.fields.get(index - 1);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    prev.requestFocus();
+                                    prev.clear();
+                                }
+                            });
+                            event.consume();
+                        }
+                    }
+                });
+
+                entry.fields.add(field);
+                letterBox.getChildren().add(field);
+            }
+
+            vocabEntries.add(entry);
+            vocabBox.getChildren().add(new HBox(10, vocabLabel, letterBox));
         }
     }
 
-    private void checkAnswersAndMaybeContinue() {
-        boolean allFilled = true;
-        boolean allCorrect = true;
+    private void checkAnswers() {
+        for (VocabEntry entry : vocabEntries) {
+            String expected = entry.solution;
 
-        for (TextField field : inputFields) {
-            String input = field.getText().trim();
-            String expected = fieldToVocab.get(field);
+            for (int i = 0; i < entry.fields.size(); i++) {
+                TextField field = entry.fields.get(i);
+                String input = field.getText().trim();
+                char expectedChar = expected.charAt(i);
 
-            if (input.isEmpty()) {
-                field.setStyle("-fx-background-color: red;");
-                allFilled = false;
-            } else {
-                if (input.equalsIgnoreCase(expected)) {
+                if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
                     field.setStyle("-fx-background-color: lightgreen;");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
-                    allCorrect = false;
                 }
+
+                field.setEditable(false);
             }
         }
 
-        if (!allFilled) return;
-
-        // Sperre aktivieren
         nextButton.setDisable(true);
 
-        if (allCorrect) {
-            // 3 Sekunden warten, dann weiter
-            new Thread(() -> {
+        Thread delayThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
                 try {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                Platform.runLater(() -> {
-                    currentIndex += questionsPerRound;
-                    if (currentIndex < model.getSize()) {
-                        loadNextVocabSet();
-                        nextButton.setDisable(false); // Sperre aufheben
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentIndex += questionsPerRound;
+                        if (currentIndex < model.getSize()) {
+                            loadNextVocabSet();
+                            nextButton.setDisable(false);
+                        }else{
+                            nextButton.setDisable(false);
+
+                            nextButton.setText("Ergebnisse anzeigen");
+                            nextButton.setOnAction(event -> SceneLoader.load("/MainMenu/mainMenu.fxml"));
+                        }
                     }
                 });
-            }).start();
-        } else {
-            // Bei Fehlern sofort wieder freigeben
-            nextButton.setDisable(false);
-        }
+            }
+        });
+        delayThread.start();
     }
-
 }
