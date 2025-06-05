@@ -16,7 +16,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TrainerController {
-    private final SoundModel soundModel = new SoundModel();
 
     @FXML
     private VBox vocabBox;
@@ -26,18 +25,20 @@ public class TrainerController {
     private Button nextButton;
 
     private final TrainerModel model = new TrainerModel();
+    private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private Stage stage;
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
+    // Speichert ein Vokabelpaar: Lösung + zugehörige Eingabefelder
     private static class VocabEntry {
         String solution;
         List<TextField> fields = new ArrayList<>();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -59,16 +60,21 @@ public class TrainerController {
         });
     }
 
+    /**
+     * Lädt die nächste Runde von Vokabeln dynamisch in das UI.
+     * Generiert Textfelder je Buchstabe und bereitet Event-Handling vor.
+     */
     private void loadNextVocabSet() {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
+        // Zufällige Anzahl Vokabeln pro Runde (min 3, max 10 oder verbleibende Anzahl)
         questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, model.getSize()) + 1);
         int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
         for (int i = currentIndex; i < endIndex; i++) {
-            final String sourceWord = model.get(i);
-            final String solutionWord = model.getTranslation(i);
+            final String sourceWord = model.get(i);           // z. B. "apple"
+            final String solutionWord = model.getTranslation(i); // z. B. "Apfel"
 
             Label vocabLabel = new Label(sourceWord);
             vocabLabel.setMinWidth(150);
@@ -83,7 +89,7 @@ public class TrainerController {
                 field.setPrefWidth(30);
                 field.setMaxWidth(30);
 
-                // KeyTyped: Nur 1 Zeichen + Weiterleitung
+                // Eingabe: Nur ein Buchstabe erlaubt + Fokus auf nächstes Feld
                 field.setOnKeyTyped(new javafx.event.EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
@@ -101,15 +107,14 @@ public class TrainerController {
                             public void run() {
                                 field.positionCaret(1);
                                 if (index < solutionWord.length() - 1) {
-                                    TextField next = entry.fields.get(index + 1);
-                                    next.requestFocus();
+                                    entry.fields.get(index + 1).requestFocus();
                                 }
                             }
                         });
                     }
                 });
 
-                // Backspace → zum vorherigen Feld
+                // Rücksprung bei Backspace (wenn leer)
                 field.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
@@ -136,6 +141,11 @@ public class TrainerController {
         }
     }
 
+    /**
+     * Prüft alle eingegebenen Buchstaben gegen die Lösung,
+     * markiert diese farbig, deaktiviert die Eingabefelder
+     * und lädt bei Erfolg nach kurzer Pause das nächste Set.
+     */
     public void checkAnswers() {
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
@@ -146,10 +156,8 @@ public class TrainerController {
                 char expectedChar = expected.charAt(i);
 
                 if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
-                    //Test ob Sound funktioniert
-                    soundModel.playSound("C:/Users/toby/IdeaProjects/FTF-Vokabeln/src/Ressourcen/sound.mp3");
-
                     field.setStyle("-fx-background-color: lightgreen;");
+                    soundModel.playSound("C:/Users/toby/IdeaProjects/FTF-Vokabeln/src/Ressourcen/sound.mp3");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
@@ -176,11 +184,15 @@ public class TrainerController {
                         if (currentIndex < model.getSize()) {
                             loadNextVocabSet();
                             nextButton.setDisable(false);
-                        }else{
+                        } else {
                             nextButton.setDisable(false);
-
                             nextButton.setText("Ergebnisse anzeigen");
-                            nextButton.setOnAction(event -> SceneLoader.load("/MainMenu/mainMenu.fxml"));
+                            nextButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
+                                @Override
+                                public void handle(javafx.event.ActionEvent event) {
+                                    SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
+                                }
+                            });
                         }
                     }
                 });
