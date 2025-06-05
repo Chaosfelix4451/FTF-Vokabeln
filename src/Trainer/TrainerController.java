@@ -161,7 +161,7 @@ public class TrainerController {
                     for (int j = i + 1; j < entry.fields.size(); j++) {
                         TextField field2 = entry.fields.get(j);
                     }
-                    soundModel.playSound("src/Utils/sound.mp3");
+                    soundModel.playSound("src/Utils/richtig.mp3");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
