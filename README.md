@@ -11,6 +11,7 @@ FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt en
 - Anzeige des Scoreboards
 - Speichern der Einstellungen
 - einfache Soundeffekte
+- zentraler `UserSystem`-Verwaltungscode wird jetzt statisch genutzt
 
 ## Build
 
@@ -21,6 +22,10 @@ sudo apt-get update && sudo apt-get install -y ant openjdk-11-jdk openjfx
 ant jar
 java -jar build/jar/FTF-Vokabeln.jar
 ```
+
+## Dokumentation
+
+In `docs/Methodenliste.md` sind die wichtigsten Methoden kurz beschrieben.
 
 ## Mitwirken
 

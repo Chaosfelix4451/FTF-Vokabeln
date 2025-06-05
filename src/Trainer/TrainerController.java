@@ -12,14 +12,17 @@ import javafx.scene.control.TextField;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import Utils.SceneLoader.SceneLoader;
+import Utils.StageAwareController;
 
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class TrainerController {
+/**
+ * Steuert den Ablauf des Trainings und wertet die Antworten aus.
+ */
+public class TrainerController extends StageAwareController {
 
     @FXML
     private VBox vocabBox;
@@ -31,12 +34,10 @@ public class TrainerController {
     private final TrainerModel model = new TrainerModel();
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
-    private final UserSystem userManager = UserSystem.getInstance();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
     private int questionsPerRound = 5;
-    private Stage stage;
 
     private static class VocabEntry {
         String solution;
@@ -44,16 +45,15 @@ public class TrainerController {
         HBox container;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
+    /**
+     * Initialisiert den Trainer und lädt die ersten Vokabeln.
+     */
     @FXML
     private void initialize() {
-        userManager.loadFromFile();
-        currentUser = userManager.getCurrentUser();
-        userManager.addUser(currentUser);
-        userManager.startNewSession(currentUser, null);
+        UserSystem.loadFromFile();
+        currentUser = UserSystem.getCurrentUser();
+        UserSystem.addUser(currentUser);
+        UserSystem.startNewSession(currentUser, null);
 
         mode = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class)
                 .get("vocabMode", "Deutsch zu Englisch");
@@ -65,6 +65,9 @@ public class TrainerController {
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
     }
 
+    /**
+     * Baut die nächste Liste an Vokabeln entsprechend des gewählten Modus auf.
+     */
     private void loadNextVocabSet() {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
@@ -114,6 +117,9 @@ public class TrainerController {
         }
     }
 
+    /**
+     * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
+     */
     public void checkAnswers() {
         int correctCount = 0;
 
@@ -146,15 +152,15 @@ public class TrainerController {
 
             if (isCorrect) {
                 soundModel.playSound("src/Utils/Sound/richtig.mp3");
-                userManager.addPoint(currentUser);
+                UserSystem.addPoint(currentUser);
                 correctCount++;
             } else {
                 soundModel.playSound("src/Utils/Sound/falsch.mp3");
             }
-            userManager.recordAnswer(currentUser, isCorrect, null);
+            UserSystem.recordAnswer(currentUser, isCorrect, null);
         }
 
-        userManager.saveToFile();
+        UserSystem.saveToFile();
 
         nextButton.setDisable(true);
 
