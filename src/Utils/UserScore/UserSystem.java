@@ -121,6 +121,7 @@ public class UserSystem {
                     lastTotal + ":" + lastCorrect + ":" + lastIncorrect;
         }
 
+
         static VocabStats fromCSV(String csv) {
             try {
                 String[] parts = csv.split(":");
