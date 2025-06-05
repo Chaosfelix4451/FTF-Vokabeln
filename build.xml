@@ -6,11 +6,36 @@
     <property name="jar.file" location="${jar.dir}/FTF-Vokabeln.jar"/>
     <property name="javafx.lib" location="/usr/share/openjfx/lib"/>
 
+    <!-- Check if JavaFX is present -->
+    <target name="check-javafx">
+        <available file="${javafx.lib}" type="dir" property="javafx.present"/>
+    </target>
+
+    <!-- Install JavaFX automatically if it's missing -->
+    <target name="install-openjfx" depends="check-javafx" unless="javafx.present">
+        <echo message="JavaFX not found. Attempting to install via apt-get..."/>
+        <exec executable="sudo" failonerror="false">
+            <arg value="apt-get"/>
+            <arg value="update"/>
+        </exec>
+        <exec executable="sudo" failonerror="false">
+            <arg value="apt-get"/>
+            <arg value="install"/>
+            <arg value="-y"/>
+            <arg value="openjfx"/>
+        </exec>
+        <!-- re-check after attempted installation -->
+        <available file="${javafx.lib}" type="dir" property="javafx.present"/>
+    </target>
+
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
 
-    <target name="compile">
+    <target name="compile" depends="install-openjfx">
+        <fail unless="javafx.present">
+            JavaFX library not found at ${javafx.lib}. Please install openjfx manually.
+        </fail>
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includeantruntime="false">
             <classpath>
