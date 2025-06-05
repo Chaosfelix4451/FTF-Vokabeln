@@ -28,10 +28,9 @@ Fehlerberichte und Pull Requests sind willkommen.
 
 ## Autoren
 
-- Chaosfelix
+- Felix
 - Toby
-- feras
-- Automatisierte Anpassungen von Codex
+- Feras
 
 ## Lizenz
 
