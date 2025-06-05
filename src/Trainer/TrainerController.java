@@ -2,6 +2,7 @@ package Trainer;
 
 import Utils.Sound.SoundModel;
 import Utils.UserScore.UserSystem;
+import Settings.SettingsController;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -30,8 +31,9 @@ public class TrainerController {
     private final TrainerModel model = new TrainerModel();
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
-    private final UserSystem userManager = new UserSystem();
-    private final String currentUser = "user";
+    private final UserSystem userManager = UserSystem.getInstance();
+    private String currentUser = "user";
+    private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private Stage stage;
@@ -48,7 +50,14 @@ public class TrainerController {
 
     @FXML
     private void initialize() {
+        userManager.loadFromFile();
+        currentUser = userManager.getCurrentUser();
         userManager.addUser(currentUser);
+        userManager.startNewSession(currentUser, null);
+
+        mode = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class)
+                .get("vocabMode", "Deutsch zu Englisch");
+
         loadNextVocabSet();
 
         nextButton.setOnAction(event -> checkAnswers());
@@ -64,8 +73,23 @@ public class TrainerController {
         int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
         for (int i = currentIndex; i < endIndex; i++) {
-            final String sourceWord = model.get(i);
-            final String solutionWord = model.getTranslation(i);
+            String sourceWord;
+            String solutionWord;
+            if ("Deutsch zu Englisch".equals(mode)) {
+                sourceWord = model.getTranslation(i);
+                solutionWord = model.get(i);
+            } else if ("Englisch zu Deutsch".equals(mode)) {
+                sourceWord = model.get(i);
+                solutionWord = model.getTranslation(i);
+            } else { // Zufällig
+                if (ThreadLocalRandom.current().nextBoolean()) {
+                    sourceWord = model.get(i);
+                    solutionWord = model.getTranslation(i);
+                } else {
+                    sourceWord = model.getTranslation(i);
+                    solutionWord = model.get(i);
+                }
+            }
 
             Label vocabLabel = new Label(sourceWord);
             vocabLabel.setMinWidth(150);
@@ -92,7 +116,6 @@ public class TrainerController {
 
     public void checkAnswers() {
         int correctCount = 0;
-        userManager.startNewSession(currentUser, null);
 
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
@@ -154,7 +177,7 @@ public class TrainerController {
                 } else {
                     nextButton.setDisable(false);
                     nextButton.setText("Ergebnisse anzeigen");
-                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
+                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml"));
                 }
             });
         });

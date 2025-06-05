@@ -10,6 +10,15 @@ import java.util.*;
  */
 public class UserSystem {
 
+    // Singleton instance
+    private static final UserSystem INSTANCE = new UserSystem();
+
+    public static UserSystem getInstance() {
+        return INSTANCE;
+    }
+
+    private String currentUser = "user";
+
     // Standardliste, falls keine Liste spezifiziert wurde
     private static final String DEFAULT_LIST = "default";
 
@@ -157,8 +166,22 @@ public class UserSystem {
         return null;
     }
 
+    public boolean userExists(String name) {
+        return getUserByName(name) != null;
+    }
+
     private User getUserByIndex(int index) {
         return (index >= 0 && index < users.size()) ? users.get(index) : null;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String name) {
+        if (userExists(name)) {
+            currentUser = name;
+        }
     }
 
     // Punktestandverwaltung
@@ -197,6 +220,26 @@ public class UserSystem {
         List<Integer> scores = new ArrayList<>();
         for (User u : users) scores.add(u.points);
         return scores;
+    }
+
+    public int getDiffCorrect(String name, String listId) {
+        VocabStats stats = getStatsForUser(name, listId);
+        return stats != null ? stats.getDiffCorrect() : 0;
+    }
+
+    public int getDiffIncorrect(String name, String listId) {
+        VocabStats stats = getStatsForUser(name, listId);
+        return stats != null ? stats.getDiffIncorrect() : 0;
+    }
+
+    public int getTotalCorrect(String name, String listId) {
+        VocabStats stats = getStatsForUser(name, listId);
+        return stats != null ? stats.correct : 0;
+    }
+
+    public int getTotalIncorrect(String name, String listId) {
+        VocabStats stats = getStatsForUser(name, listId);
+        return stats != null ? stats.incorrect : 0;
     }
 
     // Sortierung und Highscore

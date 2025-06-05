@@ -21,5 +21,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: Install JavaFX
+      run: sudo apt-get update && sudo apt-get install -y openjfx
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml
