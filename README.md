@@ -1,0 +1,38 @@
+# FTF-Vokabeln
+
+[![Java CI](https://github.com/Chaosfelix/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix/FTF-Vokabeln/actions/workflows/ant.yml)
+
+FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt entstand im Rahmen eines Schulprojekts und hilft beim Üben englischer Wörter.
+
+## Funktionen
+
+- zufällige Abfragen in beide Richtungen
+- Nutzerverwaltung mit gespeichertem Highscore
+- Anzeige des Scoreboards
+- Speichern der Einstellungen
+- einfache Soundeffekte
+
+## Build
+
+Vorausgesetzt werden JDK 11, JavaFX und Ant. Unter Ubuntu können die Pakete wie folgt installiert und das JAR gebaut werden:
+
+```bash
+sudo apt-get update && sudo apt-get install -y ant openjdk-11-jdk openjfx
+ant jar
+java -jar build/jar/FTF-Vokabeln.jar
+```
+
+## Mitwirken
+
+Fehlerberichte und Pull Requests sind willkommen.
+
+## Autoren
+
+- Chaosfelix
+- Toby
+- feras
+- Automatisierte Anpassungen von Codex
+
+## Lizenz
+
+Dieses Projekt dient zu Lernzwecken und besitzt keine explizite Lizenzdatei.
