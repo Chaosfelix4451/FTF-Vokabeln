@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Utils.SceneLoader;
 
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -160,7 +161,7 @@ public class TrainerController {
                     for (int j = i + 1; j < entry.fields.size(); j++) {
                         TextField field2 = entry.fields.get(j);
                     }
-                    soundModel.playSound("C:/Users/toby/IdeaProjects/FTF-Vokabeln/src/Ressourcen/sound.mp3");
+                    soundModel.playSound("Un");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
