@@ -56,7 +56,7 @@ public class TrainerController {
         backButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
-                SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
+                SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
             }
         });
     }
@@ -194,7 +194,7 @@ public class TrainerController {
                             nextButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
                                 @Override
                                 public void handle(javafx.event.ActionEvent event) {
-                                    SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
+                                    SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
                                 }
                             });
                         }
