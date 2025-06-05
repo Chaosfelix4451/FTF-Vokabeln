@@ -37,4 +37,36 @@ public class TrainerModel {
         public String getTranslation(int index) {
             return vocabGerman.get(index);
         }
+
+    private String name = "user";
+    private int points;
+
+    private void Score(String name) {
+        if (name.isEmpty()){
+           this.name = "user";
+        }
+        this.name = name;
+        this.points = 0;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void addPoint() {
+        this.points++;
+    }
+
+}

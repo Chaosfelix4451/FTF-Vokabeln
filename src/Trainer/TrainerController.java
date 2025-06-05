@@ -151,6 +151,15 @@ public class TrainerController {
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
 
+            // Benutzer-Eingabe zusammenbauen
+            StringBuilder userInput = new StringBuilder();
+            for (TextField field : entry.fields) {
+                userInput.append(field.getText().trim());
+            }
+
+            boolean isCorrect = userInput.toString().equalsIgnoreCase(expected);
+
+            // Rückmeldung pro Buchstabe
             for (int i = 0; i < entry.fields.size(); i++) {
                 TextField field = entry.fields.get(i);
                 String input = field.getText().trim();
@@ -158,15 +167,17 @@ public class TrainerController {
 
                 if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
                     field.setStyle("-fx-background-color: lightgreen;");
-                    for (int j = i + 1; j < entry.fields.size(); j++) {
-                        TextField field2 = entry.fields.get(j);
-                    }
-                    soundModel.playSound("Un");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
 
                 field.setEditable(false);
+            }
+
+            // Falls gesamtes Wort korrekt → Sound abspielen
+            if (isCorrect) {
+                soundModel.playSound("src/Utils/sound.mp3");
+
             }
         }
 
