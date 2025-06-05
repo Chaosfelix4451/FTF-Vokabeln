@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.geometry.Pos;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
@@ -100,6 +101,17 @@ public class TrainerController extends StageAwareController {
             TextField input = new TextField();
             input.setPromptText("Vokabel eingeben...");
             input.setMinWidth(200);
+            int currentIndexForEnter = i - currentIndex;
+            input.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    if (currentIndexForEnter + 1 < vocabEntries.size()) {
+                        vocabEntries.get(currentIndexForEnter + 1).inputField.requestFocus();
+                    } else {
+                        nextButton.requestFocus();
+                    }
+                    event.consume();
+                }
+            });
 
             HBox entryBox = new HBox(10, vocabLabel, input);
 
@@ -121,7 +133,6 @@ public class TrainerController extends StageAwareController {
      * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
      */
     public void checkAnswers() {
-        int correctCount = 0;
 
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
@@ -153,7 +164,6 @@ public class TrainerController extends StageAwareController {
             if (isCorrect) {
                 soundModel.playSound("src/Utils/Sound/richtig.mp3");
                 UserSystem.addPoint(currentUser);
-                correctCount++;
             } else {
                 soundModel.playSound("src/Utils/Sound/falsch.mp3");
             }
