@@ -17,7 +17,9 @@
             <Label alignment="TOP_CENTER" text="Vokabeltrainer" underline="true">
                <font>
                   <Font name="System Bold" size="22.0" />
-               </font></Label>
+               </font>
+            </Label>
+            <TextField fx:id="userField" promptText="Benutzername" />
             <Button fx:id="button" mnemonicParsing="false" onAction="#openTrainer" text="Vokabeltrainer starten" />
             <Button mnemonicParsing="false" onAction="#openUserManagement" text="Benutzer verwalten" />
             <Button mnemonicParsing="false" onAction="#openScoreBoard" text="Highscore" />
