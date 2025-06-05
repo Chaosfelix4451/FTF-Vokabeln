@@ -1,40 +1,47 @@
 package Trainer;
 
-import java.util.Arrays;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Das Model hält eine feste Liste von Vokabeln.
- * Diese kann über Getter abgefragt werden.
+ * Das Model lädt Vokabeln aus einer Datei mithilfe von Objektserialisierung.
  */
 public class TrainerModel {
-    private final List<String> vocabEnglish = Arrays.asList(
-            "apple", "banana", "house", "car", "computer",
-            "book", "pen", "school", "teacher", "student",
-            "chair", "table", "window", "door", "phone",
-            "dog", "cat", "mouse", "bird", "fish",
-            "water", "milk", "bread", "cheese", "butter",
-            "sun", "moon", "star", "sky", "cloud"
-    );
+    private List<String> vocabEnglish;
+    private List<String> vocabGerman;
 
-    private final List<String> vocabGerman = Arrays.asList(
-            "Apfel", "Banane", "Haus", "Auto", "Computer",
-            "Buch", "Stift", "Schule", "Lehrer", "Schüler",
-            "Stuhl", "Tisch", "Fenster", "Tür", "Handy",
-            "Hund", "Katze", "Maus", "Vogel", "Fisch",
-            "Wasser", "Milch", "Brot", "Käse", "Butter",
-            "Sonne", "Mond", "Stern", "Himmel", "Wolke"
-    );
+    // 👉 Konstruktor ruft die Lademethode auf
+    public TrainerModel(String fileName) {
+        load(fileName);
+    }
 
-        public int getSize() {
-            return vocabEnglish.size();
+    // 👉 Diese Methode lädt die Daten aus der Datei
+    @SuppressWarnings("unchecked")
+    private void load(String fileName) {
+        try (InputStream fileInputStream = Files.newInputStream(Paths.get(fileName));
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+            vocabEnglish = (List<String>) objectInputStream.readObject();
+            vocabGerman = (List<String>) objectInputStream.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            vocabEnglish = List.of(); // leere Liste zur Sicherheit
+            vocabGerman = List.of();
         }
+    }
 
-        public String get(int index) {
-            return vocabEnglish.get(index);
-        }
+    public int getSize() {
+        return vocabEnglish.size();
+    }
 
-        public String getTranslation(int index) {
-            return vocabGerman.get(index);
-        }
+    public String get(int index) {
+        return vocabEnglish.get(index);
+    }
+
+    public String getTranslation(int index) {
+        return vocabGerman.get(index);
+    }
 }

@@ -32,7 +32,7 @@ public class TrainerController extends StageAwareController {
     @FXML
     private Button nextButton;
 
-    private final TrainerModel model = new TrainerModel();
+    private final TrainerModel model = new TrainerModel("vokabeln.ser");
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private String currentUser = "user";
