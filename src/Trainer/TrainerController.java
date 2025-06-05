@@ -1,6 +1,8 @@
 package Trainer;
 
-import Utils.SoundModel;
+import Utils.Sound.SoundModel;
+import Utils.UserScore.UserSystem;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +13,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import Utils.SceneLoader;
+import Utils.SceneLoader.SceneLoader;
+import Utils.UserScore.UserSystem;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -28,11 +31,12 @@ public class TrainerController {
     private final TrainerModel model = new TrainerModel();
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
+    private final UserSystem userManager = new UserSystem();
+    private final UserSystem.User currentUser = userManager.getUser("user");
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private Stage stage;
 
-    // Speichert ein Vokabelpaar: Lösung + zugehörige Eingabefelder
     private static class VocabEntry {
         String solution;
         List<TextField> fields = new ArrayList<>();
@@ -46,36 +50,21 @@ public class TrainerController {
     private void initialize() {
         loadNextVocabSet();
 
-        nextButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                checkAnswers();
-            }
-        });
+        nextButton.setOnAction(event -> checkAnswers());
 
-        backButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-            @Override
-            public void handle(javafx.event.ActionEvent event) {
-                SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
-            }
-        });
+        backButton.setOnAction(event -> SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml"));
     }
 
-    /**
-     * Lädt die nächste Runde von Vokabeln dynamisch in das UI.
-     * Generiert Textfelder je Buchstabe und bereitet Event-Handling vor.
-     */
     private void loadNextVocabSet() {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        // Zufällige Anzahl Vokabeln pro Runde (min 3, max 10 oder verbleibende Anzahl)
         questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, model.getSize()) + 1);
         int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
         for (int i = currentIndex; i < endIndex; i++) {
-            final String sourceWord = model.get(i);           // z. B. "apple"
-            final String solutionWord = model.getTranslation(i); // z. B. "Apfel"
+            final String sourceWord = model.get(i);
+            final String solutionWord = model.getTranslation(i);
 
             Label vocabLabel = new Label(sourceWord);
             vocabLabel.setMinWidth(150);
@@ -90,46 +79,32 @@ public class TrainerController {
                 field.setPrefWidth(30);
                 field.setMaxWidth(30);
 
-                // Eingabe: Nur ein Buchstabe erlaubt + Fokus auf nächstes Feld
-                field.setOnKeyTyped(new javafx.event.EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        String character = event.getCharacter();
-                        if (!character.matches("[a-zA-ZäöüÄÖÜß]")) {
-                            event.consume();
-                            return;
-                        }
-
-                        field.setText(character);
+                field.setOnKeyTyped(event -> {
+                    String character = event.getCharacter();
+                    if (!character.matches("[a-zA-ZäöüÄÖÜß]")) {
                         event.consume();
-
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                field.positionCaret(1);
-                                if (index < solutionWord.length() - 1) {
-                                    entry.fields.get(index + 1).requestFocus();
-                                }
-                            }
-                        });
+                        return;
                     }
+
+                    field.setText(character);
+                    event.consume();
+
+                    Platform.runLater(() -> {
+                        field.positionCaret(1);
+                        if (index < solutionWord.length() - 1) {
+                            entry.fields.get(index + 1).requestFocus();
+                        }
+                    });
                 });
 
-                // Rücksprung bei Backspace (wenn leer)
-                field.setOnKeyPressed(new javafx.event.EventHandler<KeyEvent>() {
-                    @Override
-                    public void handle(KeyEvent event) {
-                        if (event.getCode() == KeyCode.BACK_SPACE && field.getText().isEmpty() && index > 0) {
-                            final TextField prev = entry.fields.get(index - 1);
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    prev.requestFocus();
-                                    prev.clear();
-                                }
-                            });
-                            event.consume();
-                        }
+                field.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.BACK_SPACE && field.getText().isEmpty() && index > 0) {
+                        final TextField prev = entry.fields.get(index - 1);
+                        Platform.runLater(() -> {
+                            prev.requestFocus();
+                            prev.clear();
+                        });
+                        event.consume();
                     }
                 });
 
@@ -142,14 +117,17 @@ public class TrainerController {
         }
     }
 
-    /**
-     * Prüft alle eingegebenen Buchstaben gegen die Lösung,
-     * markiert diese farbig, deaktiviert die Eingabefelder
-     * und lädt bei Erfolg nach kurzer Pause das nächste Set.
-     */
     public void checkAnswers() {
+        int correctCount = 0;
+
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
+            StringBuilder userInput = new StringBuilder();
+            for (TextField field : entry.fields) {
+                userInput.append(field.getText().trim());
+            }
+
+            boolean isCorrect = userInput.toString().equalsIgnoreCase(expected);
 
             for (int i = 0; i < entry.fields.size(); i++) {
                 TextField field = entry.fields.get(i);
@@ -158,49 +136,45 @@ public class TrainerController {
 
                 if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
                     field.setStyle("-fx-background-color: lightgreen;");
-                    for (int j = i + 1; j < entry.fields.size(); j++) {
-                        TextField field2 = entry.fields.get(j);
-                    }
-                    soundModel.playSound("src/Utils/richtig.mp3");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
 
                 field.setEditable(false);
             }
+
+            if (isCorrect) {
+                soundModel.playSound("src/Utils/Sound/richtig.mp3");
+                currentUser.addPoint();
+                correctCount++;
+            } else {
+                soundModel.playSound("src/Utils/Sound/falsch.mp3");
+            }
         }
+
+        currentUser.getStats().addSessionStats(vocabEntries.size(), correctCount);
+        userManager.saveUsers();
 
         nextButton.setDisable(true);
 
-        Thread delayThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        currentIndex += questionsPerRound;
-                        if (currentIndex < model.getSize()) {
-                            loadNextVocabSet();
-                            nextButton.setDisable(false);
-                        } else {
-                            nextButton.setDisable(false);
-                            nextButton.setText("Ergebnisse anzeigen");
-                            nextButton.setOnAction(new javafx.event.EventHandler<javafx.event.ActionEvent>() {
-                                @Override
-                                public void handle(javafx.event.ActionEvent event) {
-                                    SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml");
-                                }
-                            });
-                        }
-                    }
-                });
+        Thread delayThread = new Thread(() -> {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
+
+            Platform.runLater(() -> {
+                currentIndex += questionsPerRound;
+                if (currentIndex < model.getSize()) {
+                    loadNextVocabSet();
+                    nextButton.setDisable(false);
+                } else {
+                    nextButton.setDisable(false);
+                    nextButton.setText("Ergebnisse anzeigen");
+                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml"));
+                }
+            });
         });
         delayThread.start();
     }

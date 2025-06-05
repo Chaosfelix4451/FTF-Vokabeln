@@ -1,12 +1,6 @@
-import Utils.SceneLoader;
+import Utils.SceneLoader.SceneLoader;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Utils.SceneLoader;
-
-import java.io.IOException;
 
 /*
 7PG_T2 Vokabeltrainer

@@ -1,18 +1,12 @@
 package MainMenu;
 
-import Settings.SettingsController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import Utils.SceneLoader;
-
-import java.io.IOException;
+import Utils.SceneLoader.SceneLoader;
 
 public class MainMenuController {
 
