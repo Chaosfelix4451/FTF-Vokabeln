@@ -18,7 +18,7 @@
             <arg value="apt-get"/>
             <arg value="update"/>
         </exec>
-        <exec executable="sudo" failonerror="false">
+        <exec executable="sudo" failonerror="false"></exec>
     <!-- Install JavaFX automatically if it's missing -->
     <target name="install-openjfx">
         <!-- check if JavaFX libs are already present -->
