@@ -2,6 +2,7 @@ package ScoreBoard;
 
 import Utils.SceneLoader.SceneLoader;
 import Utils.UserScore.UserSystem;
+import Utils.StageAwareController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,12 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ScoreBoardController implements Initializable, SceneLoader.HasStage {
+/**
+ * Controller für die Highscore-Übersicht.
+ */
+public class ScoreBoardController extends StageAwareController implements Initializable {
     @FXML
     private TableView<UserRow> scoreTable;
     @FXML
@@ -25,13 +28,7 @@ public class ScoreBoardController implements Initializable, SceneLoader.HasStage
     @FXML
     private Label progressLabel;
 
-    private Stage stage;
     private final UserSystem userSystem = UserSystem.getInstance();
-
-    @Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,6 +38,9 @@ public class ScoreBoardController implements Initializable, SceneLoader.HasStage
         updateProgress();
     }
 
+    /**
+     * Aktualisiert die Tabelle mit allen Benutzernamen und deren Punkten.
+     */
     private void refreshTable() {
         userSystem.sortByScoreDescending();
         ObservableList<UserRow> data = FXCollections.observableArrayList();
@@ -50,6 +50,9 @@ public class ScoreBoardController implements Initializable, SceneLoader.HasStage
         scoreTable.setItems(data);
     }
 
+    /**
+     * Zeigt den Fortschritt des aktuellen Benutzers seit der letzten Runde an.
+     */
     private void updateProgress() {
         String user = userSystem.getCurrentUser();
         int plus = userSystem.getDiffCorrect(user, null);
@@ -57,19 +60,11 @@ public class ScoreBoardController implements Initializable, SceneLoader.HasStage
         progressLabel.setText("Fortschritt seit letzter Runde: +" + plus + " / -" + minus);
     }
 
+    /**
+     * Zurück zum Hauptmenü.
+     */
     @FXML
     private void backToMenu() {
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
-    }
-
-    public static class UserRow {
-        private final String name;
-        private final int points;
-        public UserRow(String name, int points) {
-            this.name = name;
-            this.points = points;
-        }
-        public String getName() { return name; }
-        public int getPoints() { return points; }
     }
 }

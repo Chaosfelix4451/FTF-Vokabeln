@@ -6,37 +6,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.stage.Stage;
 import Utils.SceneLoader.SceneLoader;
+import Utils.StageAwareController;
 
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-public class SettingsController implements Initializable {
-    /* Need for Stage change over functions include this code block in every Controller Class
-    Pls do not delete or change
-     */
+/**
+ * Controller für die Einstellungen.
+ */
+public class SettingsController extends StageAwareController implements Initializable {
 
-    private Stage stage = null;
-
-
-    //@Override
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    /// /////////////////////
+    // Einstellungen werden im Preferences-Objekt gespeichert
     private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
     @FXML
     private Button button;
 
+    /**
+     * Zurück zum Hauptmenü.
+     */
     @FXML
     public void openMainMenu(ActionEvent event) {
         SceneLoader.load("/MainMenu/mainMenu.fxml");
     }
 
+    /**
+     * Startet den Trainer.
+     */
     @FXML
     public void openTrainer(ActionEvent event) {
         SceneLoader.load(stage, "/Trainer/Trainer.fxml");
@@ -45,6 +43,9 @@ public class SettingsController implements Initializable {
     @FXML
     private ChoiceBox<String> vocabModeBox;
 
+    /**
+     * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         vocabModeBox.getItems().addAll(
@@ -62,6 +63,9 @@ public class SettingsController implements Initializable {
         });
     }
 
+    /**
+     * Beispiel-Handler für den Startknopf.
+     */
     @FXML
     private void handleStart(ActionEvent event) {
         String auswahl = vocabModeBox.getValue();

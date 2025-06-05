@@ -22,6 +22,10 @@ ant jar
 java -jar build/jar/FTF-Vokabeln.jar
 ```
 
+## Dokumentation
+
+In `docs/Methodenliste.md` sind die wichtigsten Methoden kurz beschrieben.
+
 ## Mitwirken
 
 Fehlerberichte und Pull Requests sind willkommen.
