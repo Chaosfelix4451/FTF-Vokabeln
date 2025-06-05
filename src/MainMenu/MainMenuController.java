@@ -1,9 +1,7 @@
 package MainMenu;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
@@ -16,8 +14,8 @@ import Utils.StageAwareController;
 public class MainMenuController extends StageAwareController {
 
     // Stage wird über die Basisklasse gesetzt
-    @FXML
-    private Button button;
+//    @FXML
+//    private Button button;
 
     @FXML
     private TextField userField;
@@ -33,32 +31,31 @@ public class MainMenuController extends StageAwareController {
         }
     }
 
+
     @FXML
-    /**
-     * Öffnet den eigentlichen Trainer.
-     */
-    public void openTrainer(ActionEvent event) {
+
+    public void openTrainer() {
         prepareUser();
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
     /**
      * Öffnet die Einstellungen.
      */
-    public void openSettings(ActionEvent event) {
+    public void openSettings() {
         SceneLoader.load("/Settings/Settings.fxml");
     }
 
     /**
      * Öffnet die Benutzerverwaltung.
      */
-    public void openUserManagement(ActionEvent event) {
+    public void openUserManagement() {
         SceneLoader.load("/UserManagement/UserManagement.fxml");
     }
 
     /**
      * Zeigt die Highscore-Tabelle an.
      */
-    public void openScoreBoard(ActionEvent event) {
+    public void openScoreBoard() {
         prepareUser();
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
@@ -95,4 +92,7 @@ public class MainMenuController extends StageAwareController {
         UserSystem.setCurrentUser(name);
         UserSystem.saveToFile();
     }
+
+
+
 }
