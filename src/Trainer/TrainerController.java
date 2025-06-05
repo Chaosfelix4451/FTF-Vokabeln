@@ -32,7 +32,7 @@ public class TrainerController extends StageAwareController {
     @FXML
     private Button nextButton;
 
-    private final TrainerModel model = new TrainerModel("vokabeln.ser");
+    private final TrainerModel model = new TrainerModel();
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private String currentUser = "user";
@@ -133,7 +133,7 @@ public class TrainerController extends StageAwareController {
      * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
      */
     public void checkAnswers() {
-
+        boolean allCorrect = true;
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
             String userInput = entry.inputField.getText().trim();
@@ -160,14 +160,21 @@ public class TrainerController extends StageAwareController {
             entry.container.getChildren().add(resultBox);
 
             boolean isCorrect = userInput.equalsIgnoreCase(expected);
+            if (!isCorrect) {
+                allCorrect = false;
+            }
 
             if (isCorrect) {
-                soundModel.playSound("src/Utils/Sound/richtig.mp3");
                 UserSystem.addPoint(currentUser);
-            } else {
-                soundModel.playSound("src/Utils/Sound/falsch.mp3");
             }
             UserSystem.recordAnswer(currentUser, isCorrect, null);
+        }
+
+        // Spiele nur EINEN Sound ab, basierend auf dem Gesamtergebnis
+        if (allCorrect) {
+            soundModel.playSound("src/Utils/Sound/richtig.mp3");
+        } else {
+            soundModel.playSound("src/Utils/Sound/falsch.mp3");
         }
 
         UserSystem.saveToFile();
@@ -180,7 +187,7 @@ public class TrainerController extends StageAwareController {
 
         Thread delayThread = new Thread(() -> {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
