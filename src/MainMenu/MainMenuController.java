@@ -1,9 +1,7 @@
 package MainMenu;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-//import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
@@ -24,7 +22,6 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private VBox sideMenu;
-    private ActionEvent event;
 
     @FXML
     private void initialize() {
@@ -37,32 +34,28 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
 
-    public void openTrainer(ActionEvent event) {
-        this.event = event;
+    public void openTrainer() {
         prepareUser();
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
     /**
      * Öffnet die Einstellungen.
      */
-    public void openSettings(ActionEvent event) {
-        this.event = event;
+    public void openSettings() {
         SceneLoader.load("/Settings/Settings.fxml");
     }
 
     /**
      * Öffnet die Benutzerverwaltung.
      */
-    public void openUserManagement(ActionEvent event) {
-        this.event = event;
+    public void openUserManagement() {
         SceneLoader.load("/UserManagement/UserManagement.fxml");
     }
 
     /**
      * Zeigt die Highscore-Tabelle an.
      */
-    public void openScoreBoard(ActionEvent event) {
-        this.event = event;
+    public void openScoreBoard() {
         prepareUser();
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
@@ -101,11 +94,5 @@ public class MainMenuController extends StageAwareController {
     }
 
 
-    public ActionEvent getEvent() {
-        return event;
-    }
 
-    public void setEvent(ActionEvent event) {
-        this.event = event;
-    }
 }
