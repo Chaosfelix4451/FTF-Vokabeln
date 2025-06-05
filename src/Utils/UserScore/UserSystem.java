@@ -8,16 +8,18 @@ import java.util.*;
  * und separaten Vokabel-Statistiken pro Liste. Alle Daten werden
  * persistent gespeichert und sind sortierbar.
  */
-public class UserSystem {
+/**
+ * Zentrales Benutzer- und Punktesystem.
+ * <p>
+ * Die Klasse wird rein statisch verwendet und
+ * speichert alle Informationen global. Ein explizites
+ * Objekt wird daher nicht benötigt.
+ */
+public final class UserSystem {
 
-    // Singleton instance
-    private static final UserSystem INSTANCE = new UserSystem();
+    private UserSystem() { /* nur statische Nutzung */ }
 
-    public static UserSystem getInstance() {
-        return INSTANCE;
-    }
-
-    private String currentUser = "user";
+    private static String currentUser = "user";
 
     // Standardliste, falls keine Liste spezifiziert wurde
     private static final String DEFAULT_LIST = "default";
@@ -141,114 +143,114 @@ public class UserSystem {
     }
 
     // Liste aller Benutzer
-    private final List<User> users = new ArrayList<>();
+    private static final List<User> users = new ArrayList<>();
 
     // Benutzerverwaltung
-    public void addUser(String name) {
+    public static void addUser(String name) {
         if (getUserByName(name) == null) users.add(new User(name));
     }
 
-    public void removeUser(String name) {
+    public static void removeUser(String name) {
         users.removeIf(u -> u.name.equalsIgnoreCase(name));
     }
 
-    public void clearAllUsers() {
+    public static void clearAllUsers() {
         users.clear();
     }
 
-    public int getUserCount() {
+    public static int getUserCount() {
         return users.size();
     }
 
-    private User getUserByName(String name) {
+    private static User getUserByName(String name) {
         for (User u : users) {
             if (u.name.equalsIgnoreCase(name)) return u;
         }
         return null;
     }
 
-    public boolean userExists(String name) {
+    public static boolean userExists(String name) {
         return getUserByName(name) != null;
     }
 
-    private User getUserByIndex(int index) {
+    private static User getUserByIndex(int index) {
         return (index >= 0 && index < users.size()) ? users.get(index) : null;
     }
 
-    public String getCurrentUser() {
+    public static String getCurrentUser() {
         return currentUser;
     }
 
-    public void setCurrentUser(String name) {
+    public static void setCurrentUser(String name) {
         if (userExists(name)) {
             currentUser = name;
         }
     }
 
     // Punktestandverwaltung
-    public void addPoint(String name) {
+    public static void addPoint(String name) {
         User u = getUserByName(name);
         if (u != null) u.points++;
     }
 
-    public void setPoints(String name, int points) {
+    public static void setPoints(String name, int points) {
         User u = getUserByName(name);
         if (u != null) u.points = Math.max(0, points);
     }
 
-    public void resetPoints(String name) {
+    public static void resetPoints(String name) {
         setPoints(name, 0);
     }
 
-    public String getName(int index) {
+    public static String getName(int index) {
         User u = getUserByIndex(index);
         return (u != null) ? u.name : null;
     }
 
-    public int getPoints(String name) {
+    public static int getPoints(String name) {
         User u = getUserByName(name);
         return (u != null) ? u.points : -1;
     }
 
     // Datenzugriff auf alle Benutzerwerte
-    public List<String> getAllUserNames() {
+    public static List<String> getAllUserNames() {
         List<String> names = new ArrayList<>();
         for (User u : users) names.add(u.name);
         return names;
     }
 
-    public List<Integer> getAllScores() {
+    public static List<Integer> getAllScores() {
         List<Integer> scores = new ArrayList<>();
         for (User u : users) scores.add(u.points);
         return scores;
     }
 
-    public int getDiffCorrect(String name, String listId) {
+    public static int getDiffCorrect(String name, String listId) {
         VocabStats stats = getStatsForUser(name, listId);
         return stats != null ? stats.getDiffCorrect() : 0;
     }
 
-    public int getDiffIncorrect(String name, String listId) {
+    public static int getDiffIncorrect(String name, String listId) {
         VocabStats stats = getStatsForUser(name, listId);
         return stats != null ? stats.getDiffIncorrect() : 0;
     }
 
-    public int getTotalCorrect(String name, String listId) {
+    public static int getTotalCorrect(String name, String listId) {
         VocabStats stats = getStatsForUser(name, listId);
         return stats != null ? stats.correct : 0;
     }
 
-    public int getTotalIncorrect(String name, String listId) {
+    public static int getTotalIncorrect(String name, String listId) {
         VocabStats stats = getStatsForUser(name, listId);
         return stats != null ? stats.incorrect : 0;
     }
 
     // Sortierung und Highscore
-    public void sortByScoreDescending() {
+    public static void sortByScoreDescending() {
         users.sort((a, b) -> Integer.compare(b.points, a.points));
     }
 
-    public int getHighscore() {
+    public static int getHighscore() {
         int high = 0;
         for (User u : users) {
             if (u.points > high) high = u.points;
@@ -256,7 +258,7 @@ public class UserSystem {
         return high;
     }
 
-    public List<String> getTopUsers() {
+    public static List<String> getTopUsers() {
         int high = getHighscore();
         List<String> top = new ArrayList<>();
         for (User u : users) {
@@ -266,7 +268,7 @@ public class UserSystem {
     }
 
     // Datei-Speicherung der Benutzerdaten
-    public void saveToFile() {
+    public static void saveToFile() {
         File file = new File("Utils/user_data.csv");
         file.getParentFile().mkdirs();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
@@ -277,7 +279,7 @@ public class UserSystem {
     }
 
     // Datei-Laden der Benutzerdaten
-    public void loadFromFile() {
+    public static void loadFromFile() {
         File file = new File("Utils/user_data.csv");
         if (!file.exists()) return;
 
@@ -294,18 +296,18 @@ public class UserSystem {
     }
 
     // Vokabel-Statistiken verwalten
-    public void recordAnswer(String name, boolean correct, String listId) {
+    public static void recordAnswer(String name, boolean correct, String listId) {
         if (name == null) return;
         var stats = getStatsForUser(name, listId);
         if (stats != null) stats.record(correct);
     }
 
-    public void startNewSession(String name, String listId) {
+    public static void startNewSession(String name, String listId) {
         var stats = getStatsForUser(name, listId);
         if (stats != null) stats.startNewSession();
     }
 
-    public VocabStats getStatsForUser(String name, String listId) {
+    public static VocabStats getStatsForUser(String name, String listId) {
         User u = getUserByName(name);
         return (u != null) ? u.getStats(listId) : null;
     }
