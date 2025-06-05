@@ -1,6 +1,6 @@
 # FTF-Vokabeln
 
-[![Java CI](https://github.com/Chaosfelix/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix/FTF-Vokabeln/actions/workflows/ant.yml)
+[![Java CI](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml)
 
 FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt entstand im Rahmen eines Schulprojekts und hilft beim Üben englischer Wörter.
 
