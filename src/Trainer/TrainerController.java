@@ -8,8 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -39,7 +38,8 @@ public class TrainerController {
 
     private static class VocabEntry {
         String solution;
-        List<TextField> fields = new ArrayList<>();
+        TextField inputField;
+        HBox container;
     }
 
     public void setStage(Stage stage) {
@@ -70,51 +70,23 @@ public class TrainerController {
             Label vocabLabel = new Label(sourceWord);
             vocabLabel.setMinWidth(150);
 
-            final HBox letterBox = new HBox(5);
-            final VocabEntry entry = new VocabEntry();
+            TextField input = new TextField();
+            input.setPromptText("Vokabel eingeben...");
+            input.setMinWidth(200);
+
+            HBox entryBox = new HBox(10, vocabLabel, input);
+
+            VocabEntry entry = new VocabEntry();
             entry.solution = solutionWord;
-
-            for (int j = 0; j < solutionWord.length(); j++) {
-                final int index = j;
-                final TextField field = new TextField();
-                field.setPrefWidth(30);
-                field.setMaxWidth(30);
-
-                field.setOnKeyTyped(event -> {
-                    String character = event.getCharacter();
-                    if (!character.matches("[a-zA-ZäöüÄÖÜß]")) {
-                        event.consume();
-                        return;
-                    }
-
-                    field.setText(character);
-                    event.consume();
-
-                    Platform.runLater(() -> {
-                        field.positionCaret(1);
-                        if (index < solutionWord.length() - 1) {
-                            entry.fields.get(index + 1).requestFocus();
-                        }
-                    });
-                });
-
-                field.setOnKeyPressed(event -> {
-                    if (event.getCode() == KeyCode.BACK_SPACE && field.getText().isEmpty() && index > 0) {
-                        final TextField prev = entry.fields.get(index - 1);
-                        Platform.runLater(() -> {
-                            prev.requestFocus();
-                            prev.clear();
-                        });
-                        event.consume();
-                    }
-                });
-
-                entry.fields.add(field);
-                letterBox.getChildren().add(field);
-            }
+            entry.inputField = input;
+            entry.container = entryBox;
 
             vocabEntries.add(entry);
-            vocabBox.getChildren().add(new HBox(10, vocabLabel, letterBox));
+            vocabBox.getChildren().add(entryBox);
+        }
+
+        if (stage != null) {
+            Platform.runLater(stage::sizeToScene);
         }
     }
 
@@ -124,26 +96,30 @@ public class TrainerController {
 
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
-            StringBuilder userInput = new StringBuilder();
-            for (TextField field : entry.fields) {
-                userInput.append(field.getText().trim());
-            }
+            String userInput = entry.inputField.getText().trim();
 
-            boolean isCorrect = userInput.toString().equalsIgnoreCase(expected);
+            HBox resultBox = new HBox(5);
+            int len = Math.max(expected.length(), userInput.length());
+            for (int i = 0; i < len; i++) {
+                String charStr = i < userInput.length() ? String.valueOf(userInput.charAt(i)) : "";
+                Label label = new Label(charStr);
+                label.setMinWidth(30);
+                label.setAlignment(Pos.CENTER);
 
-            for (int i = 0; i < entry.fields.size(); i++) {
-                TextField field = entry.fields.get(i);
-                String input = field.getText().trim();
-                char expectedChar = expected.charAt(i);
-
-                if (input.equalsIgnoreCase(String.valueOf(expectedChar))) {
-                    field.setStyle("-fx-background-color: lightgreen;");
+                if (i < expected.length() && i < userInput.length() &&
+                        charStr.equalsIgnoreCase(String.valueOf(expected.charAt(i)))) {
+                    label.setStyle("-fx-background-color: lightgreen;");
                 } else {
-                    field.setStyle("-fx-background-color: salmon;");
+                    label.setStyle("-fx-background-color: salmon;");
                 }
 
-                field.setEditable(false);
+                resultBox.getChildren().add(label);
             }
+
+            entry.container.getChildren().remove(entry.inputField);
+            entry.container.getChildren().add(resultBox);
+
+            boolean isCorrect = userInput.equalsIgnoreCase(expected);
 
             if (isCorrect) {
                 soundModel.playSound("src/Utils/Sound/richtig.mp3");
@@ -158,6 +134,10 @@ public class TrainerController {
         userManager.saveToFile();
 
         nextButton.setDisable(true);
+
+        if (stage != null) {
+            Platform.runLater(stage::sizeToScene);
+        }
 
         Thread delayThread = new Thread(() -> {
             try {
