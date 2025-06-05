@@ -265,7 +265,7 @@ public final class UserSystem {
 
     // Datei-Speicherung der Benutzerdaten
     public static void saveToFile() {
-        File file = new File("Utils/user_data.csv");
+        File file = new File("src/Utils/UserScore/user_data.csv");
         file.getParentFile().mkdirs();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (User u : users) writer.write(u.toCSV() + "\n");
@@ -276,7 +276,7 @@ public final class UserSystem {
 
     // Datei-Laden der Benutzerdaten
     public static void loadFromFile() {
-        File file = new File("Utils/user_data.csv");
+        File file = new File("src/Utils/UserScore/user_data.csv");
         if (!file.exists()) return;
 
         users.clear();
