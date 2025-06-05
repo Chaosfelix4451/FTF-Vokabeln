@@ -20,7 +20,7 @@
         </exec>
         <exec executable="sudo" failonerror="false"></exec>
     <!-- Install JavaFX automatically if it's missing -->
-    <target name="install-openjfx">
+    <target name="install-openjfx"></target>
         <!-- check if JavaFX libs are already present -->
         <available file="${javafx.lib}" type="dir" property="javafx.present"/>
         <echo message="JavaFX not found. Attempting to install via apt-get..." unless="javafx.present"/>
