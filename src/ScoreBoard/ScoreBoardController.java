@@ -28,8 +28,6 @@ public class ScoreBoardController extends StageAwareController implements Initia
     @FXML
     private Label progressLabel;
 
-    private final UserSystem userSystem = UserSystem.getInstance();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -42,10 +40,10 @@ public class ScoreBoardController extends StageAwareController implements Initia
      * Aktualisiert die Tabelle mit allen Benutzernamen und deren Punkten.
      */
     private void refreshTable() {
-        userSystem.sortByScoreDescending();
+        UserSystem.sortByScoreDescending();
         ObservableList<UserRow> data = FXCollections.observableArrayList();
-        for (String name : userSystem.getAllUserNames()) {
-            data.add(new UserRow(name, userSystem.getPoints(name)));
+        for (String name : UserSystem.getAllUserNames()) {
+            data.add(new UserRow(name, UserSystem.getPoints(name)));
         }
         scoreTable.setItems(data);
     }
@@ -54,9 +52,9 @@ public class ScoreBoardController extends StageAwareController implements Initia
      * Zeigt den Fortschritt des aktuellen Benutzers seit der letzten Runde an.
      */
     private void updateProgress() {
-        String user = userSystem.getCurrentUser();
-        int plus = userSystem.getDiffCorrect(user, null);
-        int minus = userSystem.getDiffIncorrect(user, null);
+        String user = UserSystem.getCurrentUser();
+        int plus = UserSystem.getDiffCorrect(user, null);
+        int minus = UserSystem.getDiffIncorrect(user, null);
         progressLabel.setText("Fortschritt seit letzter Runde: +" + plus + " / -" + minus);
     }
 

@@ -25,11 +25,9 @@ public class UserManagementController extends StageAwareController implements In
     @FXML
     private Button backButton;
 
-    private final UserSystem userSystem = UserSystem.getInstance();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userSystem.loadFromFile();
+        UserSystem.loadFromFile();
         refreshList("");
         searchField.textProperty().addListener((obs, o, n) -> refreshList(n));
     }
@@ -41,9 +39,9 @@ public class UserManagementController extends StageAwareController implements In
     private void createUser() {
         String name = newUserField.getText().trim();
         if (!name.isEmpty()) {
-            userSystem.addUser(name);
-            userSystem.setCurrentUser(name);
-            userSystem.saveToFile();
+            UserSystem.addUser(name);
+            UserSystem.setCurrentUser(name);
+            UserSystem.saveToFile();
             refreshList(searchField.getText().trim());
             newUserField.clear();
         }
@@ -56,8 +54,8 @@ public class UserManagementController extends StageAwareController implements In
     private void selectUser() {
         String selected = userList.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            userSystem.setCurrentUser(selected);
-            userSystem.saveToFile();
+            UserSystem.setCurrentUser(selected);
+            UserSystem.saveToFile();
         }
     }
 
@@ -66,7 +64,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     private void refreshList(String filter) {
         userList.getItems().clear();
-        for (String name : userSystem.getAllUserNames()) {
+        for (String name : UserSystem.getAllUserNames()) {
             if (filter == null || filter.isBlank() || name.toLowerCase().contains(filter.toLowerCase())) {
                 userList.getItems().add(name);
             }

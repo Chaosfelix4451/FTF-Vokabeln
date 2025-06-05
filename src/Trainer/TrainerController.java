@@ -34,7 +34,6 @@ public class TrainerController extends StageAwareController {
     private final TrainerModel model = new TrainerModel();
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
-    private final UserSystem userManager = UserSystem.getInstance();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
@@ -51,10 +50,10 @@ public class TrainerController extends StageAwareController {
      */
     @FXML
     private void initialize() {
-        userManager.loadFromFile();
-        currentUser = userManager.getCurrentUser();
-        userManager.addUser(currentUser);
-        userManager.startNewSession(currentUser, null);
+        UserSystem.loadFromFile();
+        currentUser = UserSystem.getCurrentUser();
+        UserSystem.addUser(currentUser);
+        UserSystem.startNewSession(currentUser, null);
 
         mode = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class)
                 .get("vocabMode", "Deutsch zu Englisch");
@@ -153,15 +152,15 @@ public class TrainerController extends StageAwareController {
 
             if (isCorrect) {
                 soundModel.playSound("src/Utils/Sound/richtig.mp3");
-                userManager.addPoint(currentUser);
+                UserSystem.addPoint(currentUser);
                 correctCount++;
             } else {
                 soundModel.playSound("src/Utils/Sound/falsch.mp3");
             }
-            userManager.recordAnswer(currentUser, isCorrect, null);
+            UserSystem.recordAnswer(currentUser, isCorrect, null);
         }
 
-        userManager.saveToFile();
+        UserSystem.saveToFile();
 
         nextButton.setDisable(true);
 

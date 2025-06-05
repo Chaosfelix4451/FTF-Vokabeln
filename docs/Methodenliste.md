@@ -23,5 +23,6 @@ Dieser Anhang listet exemplarisch einige wichtige Methoden des Projekts auf.
 - `selectUser()` – wählt einen Benutzer aus der Liste aus.
 - `refreshList(String)` – filtert die Benutzerliste.
 
+
 Weitere Methoden sind in den jeweiligen Klassen dokumentiert.
 
