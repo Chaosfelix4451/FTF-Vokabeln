@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Utils.SceneLoader.SceneLoader;
-import Utils.UserScore.UserSystem;
+
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,7 +32,7 @@ public class TrainerController {
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private final UserSystem userManager = new UserSystem();
-    private final UserSystem.User currentUser = userManager.getUser("user");
+    private final String currentUser = "user";
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private Stage stage;
@@ -48,11 +48,12 @@ public class TrainerController {
 
     @FXML
     private void initialize() {
+        userManager.addUser(currentUser);
         loadNextVocabSet();
 
         nextButton.setOnAction(event -> checkAnswers());
 
-        backButton.setOnAction(event -> SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml"));
+        backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
     }
 
     private void loadNextVocabSet() {
@@ -119,6 +120,7 @@ public class TrainerController {
 
     public void checkAnswers() {
         int correctCount = 0;
+        userManager.startNewSession(currentUser, null);
 
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
@@ -145,15 +147,15 @@ public class TrainerController {
 
             if (isCorrect) {
                 soundModel.playSound("src/Utils/Sound/richtig.mp3");
-                currentUser.addPoint();
+                userManager.addPoint(currentUser);
                 correctCount++;
             } else {
                 soundModel.playSound("src/Utils/Sound/falsch.mp3");
             }
+            userManager.recordAnswer(currentUser, isCorrect, null);
         }
 
-        currentUser.getStats().addSessionStats(vocabEntries.size(), correctCount);
-        userManager.saveUsers();
+        userManager.saveToFile();
 
         nextButton.setDisable(true);
 
@@ -172,7 +174,7 @@ public class TrainerController {
                 } else {
                     nextButton.setDisable(false);
                     nextButton.setText("Ergebnisse anzeigen");
-                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/src/MainMenu/mainMenu.fxml"));
+                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
                 }
             });
         });
