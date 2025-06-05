@@ -4,8 +4,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
+import Utils.UserScore.UserSystem;
 import Utils.StageAwareController;
 
 /**
@@ -18,13 +20,25 @@ public class MainMenuController extends StageAwareController {
     private Button button;
 
     @FXML
+    private TextField userField;
+
+    @FXML
     private VBox sideMenu;
+
+    @FXML
+    private void initialize() {
+        UserSystem.loadFromFile();
+        if (userField != null) {
+            userField.setText(UserSystem.getCurrentUser());
+        }
+    }
 
     @FXML
     /**
      * Öffnet den eigentlichen Trainer.
      */
     public void openTrainer(ActionEvent event) {
+        prepareUser();
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
     /**
@@ -45,6 +59,7 @@ public class MainMenuController extends StageAwareController {
      * Zeigt die Highscore-Tabelle an.
      */
     public void openScoreBoard(ActionEvent event) {
+        prepareUser();
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
 
@@ -64,5 +79,20 @@ public class MainMenuController extends StageAwareController {
     @FXML
     private void handleExit() {
         Platform.exit();
+    }
+
+    private void prepareUser() {
+        if (userField == null) {
+            return;
+        }
+        String name = userField.getText().trim();
+        if (name.isEmpty()) {
+            name = "user";
+        }
+        if (!UserSystem.userExists(name)) {
+            UserSystem.addUser(name);
+        }
+        UserSystem.setCurrentUser(name);
+        UserSystem.saveToFile();
     }
 }
