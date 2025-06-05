@@ -29,6 +29,10 @@ public class ScoreBoardController extends StageAwareController implements Initia
     private Label progressLabel;
 
 
+
+    private final UserSystem userSystem = UserSystem.getInstance();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

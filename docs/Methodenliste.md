@@ -28,5 +28,6 @@ Dieser Anhang listet exemplarisch einige wichtige Methoden des Projekts auf.
 - `saveToFile()` – speichert alle Daten.
 - `addPoint(String)` – erhöht den Punktestand eines Nutzers.
 
+
 Weitere Methoden sind in den jeweiligen Klassen dokumentiert.
 

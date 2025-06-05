@@ -26,6 +26,10 @@ public class UserManagementController extends StageAwareController implements In
     private Button backButton;
 
 
+=======
+    private final UserSystem userSystem = UserSystem.getInstance();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserSystem.loadFromFile();
