@@ -4,16 +4,12 @@ import java.io.*;
 import java.util.*;
 
 /**
- * UserSystem verwaltet mehrere Benutzer inklusive Punkteständen
- * und separaten Vokabel-Statistiken pro Liste. Alle Daten werden
- * persistent gespeichert und sind sortierbar.
- */
-/**
  * Zentrales Benutzer- und Punktesystem.
  * <p>
- * Die Klasse wird rein statisch verwendet und
- * speichert alle Informationen global. Ein explizites
- * Objekt wird daher nicht benötigt.
+ * UserSystem verwaltet mehrere Benutzer inklusive Punkteständen und separaten
+ * Vokabelstatistiken pro Liste. Alle Daten werden persistent gespeichert und
+ * sind sortierbar. Die Klasse wird rein statisch verwendet und speichert alle
+ * Informationen global, ein explizites Objekt wird daher nicht benötigt.
  */
 public final class UserSystem {
 

@@ -57,10 +57,8 @@ public class SettingsController extends StageAwareController implements Initiali
         String savedMode = prefs.get("vocabMode", "Deutsch zu Englisch");
         vocabModeBox.setValue(savedMode);
 
-        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            prefs.put("vocabMode", newVal);
-            System.out.println("Modus gespeichert: " + newVal);
-        });
+        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+                prefs.put("vocabMode", newVal));
     }
 
     /**
@@ -69,7 +67,6 @@ public class SettingsController extends StageAwareController implements Initiali
     @FXML
     private void handleStart(ActionEvent event) {
         String auswahl = vocabModeBox.getValue();
-        System.out.println("Ausgewählter Modus: " + auswahl);
 
         switch (auswahl) {
             case "Deutsch zu Englisch":
