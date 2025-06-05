@@ -25,7 +25,6 @@ public class UserManagementController extends StageAwareController implements In
     @FXML
     private Button backButton;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserSystem.loadFromFile();

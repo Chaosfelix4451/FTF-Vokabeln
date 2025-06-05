@@ -23,10 +23,6 @@ Dieser Anhang listet exemplarisch einige wichtige Methoden des Projekts auf.
 - `selectUser()` – wählt einen Benutzer aus der Liste aus.
 - `refreshList(String)` – filtert die Benutzerliste.
 
-## UserSystem (statisch)
-- `loadFromFile()` – lädt gespeicherte Benutzerdaten.
-- `saveToFile()` – speichert alle Daten.
-- `addPoint(String)` – erhöht den Punktestand eines Nutzers.
 
 Weitere Methoden sind in den jeweiligen Klassen dokumentiert.
 

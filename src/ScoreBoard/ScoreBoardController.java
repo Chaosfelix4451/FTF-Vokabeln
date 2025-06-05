@@ -28,7 +28,6 @@ public class ScoreBoardController extends StageAwareController implements Initia
     @FXML
     private Label progressLabel;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
