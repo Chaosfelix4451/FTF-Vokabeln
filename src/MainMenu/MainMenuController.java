@@ -35,6 +35,13 @@ public class MainMenuController {
     public void openSettings(ActionEvent event) {
         SceneLoader.load("/Settings/Settings.fxml");
     }
+    public void openUserManagement(ActionEvent event) {
+        SceneLoader.load("/UserManagement/UserManagement.fxml");
+    }
+
+    public void openScoreBoard(ActionEvent event) {
+        SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
+    }
 
     @FXML
     private void toggleSideMenu() {
