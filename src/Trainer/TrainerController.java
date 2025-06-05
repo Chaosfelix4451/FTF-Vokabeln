@@ -1,5 +1,6 @@
 package Trainer;
 
+import Utils.SoundModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Utils.SceneLoader;
-
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -161,7 +161,7 @@ public class TrainerController {
                     for (int j = i + 1; j < entry.fields.size(); j++) {
                         TextField field2 = entry.fields.get(j);
                     }
-                    soundModel.playSound("Un");
+                    soundModel.playSound("src/Utils/sound.mp3");
                 } else {
                     field.setStyle("-fx-background-color: salmon;");
                 }
