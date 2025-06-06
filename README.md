@@ -25,7 +25,7 @@ java -jar build/jar/FTF-Vokabeln.jar
 
 ## Dokumentation
 
-In `docs/Methodenliste.md` sind die wichtigsten Methoden kurz beschrieben.
+Ausführliche Erläuterungen zu Aufbau und Funktionsweise bietet die interaktive Dokumentation unter [`docs/index.html`](docs/index.html). Eine kurze Übersicht der wichtigsten Methoden steht in `docs/Methodenliste.md`.
 
 ## Mitwirken
 
