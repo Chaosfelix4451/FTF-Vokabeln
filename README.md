@@ -1,4 +1,4 @@
-![Projektlogo](./media/logo_ftf-vokabeln.png)
+![Projektlogo](./media/Logo.png)
 
 [![Java CI](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml)
 
