@@ -1,4 +1,5 @@
-![Projektlogo](./media/Logo.png)
+<img src="./media/Logo.png" alt="Projektlogo" width="300"/>
+
 
 [![Java CI](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml)
 
