@@ -1,5 +1,6 @@
-<img src="./media/Logo.png" alt="Projektlogo" width="300"/>
-
+<p align="center">
+  <img src="./media/Logo.png" alt="Projektlogo" width="250">
+</p>
 
 [![Java CI](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml/badge.svg)](https://github.com/Chaosfelix4451/FTF-Vokabeln/actions/workflows/ant.yml)
 
