@@ -25,10 +25,7 @@ java -jar build/jar/FTF-Vokabeln.jar
 
 ## Dokumentation
 
-Ausführliche Erläuterungen zu Aufbau und Funktionsweise finden sich in
-[`docs/Dokumentation.md`](docs/Dokumentation.md). Eine interaktive HTML-Version
-steht unter [`docs/index.html`](docs/index.html). Eine kurze Übersicht der
-wichtigsten Methoden steht in `docs/Methodenliste.md`.
+Ausführliche Erläuterungen zu Aufbau und Funktionsweise bietet die interaktive Dokumentation unter [`docs/index.html`](docs/index.html). Eine kurze Übersicht der wichtigsten Methoden steht in `docs/Methodenliste.md`.
 
 ## Mitwirken
 

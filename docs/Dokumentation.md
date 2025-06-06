@@ -12,7 +12,7 @@
 6. [Training](#training)
 7. [ScoreBoard](#scoreboard)
 8. [Einstellungen](#einstellungen)
-9. [GitHub Pages einrichten](#github-pages-einrichten)
+
 
 ## Überblick
 
@@ -96,13 +96,4 @@ Soundeffekte werden über `SoundModel` abgespielt.
 
 Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus aus. Die Auswahl wird über `java.util.prefs.Preferences` gespeichert und beim nächsten Start wieder geladen.
 
-## GitHub Pages einrichten
-
-Die Markdown-Dokumente im Ordner `docs` können leicht über GitHub Pages veröffentlicht werden:
-
-1. Im Repository auf **Settings → Pages** gehen.
-2. Als Quelle den Branch `main` (oder `master`) und das Verzeichnis `\docs` wählen.
-3. Nach dem Speichern stellt GitHub eine URL bereit, unter der diese Dateien als HTML abrufbar sind.
-
-Auf diese Weise lässt sich die Datei `docs/Dokumentation.md` direkt als Webseite aufrufen.
 
