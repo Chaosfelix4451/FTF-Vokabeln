@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>FTF-Vokabeln Dokumentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; }
+    #sidebar { position: fixed; top:0; left:0; width: 250px; height:100%; overflow:auto; background:#f7f7f7; padding:1em; box-shadow:2px 0 5px rgba(0,0,0,0.1); }
+    #content { margin-left:260px; padding:1em; }
+    pre, code { background:#eee; padding:2px 4px; }
+    input[type="text"]{ width:100%; padding:0.3em; margin-bottom:0.5em; box-sizing:border-box; }
+    .highlight { background: yellow; }
+  </style>
+</head>
+<body>
+<div id="sidebar">
+  <h2>Inhalt</h2>
+  <input type="text" id="search" placeholder="Suche..." />
+  <div id="toc"></div>
+</div>
+<div id="content">Lade Dokumentation...</div>
+<script>
+marked.setOptions({headerIds: true});
+fetch('Dokumentation.md')
+  .then(res => res.text())
+  .then(text => {
+    const html = marked.parse(text);
+    const content = document.getElementById('content');
+    content.innerHTML = html;
+    buildToc();
+  });
+function buildToc() {
+  const toc = document.getElementById('toc');
+  const headings = document.querySelectorAll('#content h1, #content h2');
+  headings.forEach(h => {
+    const a = document.createElement('a');
+    a.textContent = h.textContent;
+    a.href = '#' + h.id;
+    a.style.display = 'block';
+    a.style.marginLeft = h.tagName === 'H2' ? '1em' : '0';
+    toc.appendChild(a);
+  });
+}
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase();
+  document.querySelectorAll('#content p, #content li').forEach(el => {
+    const text = el.textContent.toLowerCase();
+    if (q && text.includes(q)) {
+      el.classList.add('highlight');
+    } else {
+      el.classList.remove('highlight');
+    }
+  });
+});
+</script>
+</body>
+</html>
