@@ -13,6 +13,7 @@
 7. [ScoreBoard](#scoreboard)
 8. [Einstellungen](#einstellungen)
 
+
 ## Überblick
 
 Das Programm bietet ein Hauptmenü mit Zugriff auf Training, Einstellungen, Benutzerverwaltung und Highscore-Anzeige. Vokabeln werden aus einer fest hinterlegten Liste im `TrainerModel` geladen. Für jeden Benutzer merkt sich das Programm den Punktestand sowie detaillierte Statistiken, die in einer CSV-Datei gespeichert werden.
@@ -94,6 +95,5 @@ Soundeffekte werden über `SoundModel` abgespielt.
 ## Einstellungen
 
 Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus aus. Die Auswahl wird über `java.util.prefs.Preferences` gespeichert und beim nächsten Start wieder geladen.
-
 
 
