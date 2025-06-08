@@ -1,0 +1,83 @@
+/* Grundeinstellungen */
+.root {
+    -fx-background-color: white;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* VBox und HBox Styling */
+VBox {
+    -fx-spacing: 15;
+    -fx-padding: 15;
+}
+
+HBox {
+    -fx-spacing: 10;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Label Styling */
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-min-width: 120;
+    -fx-padding: 3;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+/* TextField Styling */
+.text-field {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5 8;
+    -fx-font-size: 13px;
+    -fx-min-width: 150;
+    -fx-pref-height: 28;
+}
+
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.2), 3, 0, 0, 0);
+}
+
+/* Button Styling */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:pressed {
+    -fx-background-color: #2472a4;
+}
+
+/* Spezielles Styling für den Zurück-Button */
+#backButton {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #2980b9;
+}
+
+#backButton:hover {
+    -fx-background-color: #BBDEFB;
+}
+
+#backButton:pressed {
+    -fx-background-color: #90CAF9;
+}
+
+/* Button im deaktivierten Zustand */
+.button:disabled {
+    -fx-opacity: 0.7;
+}

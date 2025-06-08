@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
+import javafx.scene.control.Label;
 
 
 import java.net.URL;
@@ -21,6 +22,8 @@ public class SettingsController extends StageAwareController implements Initiali
 
     // Einstellungen werden im Preferences-Objekt gespeichert
     private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+    public Label mainLable;
+    public Button Button;
     @FXML
     private Button button;
 
