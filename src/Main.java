@@ -1,5 +1,6 @@
 import Utils.SceneLoader.SceneLoader;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /*
@@ -26,9 +27,16 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml");
-        primaryStage.setTitle("Vokabeltrainer");
+        primaryStage.setTitle("FTF-Vokabeln");
+
+        try {
+            Image icon = new Image("file:media/Logo.png");
+            primaryStage.getIcons().add(icon);
+        } catch (Exception e) {
+            System.out.println("Logo konnte nicht geladen werden: " + e.getMessage());
+        }
+
+
     }
-
-
 
 }
