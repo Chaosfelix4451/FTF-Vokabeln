@@ -1,3 +1,101 @@
-#button{
+.root {
+    -fx-background-color: #f0f2f5;
+    -fx-font-family: "Segoe UI";
+}
 
+/* Hauptüberschrift */
+.label {
+    -fx-text-fill: #2c3e50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+/* Burger-Menü Button */
+#burgerMenu {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-padding: 5 10;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#burgerMenu:hover {
+    -fx-background-color: rgba(0,0,0,0.1);
+}
+
+/* Textfeld */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #e1e1e1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+    -fx-prompt-text-fill: #95a5a6;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 5, 0, 0, 0);
+}
+
+/* Hauptmenü Buttons (in der zentralen VBox) */
+VBox > Button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-min-width: 200px;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+VBox > Button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -fx-translate-y: -1px;
+}
+
+VBox > Button:pressed {
+    -fx-background-color: #2472a4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
+    -fx-translate-y: 1px;
+}
+
+
+/* Seitenmenü */
+#sideMenu Button {
+    -fx-background-color: #9a9a9a;
+    -fx-text-fill: #1a1a1a;
+    -fx-alignment: center-left;
+    -fx-padding: 10 15;
+    -fx-min-width: 150px;
+    -fx-effect: none;
+}
+
+#sideMenu Button:hover {
+    -fx-background-color: #808080;
+    -fx-effect: none;
+    -fx-translate-y: 0;
+}
+
+/* Beenden-Button spezielles Styling */
+.exit-button {
+    -fx-background-color: #e74c3c;
+}
+
+.exit-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Animation für Seitenmenü */
+#sideMenu.visible {
+    -fx-translate-x: 0;
+    -fx-animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { -fx-translate-x: -165; }
+    to { -fx-translate-x: 0; }
 }

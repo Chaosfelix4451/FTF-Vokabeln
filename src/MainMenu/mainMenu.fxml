@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController">
       <HBox prefHeight="25.0" prefWidth="35.0">
 
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#toggleSideMenu" prefHeight="29.3" prefWidth="31.3" text="≡" />
+            <Button fx:id="burgerMenu" alignment="CENTER" mnemonicParsing="false" onAction="#toggleSideMenu" prefHeight="29.3" prefWidth="31.3" text="≡" />
          <!--fx:id="burgerButton"-->
       </HBox>
       <VBox alignment="CENTER" layoutX="17.0" layoutY="22.0" prefHeight="363.0" prefWidth="492.0" spacing="20.0">
@@ -19,16 +19,16 @@
                </font>
             </Label>
             <TextField fx:id="userField" maxWidth="100.0" promptText="Benutzername" />
-            <Button  mnemonicParsing="false" onAction="#openTrainer" text="Vokabeltrainer starten" />
+            <Button mnemonicParsing="false" onAction="#openTrainer" text="Vokabeltrainer starten" />
 <!--         fx:id="button"-->
             <Button mnemonicParsing="false" onAction="#openUserManagement" text="Benutzer verwalten" />
             <Button mnemonicParsing="false" onAction="#openScoreBoard" text="Highscore" />
-            <Button  mnemonicParsing="false" onAction="#handleExit" text="Beenden" />
+            <Button mnemonicParsing="false" onAction="#handleExit" text="Beenden" />
          <!--fx:id="exitButton"-->
       </VBox>
-      <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0"  visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="25.0">
+      <VBox fx:id="sideMenu" layoutY="37.0" prefHeight="363.0" prefWidth="159.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="25.0">
    <!--style="-fx-background-color: rgb(77,77,77);"-->
-            <Button mnemonicParsing="false" onAction="#openSettings" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
+            <Button fx:id="buttonSettings" mnemonicParsing="false" onAction="#openSettings" prefHeight="25.0" prefWidth="163.0" text="Einstellungen">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
