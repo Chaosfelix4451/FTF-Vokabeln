@@ -146,6 +146,8 @@ public class TrainerController extends StageAwareController {
                 label.setMaxWidth(30);
                 label.setMinWidth(30);
                 label.setAlignment(Pos.CENTER);
+                label.setId("outputbox");
+                label.setDisable(true);
 
                 if (i < expected.length() && i < userInput.length() &&
                         charStr.equalsIgnoreCase(String.valueOf(expected.charAt(i)))) {
