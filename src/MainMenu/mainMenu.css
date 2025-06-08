@@ -100,3 +100,30 @@ VBox > Button:pressed {
     -fx-translate-y: 1px;
     -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 5, 0.3, 0, 0);
 }
+#searchButton, #addButton {
+    -fx-min-width: 50px;
+    -fx-pref-width: 50px;
+    -fx-min-height: 25px;
+    -fx-pref-height: 25px;
+    -fx-font-size: 12px;
+    -fx-padding: 5 10;
+    -fx-background-color: #4CAF50;
+    -fx-opacity: 0.9;
+    -fx-text-fill: white;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+}
+
+#searchButton:hover, #addButton:hover {
+    -fx-background-color: #45a049;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+    -fx-translate-y: -1px;
+}
+
+#searchButton:pressed, #addButton:pressed {
+    -fx-background-color: #3d8b40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
+    -fx-translate-y: 1px;
+}
