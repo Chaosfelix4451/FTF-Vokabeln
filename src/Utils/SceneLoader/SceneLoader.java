@@ -57,6 +57,7 @@ public class SceneLoader {
             URL cssUrl = SceneLoader.class.getResource(cssPath);
             if (cssUrl != null) {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
+                System.out.println(" 🆗 CSS-Datei gefunden für " + cssPath);
             } else {
                 System.out.println("⚠️ Keine CSS-Datei gefunden für " + cssPath);
             }
