@@ -48,7 +48,6 @@ VBox > Button {
     -fx-min-width: 200px;
     -fx-background-radius: 5;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
 }
 
 VBox > Button:hover {
@@ -72,6 +71,8 @@ VBox > Button:pressed {
     -fx-padding: 10 15;
     -fx-min-width: 150px;
     -fx-effect: none;
+    -fx-transition: -fx-background-color 0.2s;
+
 }
 
 #sideMenu Button:hover {
@@ -81,21 +82,10 @@ VBox > Button:pressed {
 }
 
 /* Beenden-Button spezielles Styling */
-.exit-button {
+#exitButton {
     -fx-background-color: #e74c3c;
 }
 
-.exit-button:hover {
+#exitButton:hover {
     -fx-background-color: #c0392b;
-}
-
-/* Animation für Seitenmenü */
-#sideMenu.visible {
-    -fx-translate-x: 0;
-    -fx-animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-    from { -fx-translate-x: -165; }
-    to { -fx-translate-x: 0; }
 }

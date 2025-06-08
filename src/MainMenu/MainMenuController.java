@@ -2,6 +2,7 @@ package MainMenu;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
@@ -12,6 +13,9 @@ import Utils.StageAwareController;
  * Startmenü des Vokabeltrainers.
  */
 public class MainMenuController extends StageAwareController {
+    public Button exitButton;
+    public Button buttonSettings;
+    public Button burgerMenu;
 
     // Stage wird über die Basisklasse gesetzt
 //    @FXML
