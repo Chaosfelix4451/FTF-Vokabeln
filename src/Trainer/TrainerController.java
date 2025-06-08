@@ -149,6 +149,7 @@ public class TrainerController extends StageAwareController {
                 if (i < expected.length() && i < userInput.length() &&
                         charStr.equalsIgnoreCase(String.valueOf(expected.charAt(i)))) {
                     label.setStyle("-fx-background-color: lightgreen;");
+                    label.setId("correctbox");
                 } else {
                     label.setStyle("-fx-background-color: salmon;");
                 }
