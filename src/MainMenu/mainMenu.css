@@ -11,7 +11,7 @@
 
 /* Burger-Menü Button */
 #burgerMenu {
-    -fx-background-color: transparent;
+    -fx-background-color: rgba(0,0,0,0.2);
     -fx-text-fill: #2c3e50;
     -fx-font-size: 15px;
     -fx-cursor: hand;
@@ -21,7 +21,7 @@
 }
 
 #burgerMenu:hover {
-    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-background-color: rgba(0,0,0,0.4);
 }
 
 /* Textfeld */
@@ -54,12 +54,16 @@ VBox > Button:hover {
     -fx-background-color: #2980b9;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
     -fx-translate-y: -1px;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
 }
 
 VBox > Button:pressed {
     -fx-background-color: #2472a4;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
     -fx-translate-y: 1px;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
 }
 
 
@@ -71,14 +75,14 @@ VBox > Button:pressed {
     -fx-padding: 10 15;
     -fx-min-width: 150px;
     -fx-effect: none;
-    -fx-transition: -fx-background-color 0.2s;
+    -fx-translate-y: 5;
 
 }
 
 #sideMenu Button:hover {
     -fx-background-color: #808080;
     -fx-effect: none;
-    -fx-translate-y: 0;
+    -fx-translate-y: 5;
 }
 
 /* Beenden-Button spezielles Styling */
@@ -88,4 +92,11 @@ VBox > Button:pressed {
 
 #exitButton:hover {
     -fx-background-color: #c0392b;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.6), 15, 0.5, 0, 0);
+    -fx-translate-y: -1px;
+}
+#exitButton:pressed {
+    -fx-background-color: #a93226;
+    -fx-translate-y: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 5, 0.3, 0, 0);
 }
