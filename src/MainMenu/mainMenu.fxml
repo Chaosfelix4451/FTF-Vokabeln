@@ -18,21 +18,17 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-      <HBox alignment="CENTER" prefHeight="38.0" prefWidth="492.0">
-         <children>
-                  <TextField fx:id="userField" alignment="CENTER" maxWidth="100.0" promptText="Benutzername">
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </TextField>
-            <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="54.0">
-               <children>
-                  <Button fx:id="searchButton" mnemonicParsing="false" text="🔍" />
-                  <Button fx:id="addButton" mnemonicParsing="false" text="+" />
-               </children>
-            </VBox>
-         </children>
-      </HBox>
+          <HBox alignment="CENTER" prefHeight="38.0" prefWidth="492.0">
+              <TextField fx:id="userField" alignment="CENTER" maxWidth="100.0" promptText="Benutzername">
+                  <HBox.margin>
+                      <Insets left="30.0"/>
+                  </HBox.margin>
+              </TextField>
+              <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="54.0">
+                  <Button fx:id="searchButton" mnemonicParsing="false" text="🔍"/>
+                  <Button fx:id="addButton" mnemonicParsing="false" text="+"/>
+              </VBox>
+          </HBox>
             <Button mnemonicParsing="false" onAction="#openTrainer" text="Vokabeltrainer starten" />
 <!--         fx:id="button"-->
             <Button mnemonicParsing="false" onAction="#openUserManagement" text="Benutzer verwalten" />

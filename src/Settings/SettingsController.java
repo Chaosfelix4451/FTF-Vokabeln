@@ -22,10 +22,10 @@ public class SettingsController extends StageAwareController implements Initiali
 
     // Einstellungen werden im Preferences-Objekt gespeichert
     private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+
     public Label mainLable;
     public Button Button;
-    @FXML
-    private Button button;
+    public Button button;
 
     /**
      * Zurück zum Hauptmenü.
