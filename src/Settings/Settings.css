@@ -14,7 +14,7 @@
 
 /* Zurück-Button (Pfeil) */
 .button {
-    -fx-background-color: #eeeee;
+    -fx-background-color: #eeeeee;
     -fx-text-fill: #3498db;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
