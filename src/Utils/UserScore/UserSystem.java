@@ -20,6 +20,7 @@ public final class UserSystem {
     // Standardliste, falls keine Liste spezifiziert wurde
     private static final String DEFAULT_LIST = "default";
 
+
     /**
      * Eine Vokabelstatistik zu einer bestimmten Liste.
      */

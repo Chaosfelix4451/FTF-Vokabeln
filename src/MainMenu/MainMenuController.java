@@ -3,28 +3,17 @@ package MainMenu;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
 import Utils.UserScore.UserSystem;
 import Utils.StageAwareController;
 
-/**
- * Startmenü des Vokabeltrainers.
- */
 public class MainMenuController extends StageAwareController {
-
     public Button exitButton;
     public Button buttonSettings;
     public Button burgerMenu;
-    public Label mainLabel;
-    public Button searchButton;
-    public Button addButton;
-
-    // Stage wird über die Basisklasse gesetzt
-//    @FXML
-//    private Button button;
 
     @FXML
     private TextField userField;
@@ -33,45 +22,69 @@ public class MainMenuController extends StageAwareController {
     private VBox sideMenu;
 
     @FXML
+    private Label statusLabel; // OPTIONAL für Rückmeldung
+
+    @FXML
     private void initialize() {
         UserSystem.loadFromFile();
+
         if (userField != null) {
             userField.setText(UserSystem.getCurrentUser());
         }
     }
 
-
     @FXML
-
     public void openTrainer() {
-        prepareUser();
+        // Benutzer wird automatisch verwendet, der vorher über create/search gesetzt wurde
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
-    /**
-     * Öffnet die Einstellungen.
-     */
+
     public void openSettings() {
         SceneLoader.load("/Settings/Settings.fxml");
     }
 
-    /**
-     * Öffnet die Benutzerverwaltung.
-     */
     public void openUserManagement() {
         SceneLoader.load("/UserManagement/UserManagement.fxml");
     }
 
-    /**
-     * Zeigt die Highscore-Tabelle an.
-     */
     public void openScoreBoard() {
-        prepareUser();
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
 
-    /**
-     * Blendet das seitliche Menü ein oder aus.
-     */
+    public String getUserInput() {
+        return userField.getText().trim().toLowerCase();
+    }
+
+    public void setUserField(String username) {
+        userField.setText(username);
+    }
+
+    public void searchAndSetUser() {
+        String input = getUserInput();
+
+
+        // Alle Usernamen holen
+        var allUsers = UserSystem.getAllUserNames();
+
+        if (input.length() >= 3) {
+            // Benutzer suchen, der mit den Buchstaben beginnt (case insensitive)
+            for (String user : allUsers) {
+                if (user.toLowerCase().startsWith(input)) {
+                    setUserField(user); // im Textfeld den vollständigen Namen anzeigen
+
+                    return; // Suche abbrechen, ersten Treffer anzeigen
+                }
+            }
+        }
+
+        // Kein Treffer gefunden
+        setUserField("");
+        if (statusLabel != null) {
+            statusLabel.setText("Kein Benutzer mit '" + input + "' gefunden.");
+        }
+    }
+
+
     @FXML
     private void toggleSideMenu() {
         boolean isVisible = sideMenu.isVisible();
@@ -79,29 +92,48 @@ public class MainMenuController extends StageAwareController {
         sideMenu.setManaged(!isVisible);
     }
 
-    /**
-     * Beendet die Anwendung.
-     */
     @FXML
     private void handleExit() {
         Platform.exit();
     }
 
-    private void prepareUser() {
-        if (userField == null) {
-            return;
-        }
+    @FXML
+    private void handleCreateUser() {
+        if (userField == null) return;
         String name = userField.getText().trim();
-        if (name.isEmpty()) {
-            name = "user";
-        }
+        if (name.isEmpty()) name = "user";
+
         if (!UserSystem.userExists(name)) {
             UserSystem.addUser(name);
+            if (statusLabel != null) {
+                statusLabel.setText("Benutzer '" + name + "' erstellt.");
+            }
+        } else {
+            if (statusLabel != null) {
+                statusLabel.setText("Benutzer '" + name + "' existiert bereits.");
+            }
         }
+
         UserSystem.setCurrentUser(name);
         UserSystem.saveToFile();
     }
 
+    @FXML
+    private void handleSearchUser() {
+        searchAndSetUser();
 
+        String name = getUserInput();
+        if (UserSystem.userExists(name)) {
+            UserSystem.setCurrentUser(name);
+            UserSystem.saveToFile();
+            if (statusLabel != null) {
+                statusLabel.setText("Benutzer '" + name + "' ausgewählt.");
+            }
+        } else {
+            if (statusLabel != null) {
+                statusLabel.setText("Benutzer '" + name + "' wurde nicht gefunden.");
+            }
+        }
+    }
 
 }
