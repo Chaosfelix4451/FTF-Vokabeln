@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
@@ -26,6 +27,8 @@ public class SettingsController extends StageAwareController implements Initiali
     public Label mainLable;
     public Button Button;
     public Button button;
+    public CheckBox darkModeToggle;
+    public Label vDark;
 
     /**
      * Zurück zum Hauptmenü.

@@ -13,6 +13,14 @@
             <Insets />
          </VBox.margin>
       </ChoiceBox>
+      <Label fx:id="vDark" text="Erscheinungsbild:">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets top="20.0" />
+         </padding></Label>
+      <CheckBox fx:id="darkModeToggle" prefHeight="19.0" prefWidth="103.0" text="Dark Mode" />
    </VBox>
    <Label fx:id="mainLable" layoutX="197.0" layoutY="38.0" prefHeight="17.0" prefWidth="129.0" text="Einstellungen">
       <font>
