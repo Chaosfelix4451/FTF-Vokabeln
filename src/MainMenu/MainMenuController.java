@@ -120,18 +120,21 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private void handleSearchUser() {
+        String name = getUserInput();
         searchAndSetUser();
 
-        String name = getUserInput();
+
         if (UserSystem.userExists(name)) {
             UserSystem.setCurrentUser(name);
             UserSystem.saveToFile();
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + name + "' ausgewählt.");
+                statusLabel.setStyle("-fx-text-fill: green;");
             }
         } else {
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + name + "' wurde nicht gefunden.");
+                statusLabel.setStyle("-fx-text-fill: red;");
             }
         }
     }
