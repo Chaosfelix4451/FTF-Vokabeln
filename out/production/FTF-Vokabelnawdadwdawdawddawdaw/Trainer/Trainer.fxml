@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Trainer.TrainerController">
+
+    <VBox layoutX="20.0" layoutY="20.0" spacing="20.0"
+          AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+        <!-- Dynamischer Vokabel-Container -->
+        <VBox fx:id="vocabBox" spacing="10.0" />
+
+        <!-- Navigation -->
+        <HBox spacing="10.0">
+            <Button fx:id="backButton" text="Zurück zum Menü" />
+            <Button fx:id="nextButton" text="Weiter" />
+        </HBox>
+    </VBox>
+
+</AnchorPane>
