@@ -11,10 +11,6 @@ Toby Berndt
 
 Gruppenname: FTF Vokabeltrainer
 Soon:
-Vokabel Kontrolle
-High Score System
-Vokabel Training Übersicht
-Angabe der Länge von Test
 Vokabel Kategorien
 Design via. CSS
  */

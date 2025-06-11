@@ -3,14 +3,7 @@ package Utils.UserScore;
 import java.io.*;
 import java.util.*;
 
-/**
- * Zentrales Benutzer- und Punktesystem.
- * <p>
- * UserSystem verwaltet mehrere Benutzer inklusive Punkteständen und separaten
- * Vokabelstatistiken pro Liste. Alle Daten werden persistent gespeichert und
- * sind sortierbar. Die Klasse wird rein statisch verwendet und speichert alle
- * Informationen global, ein explizites Objekt wird daher nicht benötigt.
- */
+
 public final class UserSystem {
 
     private UserSystem() { /* nur statische Nutzung */ }
