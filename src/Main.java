@@ -25,13 +25,13 @@ public class Main extends Application {
         SceneLoader.load("/MainMenu/mainMenu.fxml");
         primaryStage.setTitle("FTF-Vokabeln");
 
-        try {
-            Image icon = new Image("file:media/Logo.png");
-            primaryStage.getIcons().add(icon);
-        } catch (Exception e) {
-            System.out.println("Logo konnte nicht geladen werden: " + e.getMessage());
-        }
 
+        Image icon = new Image("file:media/Logo.png");
+        if (icon.isError()) {
+            System.out.println("Logo konnte nicht geladen werden: " + icon.getException());
+        } else {
+            primaryStage.getIcons().add(icon);
+        }
 
     }
 
