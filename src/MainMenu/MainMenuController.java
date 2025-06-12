@@ -67,7 +67,7 @@ public class MainMenuController extends StageAwareController {
         var allUsers = UserSystem.getAllUserNames();
 
         if (input.length() >= 3) {
-            // Benutzer suchen, der mit den Buchstaben beginnt (case insensitive)
+            // Benutzer suchen, der mit den Buchstaben beginnt
             for (String user : allUsers) {
                 if (user.toLowerCase().startsWith(input)) {
                     setUserField(user); // im Textfeld den vollständigen Namen anzeigen
@@ -99,6 +99,7 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private void handleCreateUser() {
+        //prüfung ob das feld leer ist,um laufzeitfehler vermeiden
         if (userField == null) return;
         String name = userField.getText().trim();
         if (name.isEmpty()) name = "user";
@@ -122,6 +123,7 @@ public class MainMenuController extends StageAwareController {
     private void handleSearchUser() {
         String originalInput = getUserInput();
 
+        //Methode die autovervollständigt
         searchAndSetUser();
 
         String completedName = getUserInput();
