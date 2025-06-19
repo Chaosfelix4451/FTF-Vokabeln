@@ -18,5 +18,36 @@
       "es": "ordenador"
     },
     "difficulty": "medium"
+  },
+  {
+    "id": "book",
+    "translations": {
+      "en": "book",
+      "de": "Buch",
+      "fr": "livre",
+      "es": "libro"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "school",
+    "translations": {
+      "en": "school",
+      "de": "Schule",
+      "fr": "école",
+      "es": "escuela"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "weather",
+    "translations": {
+      "en": "weather",
+      "de": "Wetter",
+      "fr": "temps",
+      "es": "tiempo"
+    },
+    "difficulty": "medium"
   }
 ]
+

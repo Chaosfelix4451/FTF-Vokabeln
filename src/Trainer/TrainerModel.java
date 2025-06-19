@@ -1,8 +1,8 @@
 package Trainer;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import com.github.openjson.JSONArray;
+import com.github.openjson.JSONObject;
+import com.github.openjson.JSONTokener;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,7 +40,8 @@ public class TrainerModel {
         vocabGerman.clear();
         Path p = Path.of(path);
         try (InputStream in = Files.newInputStream(p)) {
-            JSONArray arr = new JSONArray(new JSONTokener(in));
+            JSONTokener tokener = new JSONTokener(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8));
+            JSONArray arr = new JSONArray(tokener);
             for (int i = 0; i < arr.length(); i++) {
                 JSONObject obj = arr.getJSONObject(i);
                 if (!obj.has("translations")) continue;

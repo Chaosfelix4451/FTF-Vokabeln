@@ -1,0 +1,19 @@
+[
+  {
+    "id": "bread",
+    "translations": {
+      "en": "bread",
+      "de": "Brot"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cheese",
+    "translations": {
+      "en": "cheese",
+      "de": "Käse"
+    },
+    "difficulty": "easy"
+  }
+]
+
