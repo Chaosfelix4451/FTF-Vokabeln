@@ -25,6 +25,13 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class TrainerController extends StageAwareController {
 
+    /**
+     * Explicit public no-arg constructor required for FXMLLoader.
+     */
+    public TrainerController() {
+        // no-op
+    }
+
     @FXML
     private VBox vocabBox;
     @FXML
@@ -76,7 +83,15 @@ public class TrainerController extends StageAwareController {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, model.getSize()) + 1);
+        int size = model.getSize();
+        if (size <= 0) {
+            return; // nothing to ask
+        }
+        if (size < 3) {
+            questionsPerRound = size;
+        } else {
+            questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, size) + 1);
+        }
         int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
         for (int i = currentIndex; i < endIndex; i++) {
