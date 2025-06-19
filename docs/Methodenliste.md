@@ -14,9 +14,12 @@ Dieser Anhang listet exemplarisch einige wichtige Methoden des Projekts auf.
 - `initialize(URL, ResourceBundle)` – initialisiert die Auswahl des Vokabelmodus.
 
 ## TrainerController
-- `initialize()` – lädt erste Vokabeln und setzt Benutzer.
+- `initialize()` – lädt die gewählte Vokabelliste und setzt Benutzer.
 - `loadNextVocabSet()` – erstellt neue Eingabefelder.
 - `checkAnswers()` – wertet Antworten aus und zeigt das Ergebnis.
+
+## TrainerModel
+- `loadFromJson(String)` – liest Vokabeln aus einer JSON-Datei ein.
 
 ## UserManagementController
 - `createUser()` – legt einen neuen Benutzer an.
