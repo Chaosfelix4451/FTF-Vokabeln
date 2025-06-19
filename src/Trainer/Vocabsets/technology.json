@@ -1,0 +1,19 @@
+[
+  {
+    "id": "phone",
+    "translations": {
+      "en": "phone",
+      "de": "Telefon"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "keyboard",
+    "translations": {
+      "en": "keyboard",
+      "de": "Tastatur"
+    },
+    "difficulty": "medium"
+  }
+]
+
