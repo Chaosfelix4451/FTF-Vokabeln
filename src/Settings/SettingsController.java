@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import java.io.File;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 import javafx.scene.control.Label;
@@ -48,6 +49,8 @@ public class SettingsController extends StageAwareController implements Initiali
 
     @FXML
     private ChoiceBox<String> vocabModeBox;
+    @FXML
+    private ChoiceBox<String> vocabListBox;
 
     /**
      * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
@@ -60,11 +63,26 @@ public class SettingsController extends StageAwareController implements Initiali
                 "Zufällig"
         );
 
+        File vocabDir = new File("src/Trainer/Vocabsets");
+        File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
+        if (files != null) {
+            for (File f : files) {
+                vocabListBox.getItems().add(f.getName());
+            }
+        }
+
         String savedMode = prefs.get("vocabMode", "Deutsch zu Englisch");
         vocabModeBox.setValue(savedMode);
 
+        String savedFile = prefs.get("vocabFile", "defaultvocab.json");
+        if (vocabListBox.getItems().contains(savedFile)) {
+            vocabListBox.setValue(savedFile);
+        }
+
         vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 prefs.put("vocabMode", newVal));
+        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+                prefs.put("vocabFile", newVal));
     }
 
     /**

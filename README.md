@@ -14,6 +14,7 @@ FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt en
 - Speichern der Einstellungen
 - einfache Soundeffekte
 - zentraler `UserSystem`-Verwaltungscode wird jetzt statisch genutzt
+- Vokabellisten als JSON-Dateien, leicht erweiterbar
 
 ## Build
 
@@ -24,6 +25,25 @@ sudo apt-get update && sudo apt-get install -y ant openjdk-11-jdk openjfx
 ant jar
 java -jar build/jar/FTF-Vokabeln.jar
 ```
+
+## Vokabellisten hinzufügen
+
+Alle Listen befinden sich im Ordner `src/Trainer/Vocabsets`. Beim Start wird die
+in den Einstellungen gewählte Datei geladen. Neue Listen können einfach als
+JSON-Dateien mit folgendem Aufbau hinzugefügt werden:
+
+```json
+[
+  {
+    "translations": {
+      "en": "computer",
+      "de": "Computer"
+    }
+  }
+]
+```
+
+Der Dateiname erscheint anschließend in den Einstellungen zur Auswahl.
 
 ## Dokumentation
 

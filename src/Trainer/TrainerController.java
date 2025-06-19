@@ -32,7 +32,8 @@ public class TrainerController extends StageAwareController {
     @FXML
     private Button nextButton;
 
-    private final TrainerModel model = new TrainerModel();
+    private TrainerModel model;
+    private String listId = "defaultvocab.json";
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
     private String currentUser = "user";
@@ -54,10 +55,12 @@ public class TrainerController extends StageAwareController {
         UserSystem.loadFromFile();
         currentUser = UserSystem.getCurrentUser();
         UserSystem.addUser(currentUser);
-        UserSystem.startNewSession(currentUser, null);
 
-        mode = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class)
-                .get("vocabMode", "Deutsch zu Englisch");
+        var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
+        mode = prefs.get("vocabMode", "Deutsch zu Englisch");
+        listId = prefs.get("vocabFile", "defaultvocab.json");
+        model = new TrainerModel("src/Trainer/Vocabsets/" + listId);
+        UserSystem.startNewSession(currentUser, listId);
 
         loadNextVocabSet();
 
@@ -170,7 +173,7 @@ public class TrainerController extends StageAwareController {
             if (isCorrect) {
                 UserSystem.addPoint(currentUser);
             }
-            UserSystem.recordAnswer(currentUser, isCorrect, null);
+            UserSystem.recordAnswer(currentUser, isCorrect, listId);
         }
 
         // Spiele nur EINEN Sound ab, basierend auf dem Gesamtergebnis

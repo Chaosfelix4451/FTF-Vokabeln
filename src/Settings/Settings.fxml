@@ -7,16 +7,22 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
    <VBox layoutX="16.0" layoutY="77.0" prefHeight="276.0" prefWidth="165.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="77.0">
-      <Label text="Vokabelmodus:" />
-      <ChoiceBox fx:id="vocabModeBox" prefHeight="15.0" prefWidth="150.0">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-      </ChoiceBox>
-      <Label fx:id="vDark" text="Erscheinungsbild:">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
+       <Label text="Vokabelmodus:" />
+       <ChoiceBox fx:id="vocabModeBox" prefHeight="15.0" prefWidth="150.0">
+          <VBox.margin>
+             <Insets />
+          </VBox.margin>
+       </ChoiceBox>
+       <Label text="Vokabelliste:" />
+       <ChoiceBox fx:id="vocabListBox" prefHeight="15.0" prefWidth="150.0">
+          <VBox.margin>
+             <Insets />
+          </VBox.margin>
+       </ChoiceBox>
+       <Label fx:id="vDark" text="Erscheinungsbild:">
+          <VBox.margin>
+             <Insets />
+          </VBox.margin>
          <padding>
             <Insets top="20.0" />
          </padding></Label>
