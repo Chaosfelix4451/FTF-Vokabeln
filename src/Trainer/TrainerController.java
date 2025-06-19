@@ -59,7 +59,7 @@ public class TrainerController extends StageAwareController {
         var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
         mode = prefs.get("vocabMode", "Deutsch zu Englisch");
         listId = prefs.get("vocabFile", "defaultvocab.json");
-        model = new TrainerModel("src/Trainer/Vocabsets/" + listId);
+        //model = new TrainerModel("src/Trainer/Vocabsets/" + listId);
         UserSystem.startNewSession(currentUser, listId);
 
         loadNextVocabSet();
@@ -83,18 +83,18 @@ public class TrainerController extends StageAwareController {
             String sourceWord;
             String solutionWord;
             if ("Deutsch zu Englisch".equals(mode)) {
-                sourceWord = model.getTranslation(i);
-                solutionWord = model.get(i);
+                sourceWord = model.getGerman(i);
+                solutionWord = model.getEnglish(i);
             } else if ("Englisch zu Deutsch".equals(mode)) {
-                sourceWord = model.get(i);
-                solutionWord = model.getTranslation(i);
+                sourceWord = model.getEnglish(i);
+                solutionWord = model.getGerman(i);
             } else { // Zufällig
                 if (ThreadLocalRandom.current().nextBoolean()) {
-                    sourceWord = model.get(i);
-                    solutionWord = model.getTranslation(i);
+                    sourceWord = model.getEnglish(i);
+                    solutionWord = model.getGerman(i);
                 } else {
-                    sourceWord = model.getTranslation(i);
-                    solutionWord = model.get(i);
+                    sourceWord = model.getGerman(i);
+                    solutionWord = model.getEnglish(i);
                 }
             }
 

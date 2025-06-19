@@ -17,53 +17,53 @@ import java.util.List;
  * {@code src/Trainer/Vocabsets/defaultvocab.json}.
  */
 public class TrainerModel {
-    private final List<String> vocabEnglish = new ArrayList<>();
-    private final List<String> vocabGerman = new ArrayList<>();
+    private final List<String> englishList = new ArrayList<>();
+    private final List<String> germanList = new ArrayList<>();
+    private final List<String> spanishList = new ArrayList<>();
+    private final List<String> frenchList = new ArrayList<>();
 
-    public TrainerModel() {
-        this("src/Trainer/Vocabsets/defaultvocab.json");
-    }
-
-    public TrainerModel(String path) {
-        loadFromJson(path);
-    }
-
-    /**
-     * Lädt die Vokabeln aus der angegebenen JSON-Datei. Erwartet ein Array aus
-     * Objekten mit dem Aufbau:
-     * {@code {"translations": {"en": "...", "de": "..."}}}
-     * Fehlschläge führen lediglich zu einer leeren Liste und werden auf der
-     * Konsole gemeldet.
-     */
-    public void loadFromJson(String path) {
-        vocabEnglish.clear();
-        vocabGerman.clear();
-        Path p = Path.of(path);
-        try (InputStream in = Files.newInputStream(p)) {
-            JSONArray arr = new JSONArray(new JSONTokener(in));
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-                if (!obj.has("translations")) continue;
-                JSONObject trans = obj.getJSONObject("translations");
-                vocabEnglish.add(trans.optString("en"));
-                vocabGerman.add(trans.optString("de"));
+    public void loadJsonfile(String fileName) {
+        englishList.clear();
+        germanList.clear();
+        spanishList.clear();
+        frenchList.clear();
+        try (InputStream in = Files.newInputStream(Path.of(fileName))) {
+            JSONArray array = new JSONArray(new JSONTokener(in));
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject obj = array.getJSONObject(i);
+                JSONObject translations = obj.optJSONObject("translations");
+                String english = translations.optString("en", "").trim();
+                String german = translations.optString("de", "").trim();
+                String spanish = translations.optString("es", "").trim();
+                String french = translations.optString("fr", "").trim();
+                if (!(english.isEmpty() && german.isEmpty() && spanish.isEmpty() && french.isEmpty())) {
+                    englishList.add(english);
+                    germanList.add(german);
+                    spanishList.add(spanish);
+                    frenchList.add(french);
+                } else return;
             }
         } catch (IOException e) {
-            System.err.println("Konnte Vokabeldatei nicht lesen: " + e.getMessage());
+            System.err.println("Dateifehler: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Ungültiges JSON in " + path + ": " + e.getMessage());
+            System.err.println("JSON-Fehler: " + e.getMessage());
         }
     }
-
     public int getSize() {
-        return vocabEnglish.size();
+        return englishList.size();
     }
 
-    public String get(int index) {
-        return vocabEnglish.get(index);
+    public String getEnglish(int index) {
+        return (index >= 0 && index < englishList.size()) ? englishList.get(index) : "";
     }
 
-    public String getTranslation(int index) {
-        return vocabGerman.get(index);
+    public String getGerman(int index) {
+        return (index >= 0 && index < germanList.size()) ? germanList.get(index) : "";
+    }
+    public String getSpanish(int index) {
+        return (index >= 0 && index < spanishList.size()) ? spanishList.get(index) : "";
+    }
+    public String getfrench(int index) {
+        return (index >= 0 && index < frenchList.size()) ? frenchList.get(index) : "";
     }
 }

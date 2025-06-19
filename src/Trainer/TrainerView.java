@@ -42,7 +42,7 @@ public class TrainerView {
         int count = ThreadLocalRandom.current().nextInt(3, Math.min(10, maxCount) + 1); // max 10
 
         for (int i = 0; i < count; i++) {
-            Label outputField = new Label(model.get(i));
+            Label outputField = new Label(model.getEnglish(i));
             outputField.setMinWidth(150);
 
             TextField inputField = new TextField();

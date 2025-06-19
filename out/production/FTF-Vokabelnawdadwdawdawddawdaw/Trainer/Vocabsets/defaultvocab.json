@@ -1,0 +1,22 @@
+[
+  {
+    "id": "apple",
+    "translations": {
+      "en": "apple",
+      "de": "Apfel",
+      "fr": "pomme",
+      "es": "manzana"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "computer",
+    "translations": {
+      "en": "computer",
+      "de": "Computer",
+      "fr": "ordinateur",
+      "es": "ordenador"
+    },
+    "difficulty": "medium"
+  }
+]
