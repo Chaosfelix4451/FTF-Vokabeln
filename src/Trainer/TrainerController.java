@@ -66,7 +66,8 @@ public class TrainerController extends StageAwareController {
         var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
         mode = prefs.get("vocabMode", "Deutsch zu Englisch");
         listId = prefs.get("vocabFile", "defaultvocab.json");
-        //model = new TrainerModel("src/Trainer/Vocabsets/" + listId);
+        model = new TrainerModel();
+        model.loadJsonfile("src/Trainer/Vocabsets/" + listId);
         UserSystem.startNewSession(currentUser, listId);
 
         loadNextVocabSet();
