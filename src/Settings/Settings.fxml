@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
-   <VBox layoutX="16.0" layoutY="77.0" prefHeight="276.0" prefWidth="165.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="77.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
+   <VBox layoutX="16.0" layoutY="77.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="77.0">
        <Label text="Vokabelliste:" />
-       <ChoiceBox fx:id="vocabListBox" prefHeight="15.0" prefWidth="150.0">
+       <ChoiceBox fx:id="vocabListBox">
           <VBox.margin>
              <Insets />
           </VBox.margin>
        </ChoiceBox>
        <Label text="Vokabelmodus:" />
-       <ChoiceBox fx:id="vocabModeBox" prefHeight="15.0" prefWidth="150.0">
+       <ChoiceBox fx:id="vocabModeBox">
           <VBox.margin>
              <Insets />
           </VBox.margin>
@@ -26,9 +26,9 @@
          <padding>
             <Insets top="20.0" />
          </padding></Label>
-      <CheckBox fx:id="darkModeToggle" prefHeight="19.0" prefWidth="103.0" text="Dark Mode" />
+      <CheckBox fx:id="darkModeToggle" text="Dark Mode" />
    </VBox>
-   <Label fx:id="mainLable" layoutX="197.0" layoutY="38.0" prefHeight="17.0" prefWidth="129.0" text="Einstellungen">
+   <Label fx:id="mainLable" layoutX="197.0" layoutY="38.0" text="Einstellungen">
       <font>
          <Font size="18.0" />
       </font>
