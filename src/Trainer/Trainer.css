@@ -68,6 +68,16 @@ HBox {
     -fx-text-fill: #2980b9;
 }
 
+#nextButton {
+    -fx-background-color: #C8E6C9;
+    -fx-text-fill: #2e7d32;
+}
+
+#finishButton {
+    -fx-background-color: #FFCDD2;
+    -fx-text-fill: #c62828;
+}
+
 #backButton:hover {
     -fx-background-color: #BBDEFB;
 }

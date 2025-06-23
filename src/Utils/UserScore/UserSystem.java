@@ -179,8 +179,16 @@ public final class UserSystem {
 
     // Punktestandverwaltung
     public static void addPoint(String name) {
+        addPoints(name, 1);
+    }
+
+    /**
+     * Adds the given amount of points to the user. Negative values are ignored.
+     */
+    public static void addPoints(String name, int amount) {
+        if (amount <= 0) return;
         User u = getUserByName(name);
-        if (u != null) u.points++;
+        if (u != null) u.points += amount;
     }
 
     public static void setPoints(String name, int points) {
@@ -300,5 +308,16 @@ public final class UserSystem {
     public static VocabStats getStatsForUser(String name, String listId) {
         User u = getUserByName(name);
         return (u != null) ? u.getStats(listId) : null;
+    }
+
+    public static List<String> getAllListIds(String name) {
+        User u = getUserByName(name);
+        List<String> ids = new ArrayList<>();
+        if (u != null) {
+            for (VocabListEntry entry : u.vocabStatsPerList) {
+                ids.add(entry.listId);
+            }
+        }
+        return ids;
     }
 }

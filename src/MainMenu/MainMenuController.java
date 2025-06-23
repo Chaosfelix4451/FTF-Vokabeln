@@ -68,10 +68,10 @@ public class MainMenuController extends StageAwareController {
 
         if (input.length() >= 3) {
             // Benutzer suchen, der mit den Buchstaben beginnt
-            for (String user : allUsers) {
+            for (int i = 0; i < allUsers.size(); i++) {
+                String user = allUsers.get(i);
                 if (user.toLowerCase().startsWith(input)) {
                     setUserField(user); // im Textfeld den vollständigen Namen anzeigen
-
                     return; // Suche abbrechen, ersten Treffer anzeigen
                 }
             }

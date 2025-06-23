@@ -31,6 +31,8 @@ public class SettingsController extends StageAwareController implements Initiali
     public CheckBox darkModeToggle;
     public Label vDark;
 
+    private String darkCss;
+
     /**
      * Zurück zum Hauptmenü.
      */
@@ -52,17 +54,61 @@ public class SettingsController extends StageAwareController implements Initiali
     @FXML
     private ChoiceBox<String> vocabListBox;
 
+    private static final java.util.Map<String, String> LANG_NAMES = java.util.Map.of(
+            "de", "Deutsch",
+            "en", "Englisch",
+            "fr", "Französisch",
+            "es", "Spanisch"
+    );
+
+    private java.util.List<String> generateModes(java.util.Set<String> langs) {
+        java.util.List<String> codes = new java.util.ArrayList<>(LANG_NAMES.keySet());
+        codes.removeIf(code -> !langs.contains(code));
+        for (String code : langs) {
+            if (!codes.contains(code)) codes.add(code);
+        }
+
+        java.util.List<String> modes = new java.util.ArrayList<>();
+        for (String q : codes) {
+            for (String a : codes) {
+                if (!q.equals(a)) {
+                    String qName = LANG_NAMES.getOrDefault(q, q);
+                    String aName = LANG_NAMES.getOrDefault(a, a);
+                    modes.add(qName + " zu " + aName);
+                }
+            }
+        }
+        if (codes.size() >= 2) {
+            modes.add("Zufällig");
+        }
+        return modes;
+    }
+
+    private void updateVocabModes() {
+        String file = vocabListBox.getValue();
+        if (file == null) return;
+        Trainer.TrainerModel model = new Trainer.TrainerModel();
+        model.LoadJSONtoDataObj("src/Trainer/Vocabsets/" + file);
+        java.util.Set<String> langs = model.getAvailableLanguages();
+        java.util.List<String> options = generateModes(langs);
+        String current = vocabModeBox.getValue();
+        vocabModeBox.getItems().setAll(options);
+        if (current != null && options.contains(current)) {
+            vocabModeBox.setValue(current);
+        } else if (!options.isEmpty()) {
+            if (options.contains("Zufällig")) {
+                vocabModeBox.setValue("Zufällig");
+            } else {
+                vocabModeBox.setValue(options.get(0));
+            }
+        }
+    }
+
     /**
      * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        vocabModeBox.getItems().addAll(
-                "Deutsch zu Englisch",
-                "Englisch zu Deutsch",
-                "Zufällig"
-        );
-
         File vocabDir = new File("src/Trainer/Vocabsets");
         File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
         if (files != null) {
@@ -71,18 +117,45 @@ public class SettingsController extends StageAwareController implements Initiali
             }
         }
 
-        String savedMode = prefs.get("vocabMode", "Deutsch zu Englisch");
-        vocabModeBox.setValue(savedMode);
-
         String savedFile = prefs.get("vocabFile", "defaultvocab.json");
         if (vocabListBox.getItems().contains(savedFile)) {
             vocabListBox.setValue(savedFile);
         }
 
-        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
-                prefs.put("vocabMode", newVal));
-        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
-                prefs.put("vocabFile", newVal));
+        updateVocabModes();
+
+        String savedMode = prefs.get("vocabMode", "Zufällig");
+        if (vocabModeBox.getItems().contains(savedMode)) {
+            vocabModeBox.setValue(savedMode);
+        }
+
+        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                prefs.put("vocabMode", newVal);
+            }
+        });
+
+        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                prefs.put("vocabFile", newVal);
+            }
+            updateVocabModes();
+            String mode = vocabModeBox.getValue();
+            if (mode != null) {
+                prefs.put("vocabMode", mode);
+            }
+        });
+
+        darkCss = getClass().getResource("/dark.css").toExternalForm();
+        boolean dark = prefs.getBoolean("darkMode", false);
+        darkModeToggle.setSelected(dark);
+        darkModeToggle.selectedProperty().addListener((obs, o, n) -> {
+            prefs.putBoolean("darkMode", n);
+            applyDarkMode();
+        });
+
+        javafx.application.Platform.runLater(this::applyDarkMode);
+
     }
 
     /**
@@ -102,6 +175,19 @@ public class SettingsController extends StageAwareController implements Initiali
             case "Zufällig":
                 // Wähle zufällig einen Modus
                 break;
+        }
+    }
+
+    private void applyDarkMode() {
+        if (stage == null) return;
+        var scene = stage.getScene();
+        if (scene == null) return;
+        if (darkModeToggle.isSelected()) {
+            if (!scene.getStylesheets().contains(darkCss)) {
+                scene.getStylesheets().add(darkCss);
+            }
+        } else {
+            scene.getStylesheets().remove(darkCss);
         }
     }
 

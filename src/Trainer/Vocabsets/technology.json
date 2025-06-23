@@ -3,7 +3,7 @@
     "id": "phone",
     "translations": {
       "en": "phone",
-      "de": "Telefon"
+      "de": "Phone"
     },
     "difficulty": "medium"
   },
@@ -11,9 +11,392 @@
     "id": "keyboard",
     "translations": {
       "en": "keyboard",
-      "de": "Tastatur"
+      "de": "Keyboard"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "mouse",
+    "translations": {
+      "en": "mouse",
+      "de": "Mouse"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "monitor",
+    "translations": {
+      "en": "monitor",
+      "de": "Monitor"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "printer",
+    "translations": {
+      "en": "printer",
+      "de": "Printer"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "scanner",
+    "translations": {
+      "en": "scanner",
+      "de": "Scanner"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "camera",
+    "translations": {
+      "en": "camera",
+      "de": "Camera"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "laptop",
+    "translations": {
+      "en": "laptop",
+      "de": "Laptop"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "tablet",
+    "translations": {
+      "en": "tablet",
+      "de": "Tablet"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "router",
+    "translations": {
+      "en": "router",
+      "de": "Router"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "modem",
+    "translations": {
+      "en": "modem",
+      "de": "Modem"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "server",
+    "translations": {
+      "en": "server",
+      "de": "Server"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "switch",
+    "translations": {
+      "en": "switch",
+      "de": "Switch"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "cable",
+    "translations": {
+      "en": "cable",
+      "de": "Cable"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "wifi",
+    "translations": {
+      "en": "wifi",
+      "de": "Wifi"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "bluetooth",
+    "translations": {
+      "en": "bluetooth",
+      "de": "Bluetooth"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "usb",
+    "translations": {
+      "en": "usb",
+      "de": "Usb"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "battery",
+    "translations": {
+      "en": "battery",
+      "de": "Battery"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "charger",
+    "translations": {
+      "en": "charger",
+      "de": "Charger"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "speaker",
+    "translations": {
+      "en": "speaker",
+      "de": "Speaker"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "headphone",
+    "translations": {
+      "en": "headphone",
+      "de": "Headphone"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "microphone",
+    "translations": {
+      "en": "microphone",
+      "de": "Microphone"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "webcam",
+    "translations": {
+      "en": "webcam",
+      "de": "Webcam"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "projector",
+    "translations": {
+      "en": "projector",
+      "de": "Projector"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "console",
+    "translations": {
+      "en": "console",
+      "de": "Console"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "joystick",
+    "translations": {
+      "en": "joystick",
+      "de": "Joystick"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "vr",
+    "translations": {
+      "en": "vr",
+      "de": "Vr"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "drone",
+    "translations": {
+      "en": "drone",
+      "de": "Drone"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "robot",
+    "translations": {
+      "en": "robot",
+      "de": "Robot"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "processor",
+    "translations": {
+      "en": "processor",
+      "de": "Processor"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "memory",
+    "translations": {
+      "en": "memory",
+      "de": "Memory"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "harddrive",
+    "translations": {
+      "en": "harddrive",
+      "de": "Harddrive"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "ssd",
+    "translations": {
+      "en": "ssd",
+      "de": "Ssd"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "gpu",
+    "translations": {
+      "en": "gpu",
+      "de": "Gpu"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "software",
+    "translations": {
+      "en": "software",
+      "de": "Software"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "app",
+    "translations": {
+      "en": "app",
+      "de": "App"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "browser",
+    "translations": {
+      "en": "browser",
+      "de": "Browser"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "cloud",
+    "translations": {
+      "en": "cloud",
+      "de": "Cloud"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "database",
+    "translations": {
+      "en": "database",
+      "de": "Database"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "algorithm",
+    "translations": {
+      "en": "algorithm",
+      "de": "Algorithm"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "network",
+    "translations": {
+      "en": "network",
+      "de": "Network"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "encryption",
+    "translations": {
+      "en": "encryption",
+      "de": "Encryption"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "firewall",
+    "translations": {
+      "en": "firewall",
+      "de": "Firewall"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "password",
+    "translations": {
+      "en": "password",
+      "de": "Password"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "virus",
+    "translations": {
+      "en": "virus",
+      "de": "Virus"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "malware",
+    "translations": {
+      "en": "malware",
+      "de": "Malware"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "update",
+    "translations": {
+      "en": "update",
+      "de": "Update"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "backup",
+    "translations": {
+      "en": "backup",
+      "de": "Backup"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "debug",
+    "translations": {
+      "en": "debug",
+      "de": "Debug"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "compile",
+    "translations": {
+      "en": "compile",
+      "de": "Compile"
     },
     "difficulty": "medium"
   }
 ]
-

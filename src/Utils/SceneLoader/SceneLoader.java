@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.prefs.Preferences;
+import Settings.SettingsController;
 
 public class SceneLoader {
 
@@ -62,7 +64,16 @@ public class SceneLoader {
                 System.out.println("⚠️ Keine CSS-Datei gefunden für " + cssPath);
             }
 
+            Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
+            if (prefs.getBoolean("darkMode", false)) {
+                URL darkUrl = SceneLoader.class.getResource("/dark.css");
+                if (darkUrl != null) {
+                    scene.getStylesheets().add(darkUrl.toExternalForm());
+                }
+            }
+
             stage.setScene(scene);
+            stage.setMaximized(true); // adjust to current display size
             stage.show();
 
         } catch (IOException e) {

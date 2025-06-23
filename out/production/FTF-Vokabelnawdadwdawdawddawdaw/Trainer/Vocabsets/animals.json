@@ -1,0 +1,19 @@
+[
+  {
+    "id": "cat",
+    "translations": {
+      "en": "cat",
+      "de": "Katze"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "dog",
+    "translations": {
+      "en": "dog",
+      "de": "Hund"
+    },
+    "difficulty": "easy"
+  }
+]
+

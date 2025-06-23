@@ -17,8 +17,10 @@ import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 
 
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Steuert den Ablauf des Trainings und wertet die Antworten aus.
@@ -38,20 +40,49 @@ public class TrainerController extends StageAwareController {
     private Button backButton;
     @FXML
     private Button nextButton;
+    @FXML
+    private Button finishButton;
+    @FXML
+    private Label pointsLabel;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
+    private List<String> remainingIds = new ArrayList<>();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
     private int questionsPerRound = 5;
+    private int sessionPoints = 0;
+    private List<String> availableLanguages = new ArrayList<>();
 
     private static class VocabEntry {
         String solution;
         TextField inputField;
         HBox container;
+        String difficulty;
+        String questionLang;
+        String answerLang;
+    }
+
+    private String langName(String code) {
+        return switch (code) {
+            case "de" -> "Deutsch";
+            case "en" -> "Englisch";
+            case "fr" -> "Französisch";
+            case "es" -> "Spanisch";
+            default -> code;
+        };
+    }
+
+    private int pointsForDifficulty(String diff) {
+        if (diff == null) return 1;
+        return switch (diff.toLowerCase()) {
+            case "hard" -> 3;
+            case "medium" -> 2;
+            default -> 1;
+        };
     }
 
     /**
@@ -62,17 +93,27 @@ public class TrainerController extends StageAwareController {
         UserSystem.loadFromFile();
         currentUser = UserSystem.getCurrentUser();
         UserSystem.addUser(currentUser);
+        sessionPoints = 0;
+        if (pointsLabel != null) {
+            pointsLabel.setText("Punkte: 0");
+        }
 
         var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
         mode = prefs.get("vocabMode", "Deutsch zu Englisch");
         listId = prefs.get("vocabFile", "defaultvocab.json");
         model = new TrainerModel();
-        model.loadJsonfile("src/Trainer/Vocabsets/" + listId);
+        String vocabPath = "src/Trainer/Vocabsets/" + listId;
+        model.LoadJSONtoDataObj(vocabPath);
+        availableLanguages = new ArrayList<>(model.getAvailableLanguages());
         UserSystem.startNewSession(currentUser, listId);
+
+        remainingIds = new ArrayList<>(model.getAllIds());
+        Collections.shuffle(remainingIds);
 
         loadNextVocabSet();
 
         nextButton.setOnAction(event -> checkAnswers());
+        finishButton.setOnAction(event -> finishTraining());
 
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
     }
@@ -84,43 +125,78 @@ public class TrainerController extends StageAwareController {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        int size = model.getSize();
-        if (size <= 0) {
-            return; // nothing to ask
+        if (remainingIds.isEmpty()) {
+            finishTraining();
+            return;
         }
-        if (size < 3) {
-            questionsPerRound = size;
-        } else {
-            questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, size) + 1);
-        }
-        int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
 
-        for (int i = currentIndex; i < endIndex; i++) {
-            String sourceWord;
-            String solutionWord;
-            if ("Deutsch zu Englisch".equals(mode)) {
-                sourceWord = model.getGerman(i);
-                solutionWord = model.getEnglish(i);
-            } else if ("Englisch zu Deutsch".equals(mode)) {
-                sourceWord = model.getEnglish(i);
-                solutionWord = model.getGerman(i);
-            } else { // Zufällig
-                if (ThreadLocalRandom.current().nextBoolean()) {
-                    sourceWord = model.getEnglish(i);
-                    solutionWord = model.getGerman(i);
-                } else {
-                    sourceWord = model.getGerman(i);
-                    solutionWord = model.getEnglish(i);
-                }
+        int questionCount = Math.min(questionsPerRound, remainingIds.size());
+        List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, questionCount));
+        remainingIds.subList(0, questionCount).clear();
+
+
+        for (int i = 0; i < selectedIds.size(); i++) {
+            String id = selectedIds.get(i);
+            String questionLang, answerLang;
+
+            switch (mode) {
+                case "Deutsch zu Englisch":
+                    questionLang = "de";
+                    answerLang = "en";
+                    break;
+                case "Englisch zu Deutsch":
+                    questionLang = "en";
+                    answerLang = "de";
+                    break;
+                case "Französisch zu Deutsch":
+                    questionLang = "fr";
+                    answerLang = "de";
+                    break;
+                case "Deutsch zu Französisch":
+                    questionLang = "de";
+                    answerLang = "fr";
+                    break;
+                case "Spanisch zu Deutsch":
+                    questionLang = "es";
+                    answerLang = "de";
+                    break;
+                case "Deutsch zu Spanisch":
+                    questionLang = "de";
+                    answerLang = "es";
+                    break;
+                case "Zufällig":
+                default:
+                    List<String> langs = new ArrayList<>(availableLanguages);
+                    if (langs.size() < 2) {
+                        questionLang = answerLang = langs.isEmpty() ? "" : langs.get(0);
+                    } else {
+                        Collections.shuffle(langs);
+                        questionLang = langs.get(0);
+                        answerLang = langs.get(1);
+                        if (answerLang.equals(questionLang) && langs.size() > 2) {
+                            answerLang = langs.get(2);
+                        }
+                    }
+                    break;
             }
 
-            Label vocabLabel = new Label(sourceWord);
+
+            String question = model.get(id, questionLang);
+            String solution = model.get(id, answerLang);
+            String diff = model.get(id, "difficulty");
+
+
+            String labelPrefix = ("Zufällig".equals(mode))
+                    ? "(" + langName(questionLang) + " -> " + langName(answerLang) + ") "
+                    : "";
+
+            Label vocabLabel = new Label((i + 1) + ". " + labelPrefix + question);
             vocabLabel.setMinWidth(150);
 
             TextField input = new TextField();
-            input.setPromptText("Vokabel eingeben...");
+            input.setPromptText("Antwort eingeben...");
             input.setMinWidth(200);
-            int currentIndexForEnter = i - currentIndex;
+            int currentIndexForEnter = i;
             input.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     if (currentIndexForEnter + 1 < vocabEntries.size()) {
@@ -135,9 +211,12 @@ public class TrainerController extends StageAwareController {
             HBox entryBox = new HBox(10, vocabLabel, input);
 
             VocabEntry entry = new VocabEntry();
-            entry.solution = solutionWord;
+            entry.solution = solution;
             entry.inputField = input;
             entry.container = entryBox;
+            entry.difficulty = diff;
+            entry.questionLang = questionLang;
+            entry.answerLang = answerLang;
 
             vocabEntries.add(entry);
             vocabBox.getChildren().add(entryBox);
@@ -148,12 +227,14 @@ public class TrainerController extends StageAwareController {
         }
     }
 
-    /**
-     * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
-     */
+                    /**
+                     * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
+                     */
     public void checkAnswers() {
         boolean allCorrect = true;
-        for (VocabEntry entry : vocabEntries) {
+        int correctCount = 0;
+        for (int idx = 0; idx < vocabEntries.size(); idx++) {
+            VocabEntry entry = vocabEntries.get(idx);
             String expected = entry.solution;
             String userInput = entry.inputField.getText().trim();
 
@@ -187,19 +268,25 @@ public class TrainerController extends StageAwareController {
             }
 
             if (isCorrect) {
-                UserSystem.addPoint(currentUser);
+                correctCount++;
+                int pts = pointsForDifficulty(entry.difficulty);
+                UserSystem.addPoints(currentUser, pts);
+                sessionPoints += pts;
             }
             UserSystem.recordAnswer(currentUser, isCorrect, listId);
         }
 
-        // Spiele nur EINEN Sound ab, basierend auf dem Gesamtergebnis
-        if (allCorrect) {
+        double percent = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
+        if (percent >= 50.0) {
             soundModel.playSound("src/Utils/Sound/richtig.mp3");
         } else {
             soundModel.playSound("src/Utils/Sound/falsch.mp3");
         }
 
         UserSystem.saveToFile();
+        if (pointsLabel != null) {
+            pointsLabel.setText("Punkte: " + sessionPoints);
+        }
 
         nextButton.setDisable(true);
 
@@ -216,16 +303,22 @@ public class TrainerController extends StageAwareController {
 
             Platform.runLater(() -> {
                 currentIndex += questionsPerRound;
-                if (currentIndex < model.getSize()) {
+
+                if (!remainingIds.isEmpty()) {
                     loadNextVocabSet();
                     nextButton.setDisable(false);
                 } else {
                     nextButton.setDisable(false);
-                    nextButton.setText("Ergebnisse anzeigen");
-                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml"));
+                    finishTraining();
                 }
+
             });
         });
         delayThread.start();
+    }
+
+    /** Finishes the training and shows the score board. */
+    private void finishTraining() {
+        SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
     }
 }
