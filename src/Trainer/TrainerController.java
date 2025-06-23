@@ -55,6 +55,7 @@ public class TrainerController extends StageAwareController {
     private int currentIndex = 0;
     private int questionsPerRound = 5;
     private int sessionPoints = 0;
+    private List<String> availableLanguages = new ArrayList<>();
 
     private static class VocabEntry {
         String solution;
@@ -103,6 +104,7 @@ public class TrainerController extends StageAwareController {
         model = new TrainerModel();
         String vocabPath = "src/Trainer/Vocabsets/" + listId;
         model.LoadJSONtoDataObj(vocabPath);
+        availableLanguages = new ArrayList<>(model.getAvailableLanguages());
         UserSystem.startNewSession(currentUser, listId);
 
         remainingIds = new ArrayList<>(model.getAllIds());
@@ -164,10 +166,17 @@ public class TrainerController extends StageAwareController {
                     break;
                 case "Zufällig":
                 default:
-                    List<String> langs = new ArrayList<>(List.of("en", "de", "fr", "es"));
-                    Collections.shuffle(langs);
-                    questionLang = langs.get(0);
-                    answerLang = langs.get(1).equals(questionLang) ? langs.get(2) : langs.get(1);
+                    List<String> langs = new ArrayList<>(availableLanguages);
+                    if (langs.size() < 2) {
+                        questionLang = answerLang = langs.isEmpty() ? "" : langs.get(0);
+                    } else {
+                        Collections.shuffle(langs);
+                        questionLang = langs.get(0);
+                        answerLang = langs.get(1);
+                        if (answerLang.equals(questionLang) && langs.size() > 2) {
+                            answerLang = langs.get(2);
+                        }
+                    }
                     break;
             }
 

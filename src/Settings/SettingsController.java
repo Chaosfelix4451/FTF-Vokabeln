@@ -54,22 +54,57 @@ public class SettingsController extends StageAwareController implements Initiali
     @FXML
     private ChoiceBox<String> vocabListBox;
 
+    private static final java.util.Map<String, String> LANG_NAMES = java.util.Map.of(
+            "de", "Deutsch",
+            "en", "Englisch",
+            "fr", "Französisch",
+            "es", "Spanisch"
+    );
+
+    private java.util.List<String> generateModes(java.util.Set<String> langs) {
+        java.util.List<String> codes = new java.util.ArrayList<>(LANG_NAMES.keySet());
+        codes.removeIf(code -> !langs.contains(code));
+        for (String code : langs) {
+            if (!codes.contains(code)) codes.add(code);
+        }
+
+        java.util.List<String> modes = new java.util.ArrayList<>();
+        for (String q : codes) {
+            for (String a : codes) {
+                if (!q.equals(a)) {
+                    String qName = LANG_NAMES.getOrDefault(q, q);
+                    String aName = LANG_NAMES.getOrDefault(a, a);
+                    modes.add(qName + " zu " + aName);
+                }
+            }
+        }
+        if (codes.size() >= 2) {
+            modes.add("Zufällig");
+        }
+        return modes;
+    }
+
+    private void updateVocabModes() {
+        String file = vocabListBox.getValue();
+        if (file == null) return;
+        Trainer.TrainerModel model = new Trainer.TrainerModel();
+        model.LoadJSONtoDataObj("src/Trainer/Vocabsets/" + file);
+        java.util.Set<String> langs = model.getAvailableLanguages();
+        java.util.List<String> options = generateModes(langs);
+        String current = vocabModeBox.getValue();
+        vocabModeBox.getItems().setAll(options);
+        if (current != null && options.contains(current)) {
+            vocabModeBox.setValue(current);
+        } else if (!options.isEmpty()) {
+            vocabModeBox.setValue(options.get(0));
+        }
+    }
+
     /**
      * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        vocabModeBox.getItems().addAll(
-                "Deutsch zu Englisch",
-                "Englisch zu Deutsch",
-                "Deutsch zu Französisch",
-                "Französisch zu Deutsch",
-                "Deutsch zu Spanisch",
-                "Spanisch zu Deutsch",
-                "Zufällig"
-        );
-
-
         File vocabDir = new File("src/Trainer/Vocabsets");
         File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
         if (files != null) {
@@ -78,16 +113,21 @@ public class SettingsController extends StageAwareController implements Initiali
             }
         }
 
-        String savedMode = prefs.get("vocabMode", "Deutsch zu Englisch");
-        vocabModeBox.setValue(savedMode);
-
         String savedFile = prefs.get("vocabFile", "defaultvocab.json");
         if (vocabListBox.getItems().contains(savedFile)) {
             vocabListBox.setValue(savedFile);
         }
 
+        updateVocabModes();
+
+        String savedMode = prefs.get("vocabMode", vocabModeBox.getValue());
+        if (vocabModeBox.getItems().contains(savedMode)) {
+            vocabModeBox.setValue(savedMode);
+        }
+
         vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 prefs.put("vocabMode", newVal));
+
         vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 prefs.put("vocabFile", newVal));
 
@@ -100,6 +140,7 @@ public class SettingsController extends StageAwareController implements Initiali
         });
 
         javafx.application.Platform.runLater(this::applyDarkMode);
+
     }
 
     /**

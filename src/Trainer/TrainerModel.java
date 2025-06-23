@@ -21,6 +21,8 @@ public class TrainerModel {
     private final List<String> spanishList = new ArrayList<>();
     private final List<String> frenchList = new ArrayList<>();
 
+    private final Set<String> availableLanguages = new HashSet<>();
+
     public TrainerModel() {}
     // Map<ID, Map<"en"/"de"/"difficulty", String>>
     private final Map<String, Map<String, String>> vocabData = new HashMap<>();
@@ -28,6 +30,7 @@ public class TrainerModel {
         vocabData.clear();
         try(InputStream in = Files.newInputStream(Path.of(fileName))){
             JSONArray array = new JSONArray(new JSONTokener(in));
+            availableLanguages.clear();
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
                 String id = obj.getString("id");
@@ -36,6 +39,7 @@ public class TrainerModel {
                 Map<String, String> data = new HashMap<>();
                 for (String lang : translations.keySet()) {
                     data.put(lang, translations.getString(lang).trim());
+                    availableLanguages.add(lang);
                 }
                 data.put("difficulty", difficulty);
                 vocabData.put(id, data);
@@ -55,6 +59,10 @@ public class TrainerModel {
     }
     public Set<String> getAllIds() {
         return vocabData.keySet();
+    }
+
+    public Set<String> getAvailableLanguages() {
+        return new HashSet<>(availableLanguages);
     }
 
 }

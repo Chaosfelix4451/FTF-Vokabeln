@@ -81,7 +81,7 @@ Das `UserSystem` verwaltet alle Benutzer samt Punkteständen. Es nutzt ausschlie
 Der `TrainerController` steuert den Ablauf des Trainings:
 
 1. Beim Start wird der aktuelle Benutzer geladen und eine neue Sitzung begonnen.
-2. Abhängig vom in den Einstellungen gewählten Modus (Deutsch→Englisch, Englisch→Deutsch, Zufällig) werden Vokabeln aus der gewählten JSON-Liste im `TrainerModel` geladen.
+2. Abhängig vom in den Einstellungen gewählten Modus (z.B. Deutsch→Englisch oder Zufällig) werden Vokabeln aus der gewählten JSON-Liste im `TrainerModel` geladen.
 3. `loadNextVocabSet` baut dynamisch Eingabefelder auf und merkt sich die korrekten Lösungen.
 4. `checkAnswers` vergleicht die Eingaben mit der Lösung, färbt richtige und falsche Buchstaben ein und aktualisiert den Punktestand über `UserSystem`.
 5. Nach einer kurzen Pause wird das nächste Set geladen oder das ScoreBoard geöffnet.
@@ -94,6 +94,6 @@ Soundeffekte werden über `SoundModel` abgespielt.
 
 ## Einstellungen
 
-Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus sowie die zu verwendende Vokabelliste aus. Beide Werte werden über `java.util.prefs.Preferences` gespeichert und beim nächsten Start wieder geladen. Neue JSON-Dateien im Ordner `src/Trainer/Vocabsets` erscheinen automatisch in der Auswahlliste.
+Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus sowie die zu verwendende Vokabelliste aus. Beide Werte werden über `java.util.prefs.Preferences` gespeichert und beim nächsten Start wieder geladen. Die verfügbaren Modi richten sich nach den Sprachen der gewählten Liste. Neue JSON-Dateien im Ordner `src/Trainer/Vocabsets` erscheinen automatisch in der Auswahlliste.
 
 
