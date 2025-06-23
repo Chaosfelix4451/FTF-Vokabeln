@@ -38,11 +38,14 @@ public class TrainerController extends StageAwareController {
     private Button backButton;
     @FXML
     private Button nextButton;
+    @FXML
+    private Button finishButton;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
+    private List<String> remainingIds = new ArrayList<>();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
@@ -93,9 +96,13 @@ public class TrainerController extends StageAwareController {
         model.LoadJSONtoDataObj(vocabPath);
         UserSystem.startNewSession(currentUser, listId);
 
+        remainingIds = new ArrayList<>(model.getAllIds());
+        Collections.shuffle(remainingIds);
+
         loadNextVocabSet();
 
         nextButton.setOnAction(event -> checkAnswers());
+        finishButton.setOnAction(event -> finishTraining());
 
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
     }
@@ -107,14 +114,15 @@ public class TrainerController extends StageAwareController {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        Set<String> allIds = model.getAllIds();
-        if (allIds.isEmpty()) return;
+        if (remainingIds.isEmpty()) {
+            finishTraining();
+            return;
+        }
 
-        List<String> idList = new ArrayList<>(allIds);
-        Collections.shuffle(idList);
+        int questionCount = Math.min(questionsPerRound, remainingIds.size());
+        List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, questionCount));
+        remainingIds.subList(0, questionCount).clear();
 
-        int questionCount = Math.min(questionsPerRound, idList.size());
-        List<String> selectedIds = idList.subList(0, questionCount);
 
         for (int i = 0; i < selectedIds.size(); i++) {
             String id = selectedIds.get(i);
@@ -158,6 +166,7 @@ public class TrainerController extends StageAwareController {
             String question = model.get(id, questionLang);
             String solution = model.get(id, answerLang);
             String diff = model.get(id, "difficulty");
+
 
             String labelPrefix = ("Zufällig".equals(mode))
                     ? "(" + langName(questionLang) + " -> " + langName(answerLang) + ") "
@@ -270,10 +279,22 @@ public class TrainerController extends StageAwareController {
 
             Platform.runLater(() -> {
                 currentIndex += questionsPerRound;
-                loadNextVocabSet();
-                nextButton.setDisable(false);
+
+                if (!remainingIds.isEmpty()) {
+                    loadNextVocabSet();
+                    nextButton.setDisable(false);
+                } else {
+                    nextButton.setDisable(false);
+                    finishTraining();
+                }
+
             });
         });
         delayThread.start();
+    }
+
+    /** Finishes the training and shows the score board. */
+    private void finishTraining() {
+        SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
     }
 }
