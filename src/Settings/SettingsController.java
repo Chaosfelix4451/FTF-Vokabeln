@@ -79,16 +79,10 @@ public class SettingsController extends StageAwareController implements Initiali
             vocabListBox.setValue(savedFile);
         }
 
-        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                prefs.put("vocabMode", newVal);
-            }
-        });
-        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                prefs.put("vocabFile", newVal);
-            }
-        });
+        vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+                prefs.put("vocabMode", newVal));
+        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
+                prefs.put("vocabFile", newVal));
     }
 
     /**
