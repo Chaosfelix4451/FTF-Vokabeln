@@ -123,6 +123,7 @@ public class TrainerController extends StageAwareController {
         List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, questionCount));
         remainingIds.subList(0, questionCount).clear();
 
+
         for (int i = 0; i < selectedIds.size(); i++) {
             String id = selectedIds.get(i);
             String questionLang, answerLang;
@@ -165,6 +166,7 @@ public class TrainerController extends StageAwareController {
             String question = model.get(id, questionLang);
             String solution = model.get(id, answerLang);
             String diff = model.get(id, "difficulty");
+
 
             String labelPrefix = ("Zufällig".equals(mode))
                     ? "(" + langName(questionLang) + " -> " + langName(answerLang) + ") "
@@ -277,6 +279,7 @@ public class TrainerController extends StageAwareController {
 
             Platform.runLater(() -> {
                 currentIndex += questionsPerRound;
+
                 if (!remainingIds.isEmpty()) {
                     loadNextVocabSet();
                     nextButton.setDisable(false);
@@ -284,6 +287,7 @@ public class TrainerController extends StageAwareController {
                     nextButton.setDisable(false);
                     finishTraining();
                 }
+
             });
         });
         delayThread.start();
