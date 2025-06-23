@@ -17,8 +17,10 @@ import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 
 
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Steuert den Ablauf des Trainings und wertet die Antworten aus.
@@ -40,6 +42,8 @@ public class TrainerController extends StageAwareController {
     private Button nextButton;
     @FXML
     private Button finishButton;
+    @FXML
+    private Label pointsLabel;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
@@ -50,6 +54,7 @@ public class TrainerController extends StageAwareController {
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
     private int questionsPerRound = 5;
+    private int sessionPoints = 0;
 
     private static class VocabEntry {
         String solution;
@@ -87,6 +92,10 @@ public class TrainerController extends StageAwareController {
         UserSystem.loadFromFile();
         currentUser = UserSystem.getCurrentUser();
         UserSystem.addUser(currentUser);
+        sessionPoints = 0;
+        if (pointsLabel != null) {
+            pointsLabel.setText("Punkte: 0");
+        }
 
         var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
         mode = prefs.get("vocabMode", "Deutsch zu Englisch");
@@ -215,7 +224,8 @@ public class TrainerController extends StageAwareController {
     public void checkAnswers() {
         boolean allCorrect = true;
         int correctCount = 0;
-        for (VocabEntry entry : vocabEntries) {
+        for (int idx = 0; idx < vocabEntries.size(); idx++) {
+            VocabEntry entry = vocabEntries.get(idx);
             String expected = entry.solution;
             String userInput = entry.inputField.getText().trim();
 
@@ -250,7 +260,9 @@ public class TrainerController extends StageAwareController {
 
             if (isCorrect) {
                 correctCount++;
-                UserSystem.addPoints(currentUser, pointsForDifficulty(entry.difficulty));
+                int pts = pointsForDifficulty(entry.difficulty);
+                UserSystem.addPoints(currentUser, pts);
+                sessionPoints += pts;
             }
             UserSystem.recordAnswer(currentUser, isCorrect, listId);
         }
@@ -263,6 +275,9 @@ public class TrainerController extends StageAwareController {
         }
 
         UserSystem.saveToFile();
+        if (pointsLabel != null) {
+            pointsLabel.setText("Punkte: " + sessionPoints);
+        }
 
         nextButton.setDisable(true);
 

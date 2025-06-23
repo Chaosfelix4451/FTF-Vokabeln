@@ -7,14 +7,24 @@
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
     <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
           AnchorPane.bottomAnchor="10">
-        <Label text="Highscore"/>
-        <TableView fx:id="scoreTable" prefHeight="200.0">
+        <Label fx:id="userLabel" text="Statistik"/>
+        <TableView fx:id="allTable" prefHeight="150.0">
             <columns>
-                <TableColumn fx:id="nameColumn" text="Name" prefWidth="150.0"/>
-                <TableColumn fx:id="pointsColumn" text="Punkte"/>
+                <TableColumn fx:id="listColumn" text="Liste" prefWidth="200.0"/>
+                <TableColumn fx:id="correctColumn" text="Richtig"/>
+                <TableColumn fx:id="incorrectColumn" text="Falsch"/>
             </columns>
         </TableView>
-        <Label fx:id="progressLabel" text="Fortschritt"/>
+        <HBox spacing="5">
+            <ChoiceBox fx:id="listChoiceBox" />
+        </HBox>
+        <TableView fx:id="singleTable" prefHeight="100.0">
+            <columns>
+                <TableColumn fx:id="sListColumn" text="Liste" prefWidth="200.0"/>
+                <TableColumn fx:id="sCorrectColumn" text="Richtig"/>
+                <TableColumn fx:id="sIncorrectColumn" text="Falsch"/>
+            </columns>
+        </TableView>
         <Button text="Zurück zum Menü" onAction="#backToMenu"/>
     </VBox>
 </AnchorPane>

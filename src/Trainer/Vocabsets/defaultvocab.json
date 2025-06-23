@@ -3,19 +3,19 @@
     "id": "apple",
     "translations": {
       "en": "apple",
-      "de": "Apfel",
-      "fr": "pomme",
-      "es": "manzana"
+      "de": "Apple",
+      "fr": "apple_fr",
+      "es": "apple_es"
     },
-    "difficulty": "easy"
+    "difficulty": "medium"
   },
   {
     "id": "computer",
     "translations": {
       "en": "computer",
       "de": "Computer",
-      "fr": "ordinateur",
-      "es": "ordenador"
+      "fr": "computer_fr",
+      "es": "computer_es"
     },
     "difficulty": "medium"
   },
@@ -23,31 +23,480 @@
     "id": "book",
     "translations": {
       "en": "book",
-      "de": "Buch",
-      "fr": "livre",
-      "es": "libro"
+      "de": "Book",
+      "fr": "book_fr",
+      "es": "book_es"
     },
-    "difficulty": "easy"
+    "difficulty": "medium"
   },
   {
     "id": "school",
     "translations": {
       "en": "school",
-      "de": "Schule",
-      "fr": "école",
-      "es": "escuela"
+      "de": "School",
+      "fr": "school_fr",
+      "es": "school_es"
     },
-    "difficulty": "easy"
+    "difficulty": "medium"
   },
   {
     "id": "weather",
     "translations": {
       "en": "weather",
-      "de": "Wetter",
-      "fr": "temps",
-      "es": "tiempo"
+      "de": "Weather",
+      "fr": "weather_fr",
+      "es": "weather_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "house",
+    "translations": {
+      "en": "house",
+      "de": "House",
+      "fr": "house_fr",
+      "es": "house_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "car",
+    "translations": {
+      "en": "car",
+      "de": "Car",
+      "fr": "car_fr",
+      "es": "car_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "train",
+    "translations": {
+      "en": "train",
+      "de": "Train",
+      "fr": "train_fr",
+      "es": "train_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "plane",
+    "translations": {
+      "en": "plane",
+      "de": "Plane",
+      "fr": "plane_fr",
+      "es": "plane_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "boat",
+    "translations": {
+      "en": "boat",
+      "de": "Boat",
+      "fr": "boat_fr",
+      "es": "boat_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "tree",
+    "translations": {
+      "en": "tree",
+      "de": "Tree",
+      "fr": "tree_fr",
+      "es": "tree_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "flower",
+    "translations": {
+      "en": "flower",
+      "de": "Flower",
+      "fr": "flower_fr",
+      "es": "flower_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "river",
+    "translations": {
+      "en": "river",
+      "de": "River",
+      "fr": "river_fr",
+      "es": "river_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "mountain",
+    "translations": {
+      "en": "mountain",
+      "de": "Mountain",
+      "fr": "mountain_fr",
+      "es": "mountain_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "city",
+    "translations": {
+      "en": "city",
+      "de": "City",
+      "fr": "city_fr",
+      "es": "city_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "village",
+    "translations": {
+      "en": "village",
+      "de": "Village",
+      "fr": "village_fr",
+      "es": "village_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "family",
+    "translations": {
+      "en": "family",
+      "de": "Family",
+      "fr": "family_fr",
+      "es": "family_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "friend",
+    "translations": {
+      "en": "friend",
+      "de": "Friend",
+      "fr": "friend_fr",
+      "es": "friend_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "music",
+    "translations": {
+      "en": "music",
+      "de": "Music",
+      "fr": "music_fr",
+      "es": "music_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "movie",
+    "translations": {
+      "en": "movie",
+      "de": "Movie",
+      "fr": "movie_fr",
+      "es": "movie_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "game",
+    "translations": {
+      "en": "game",
+      "de": "Game",
+      "fr": "game_fr",
+      "es": "game_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "phone",
+    "translations": {
+      "en": "phone",
+      "de": "Phone",
+      "fr": "phone_fr",
+      "es": "phone_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "internet",
+    "translations": {
+      "en": "internet",
+      "de": "Internet",
+      "fr": "internet_fr",
+      "es": "internet_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "table",
+    "translations": {
+      "en": "table",
+      "de": "Table",
+      "fr": "table_fr",
+      "es": "table_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "chair",
+    "translations": {
+      "en": "chair",
+      "de": "Chair",
+      "fr": "chair_fr",
+      "es": "chair_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "window",
+    "translations": {
+      "en": "window",
+      "de": "Window",
+      "fr": "window_fr",
+      "es": "window_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "door",
+    "translations": {
+      "en": "door",
+      "de": "Door",
+      "fr": "door_fr",
+      "es": "door_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "teacher",
+    "translations": {
+      "en": "teacher",
+      "de": "Teacher",
+      "fr": "teacher_fr",
+      "es": "teacher_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "student",
+    "translations": {
+      "en": "student",
+      "de": "Student",
+      "fr": "student_fr",
+      "es": "student_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "language",
+    "translations": {
+      "en": "language",
+      "de": "Language",
+      "fr": "language_fr",
+      "es": "language_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "idea",
+    "translations": {
+      "en": "idea",
+      "de": "Idea",
+      "fr": "idea_fr",
+      "es": "idea_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "story",
+    "translations": {
+      "en": "story",
+      "de": "Story",
+      "fr": "story_fr",
+      "es": "story_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "history",
+    "translations": {
+      "en": "history",
+      "de": "History",
+      "fr": "history_fr",
+      "es": "history_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "picture",
+    "translations": {
+      "en": "picture",
+      "de": "Picture",
+      "fr": "picture_fr",
+      "es": "picture_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "color",
+    "translations": {
+      "en": "color",
+      "de": "Color",
+      "fr": "color_fr",
+      "es": "color_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "smile",
+    "translations": {
+      "en": "smile",
+      "de": "Smile",
+      "fr": "smile_fr",
+      "es": "smile_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "laugh",
+    "translations": {
+      "en": "laugh",
+      "de": "Laugh",
+      "fr": "laugh_fr",
+      "es": "laugh_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "cry",
+    "translations": {
+      "en": "cry",
+      "de": "Cry",
+      "fr": "cry_fr",
+      "es": "cry_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "dream",
+    "translations": {
+      "en": "dream",
+      "de": "Dream",
+      "fr": "dream_fr",
+      "es": "dream_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "sun",
+    "translations": {
+      "en": "sun",
+      "de": "Sun",
+      "fr": "sun_fr",
+      "es": "sun_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "moon",
+    "translations": {
+      "en": "moon",
+      "de": "Moon",
+      "fr": "moon_fr",
+      "es": "moon_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "star",
+    "translations": {
+      "en": "star",
+      "de": "Star",
+      "fr": "star_fr",
+      "es": "star_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "cloud",
+    "translations": {
+      "en": "cloud",
+      "de": "Cloud",
+      "fr": "cloud_fr",
+      "es": "cloud_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "rain",
+    "translations": {
+      "en": "rain",
+      "de": "Rain",
+      "fr": "rain_fr",
+      "es": "rain_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "snow",
+    "translations": {
+      "en": "snow",
+      "de": "Snow",
+      "fr": "snow_fr",
+      "es": "snow_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "wind",
+    "translations": {
+      "en": "wind",
+      "de": "Wind",
+      "fr": "wind_fr",
+      "es": "wind_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "fire",
+    "translations": {
+      "en": "fire",
+      "de": "Fire",
+      "fr": "fire_fr",
+      "es": "fire_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "water",
+    "translations": {
+      "en": "water",
+      "de": "Water",
+      "fr": "water_fr",
+      "es": "water_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "earth",
+    "translations": {
+      "en": "earth",
+      "de": "Earth",
+      "fr": "earth_fr",
+      "es": "earth_es"
+    },
+    "difficulty": "medium"
+  },
+  {
+    "id": "air",
+    "translations": {
+      "en": "air",
+      "de": "Air",
+      "fr": "air_fr",
+      "es": "air_es"
     },
     "difficulty": "medium"
   }
 ]
-
