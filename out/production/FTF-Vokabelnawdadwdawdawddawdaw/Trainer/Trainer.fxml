@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,6 +15,9 @@
           AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
           AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
 
+        <!-- Anzeige der aktuellen Punkte -->
+        <Label fx:id="pointsLabel" text="Punkte: 0" />
+
         <!-- Dynamischer Vokabel-Container -->
         <VBox fx:id="vocabBox" spacing="10.0" />
 
@@ -21,6 +25,7 @@
         <HBox spacing="10.0">
             <Button fx:id="backButton" text="Zurück zum Menü" />
             <Button fx:id="nextButton" text="Weiter" />
+            <Button fx:id="finishButton" text="Vorzeitig beenden" />
         </HBox>
     </VBox>
 
