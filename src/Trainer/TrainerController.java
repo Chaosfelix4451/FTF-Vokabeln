@@ -38,11 +38,14 @@ public class TrainerController extends StageAwareController {
     private Button backButton;
     @FXML
     private Button nextButton;
+    @FXML
+    private Button finishButton;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
     private final SoundModel soundModel = new SoundModel();
     private final List<VocabEntry> vocabEntries = new ArrayList<>();
+    private List<String> remainingIds = new ArrayList<>();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
     private int currentIndex = 0;
@@ -52,6 +55,28 @@ public class TrainerController extends StageAwareController {
         String solution;
         TextField inputField;
         HBox container;
+        String difficulty;
+        String questionLang;
+        String answerLang;
+    }
+
+    private String langName(String code) {
+        return switch (code) {
+            case "de" -> "Deutsch";
+            case "en" -> "Englisch";
+            case "fr" -> "Französisch";
+            case "es" -> "Spanisch";
+            default -> code;
+        };
+    }
+
+    private int pointsForDifficulty(String diff) {
+        if (diff == null) return 1;
+        return switch (diff.toLowerCase()) {
+            case "hard" -> 3;
+            case "medium" -> 2;
+            default -> 1;
+        };
     }
 
     /**
@@ -71,9 +96,13 @@ public class TrainerController extends StageAwareController {
         model.LoadJSONtoDataObj(vocabPath);
         UserSystem.startNewSession(currentUser, listId);
 
+        remainingIds = new ArrayList<>(model.getAllIds());
+        Collections.shuffle(remainingIds);
+
         loadNextVocabSet();
 
         nextButton.setOnAction(event -> checkAnswers());
+        finishButton.setOnAction(event -> finishTraining());
 
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
     }
@@ -85,14 +114,14 @@ public class TrainerController extends StageAwareController {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        Set<String> allIds = model.getAllIds();
-        if (allIds.isEmpty()) return;
+        if (remainingIds.isEmpty()) {
+            finishTraining();
+            return;
+        }
 
-        List<String> idList = new ArrayList<>(allIds);
-        Collections.shuffle(idList);
-
-        questionsPerRound = Math.min(questionsPerRound, idList.size());
-        List<String> selectedIds = idList.subList(0, questionsPerRound);
+        int questionCount = Math.min(questionsPerRound, remainingIds.size());
+        List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, questionCount));
+        remainingIds.subList(0, questionCount).clear();
 
         for (int i = 0; i < selectedIds.size(); i++) {
             String id = selectedIds.get(i);
@@ -126,7 +155,7 @@ public class TrainerController extends StageAwareController {
                 case "Zufällig":
                 default:
                     List<String> langs = new ArrayList<>(List.of("en", "de", "fr", "es"));
-                    Collections.shuffle(Collections.unmodifiableList(langs));
+                    Collections.shuffle(langs);
                     questionLang = langs.get(0);
                     answerLang = langs.get(1).equals(questionLang) ? langs.get(2) : langs.get(1);
                     break;
@@ -135,8 +164,13 @@ public class TrainerController extends StageAwareController {
 
             String question = model.get(id, questionLang);
             String solution = model.get(id, answerLang);
+            String diff = model.get(id, "difficulty");
 
-            Label vocabLabel = new Label((i + 1) + ". " + question);
+            String labelPrefix = ("Zufällig".equals(mode))
+                    ? "(" + langName(questionLang) + " -> " + langName(answerLang) + ") "
+                    : "";
+
+            Label vocabLabel = new Label((i + 1) + ". " + labelPrefix + question);
             vocabLabel.setMinWidth(150);
 
             TextField input = new TextField();
@@ -160,6 +194,9 @@ public class TrainerController extends StageAwareController {
             entry.solution = solution;
             entry.inputField = input;
             entry.container = entryBox;
+            entry.difficulty = diff;
+            entry.questionLang = questionLang;
+            entry.answerLang = answerLang;
 
             vocabEntries.add(entry);
             vocabBox.getChildren().add(entryBox);
@@ -175,6 +212,7 @@ public class TrainerController extends StageAwareController {
                      */
     public void checkAnswers() {
         boolean allCorrect = true;
+        int correctCount = 0;
         for (VocabEntry entry : vocabEntries) {
             String expected = entry.solution;
             String userInput = entry.inputField.getText().trim();
@@ -209,13 +247,14 @@ public class TrainerController extends StageAwareController {
             }
 
             if (isCorrect) {
-                UserSystem.addPoint(currentUser);
+                correctCount++;
+                UserSystem.addPoints(currentUser, pointsForDifficulty(entry.difficulty));
             }
             UserSystem.recordAnswer(currentUser, isCorrect, listId);
         }
 
-        // Spiele nur EINEN Sound ab, basierend auf dem Gesamtergebnis
-        if (allCorrect) {
+        double percent = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
+        if (percent >= 50.0) {
             soundModel.playSound("src/Utils/Sound/richtig.mp3");
         } else {
             soundModel.playSound("src/Utils/Sound/falsch.mp3");
@@ -238,16 +277,20 @@ public class TrainerController extends StageAwareController {
 
             Platform.runLater(() -> {
                 currentIndex += questionsPerRound;
-                if (currentIndex < model.getSize()) {
+                if (!remainingIds.isEmpty()) {
                     loadNextVocabSet();
                     nextButton.setDisable(false);
                 } else {
                     nextButton.setDisable(false);
-                    nextButton.setText("Ergebnisse anzeigen");
-                    nextButton.setOnAction(event -> SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml"));
+                    finishTraining();
                 }
             });
         });
         delayThread.start();
+    }
+
+    /** Finishes the training and shows the score board. */
+    private void finishTraining() {
+        SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
     }
 }

@@ -179,8 +179,16 @@ public final class UserSystem {
 
     // Punktestandverwaltung
     public static void addPoint(String name) {
+        addPoints(name, 1);
+    }
+
+    /**
+     * Adds the given amount of points to the user. Negative values are ignored.
+     */
+    public static void addPoints(String name, int amount) {
+        if (amount <= 0) return;
         User u = getUserByName(name);
-        if (u != null) u.points++;
+        if (u != null) u.points += amount;
     }
 
     public static void setPoints(String name, int points) {

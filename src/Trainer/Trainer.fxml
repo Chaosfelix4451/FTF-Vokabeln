@@ -21,6 +21,7 @@
         <HBox spacing="10.0">
             <Button fx:id="backButton" text="Zurück zum Menü" />
             <Button fx:id="nextButton" text="Weiter" />
+            <Button fx:id="finishButton" text="Vorzeitig beenden" />
         </HBox>
     </VBox>
 
