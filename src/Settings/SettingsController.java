@@ -96,7 +96,11 @@ public class SettingsController extends StageAwareController implements Initiali
         if (current != null && options.contains(current)) {
             vocabModeBox.setValue(current);
         } else if (!options.isEmpty()) {
-            vocabModeBox.setValue(options.get(0));
+            if (options.contains("Zufällig")) {
+                vocabModeBox.setValue("Zufällig");
+            } else {
+                vocabModeBox.setValue(options.get(0));
+            }
         }
     }
 
@@ -120,7 +124,7 @@ public class SettingsController extends StageAwareController implements Initiali
 
         updateVocabModes();
 
-        String savedMode = prefs.get("vocabMode", vocabModeBox.getValue());
+        String savedMode = prefs.get("vocabMode", "Zufällig");
         if (vocabModeBox.getItems().contains(savedMode)) {
             vocabModeBox.setValue(savedMode);
         }
@@ -128,8 +132,11 @@ public class SettingsController extends StageAwareController implements Initiali
         vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 prefs.put("vocabMode", newVal));
 
-        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
-                prefs.put("vocabFile", newVal));
+        vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            prefs.put("vocabFile", newVal);
+            updateVocabModes();
+            prefs.put("vocabMode", vocabModeBox.getValue());
+        });
 
         darkCss = getClass().getResource("/dark.css").toExternalForm();
         boolean dark = prefs.getBoolean("darkMode", false);
