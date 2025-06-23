@@ -73,6 +73,7 @@ public class SceneLoader {
             }
 
             stage.setScene(scene);
+            stage.setMaximized(true); // adjust to current display size
             stage.show();
 
         } catch (IOException e) {
