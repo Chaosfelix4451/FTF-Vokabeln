@@ -31,6 +31,8 @@ public class SettingsController extends StageAwareController implements Initiali
     public CheckBox darkModeToggle;
     public Label vDark;
 
+    private String darkCss;
+
     /**
      * Zurück zum Hauptmenü.
      */
@@ -88,6 +90,16 @@ public class SettingsController extends StageAwareController implements Initiali
                 prefs.put("vocabMode", newVal));
         vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) ->
                 prefs.put("vocabFile", newVal));
+
+        darkCss = getClass().getResource("/dark.css").toExternalForm();
+        boolean dark = prefs.getBoolean("darkMode", false);
+        darkModeToggle.setSelected(dark);
+        darkModeToggle.selectedProperty().addListener((obs, o, n) -> {
+            prefs.putBoolean("darkMode", n);
+            applyDarkMode();
+        });
+
+        javafx.application.Platform.runLater(this::applyDarkMode);
     }
 
     /**
@@ -107,6 +119,19 @@ public class SettingsController extends StageAwareController implements Initiali
             case "Zufällig":
                 // Wähle zufällig einen Modus
                 break;
+        }
+    }
+
+    private void applyDarkMode() {
+        if (stage == null) return;
+        var scene = stage.getScene();
+        if (scene == null) return;
+        if (darkModeToggle.isSelected()) {
+            if (!scene.getStylesheets().contains(darkCss)) {
+                scene.getStylesheets().add(darkCss);
+            }
+        } else {
+            scene.getStylesheets().remove(darkCss);
         }
     }
 
