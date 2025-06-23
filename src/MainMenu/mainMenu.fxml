@@ -6,12 +6,12 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="450.0" prefWidth="501.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController">
-      <HBox prefHeight="25.0" prefWidth="35.0">
+<HBox prefHeight="25.0" prefWidth="35.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0">
 
             <Button fx:id="burgerMenu" alignment="CENTER" mnemonicParsing="false" onAction="#toggleSideMenu" prefHeight="29.3" prefWidth="31.3" text="≡" />
          <!--fx:id="burgerButton"-->
       </HBox>
-      <VBox alignment="CENTER" layoutX="9.0" layoutY="33.0" prefHeight="394.0" prefWidth="492.0" spacing="20.0">
+<VBox alignment="CENTER" layoutX="9.0" layoutY="33.0" prefHeight="394.0" prefWidth="492.0" spacing="20.0" AnchorPane.topAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
 
             <Label fx:id="mainLabel" alignment="TOP_CENTER" text="Vokabeltrainer">
                <font>
