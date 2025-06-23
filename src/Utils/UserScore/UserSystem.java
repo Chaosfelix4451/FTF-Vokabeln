@@ -309,4 +309,15 @@ public final class UserSystem {
         User u = getUserByName(name);
         return (u != null) ? u.getStats(listId) : null;
     }
+
+    public static List<String> getAllListIds(String name) {
+        User u = getUserByName(name);
+        List<String> ids = new ArrayList<>();
+        if (u != null) {
+            for (VocabListEntry entry : u.vocabStatsPerList) {
+                ids.add(entry.listId);
+            }
+        }
+        return ids;
+    }
 }

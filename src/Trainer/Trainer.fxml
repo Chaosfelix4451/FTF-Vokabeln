@@ -14,6 +14,9 @@
           AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
           AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
 
+        <!-- Anzeige der aktuellen Punkte -->
+        <Label fx:id="pointsLabel" text="Punkte: 0" />
+
         <!-- Dynamischer Vokabel-Container -->
         <VBox fx:id="vocabBox" spacing="10.0" />
 
