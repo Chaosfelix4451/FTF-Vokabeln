@@ -60,8 +60,13 @@ public class SettingsController extends StageAwareController implements Initiali
         vocabModeBox.getItems().addAll(
                 "Deutsch zu Englisch",
                 "Englisch zu Deutsch",
+                "Deutsch zu Französisch",
+                "Französisch zu Deutsch",
+                "Deutsch zu Spanisch",
+                "Spanisch zu Deutsch",
                 "Zufällig"
         );
+
 
         File vocabDir = new File("src/Trainer/Vocabsets");
         File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));

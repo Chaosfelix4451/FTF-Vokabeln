@@ -7,16 +7,16 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.*;
 
 public class TrainerView {
 
+    private final TrainerModel model;
+    private final List<TextField> inputFields = new ArrayList<>();
+    private final List<String> shownIds = new ArrayList<>();
+    private String questionLang = "en";
+    private String answerLang = "de";
 
-    private  TrainerModel model;
-    private  List<TextField> inputFields = new ArrayList<>();
-    private List<Integer> shownIndices = new ArrayList<>();
     public TrainerView(TrainerModel model) {
         this.model = model;
     }
@@ -25,8 +25,13 @@ public class TrainerView {
         return inputFields;
     }
 
-    public List<Integer> getShownIndices() {
-        return shownIndices;
+    public List<String> getShownIds() {
+        return shownIds;
+    }
+
+    public void setLanguageMode(String questionLang, String answerLang) {
+        this.questionLang = questionLang;
+        this.answerLang = answerLang;
     }
 
     public void buildUI(GridPane rootPane) {
@@ -38,16 +43,32 @@ public class TrainerView {
         vocabGrid.setHgap(10);
         vocabGrid.setVgap(10);
 
-        int maxCount = model.getSize();
-        int count = ThreadLocalRandom.current().nextInt(3, Math.min(10, maxCount) + 1); // max 10
+        Set<String> allIds = model.getAllIds();
+        if (allIds.isEmpty()) return;
 
-        for (int i = 0; i < count; i++) {
-            Label outputField = new Label(model.getEnglish(i));
+        List<String> ids = new ArrayList<>(allIds);
+        Collections.shuffle(ids);
+
+        int count = Math.min(10, Math.max(3, ids.size()));
+        List<String> selectedIds = ids.subList(0, count);
+
+        shownIds.clear();
+        inputFields.clear();
+
+        for (int i = 0; i < selectedIds.size(); i++) {
+            String id = selectedIds.get(i);
+            shownIds.add(id);
+
+            String question = model.get(id, questionLang);
+
+            Label outputField = new Label((i + 1) + ". " + question);
             outputField.setMinWidth(150);
 
             TextField inputField = new TextField();
-            inputField.setPromptText("Vokabel eingeben...");
+            inputField.setPromptText("Antwort eingeben...");
             inputField.setMinWidth(200);
+
+            inputFields.add(inputField);
 
             vocabGrid.add(outputField, 0, i + 1);
             vocabGrid.add(inputField, 1, i + 1);

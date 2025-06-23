@@ -67,7 +67,6 @@ public class TrainerController extends StageAwareController {
         mode = prefs.get("vocabMode", "Deutsch zu Englisch");
         listId = prefs.get("vocabFile", "defaultvocab.json");
         model = new TrainerModel();
-        model.loadJsonfile("src/Trainer/Vocabsets/" + listId);
         UserSystem.startNewSession(currentUser, listId);
 
         loadNextVocabSet();
@@ -84,43 +83,64 @@ public class TrainerController extends StageAwareController {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
-        int size = model.getSize();
-        if (size <= 0) {
-            return; // nothing to ask
-        }
-        if (size < 3) {
-            questionsPerRound = size;
-        } else {
-            questionsPerRound = ThreadLocalRandom.current().nextInt(3, Math.min(10, size) + 1);
-        }
-        int endIndex = Math.min(currentIndex + questionsPerRound, model.getSize());
+        Set<String> allIds = model.getAllIds();
+        if (allIds.isEmpty()) return;
 
-        for (int i = currentIndex; i < endIndex; i++) {
-            String sourceWord;
-            String solutionWord;
-            if ("Deutsch zu Englisch".equals(mode)) {
-                sourceWord = model.getGerman(i);
-                solutionWord = model.getEnglish(i);
-            } else if ("Englisch zu Deutsch".equals(mode)) {
-                sourceWord = model.getEnglish(i);
-                solutionWord = model.getGerman(i);
-            } else { // Zufällig
-                if (ThreadLocalRandom.current().nextBoolean()) {
-                    sourceWord = model.getEnglish(i);
-                    solutionWord = model.getGerman(i);
-                } else {
-                    sourceWord = model.getGerman(i);
-                    solutionWord = model.getEnglish(i);
-                }
+        List<String> idList = new ArrayList<>(allIds);
+        Collections.shuffle(idList);
+
+        questionsPerRound = Math.min(questionsPerRound, idList.size());
+        List<String> selectedIds = idList.subList(0, questionsPerRound);
+
+        for (int i = 0; i < selectedIds.size(); i++) {
+            String id = selectedIds.get(i);
+            String questionLang, answerLang;
+
+            switch (mode) {
+                case "Deutsch zu Englisch":
+                    questionLang = "de";
+                    answerLang = "en";
+                    break;
+                case "Englisch zu Deutsch":
+                    questionLang = "en";
+                    answerLang = "de";
+                    break;
+                case "Französisch zu Deutsch":
+                    questionLang = "fr";
+                    answerLang = "de";
+                    break;
+                case "Deutsch zu Französisch":
+                    questionLang = "de";
+                    answerLang = "fr";
+                    break;
+                case "Spanisch zu Deutsch":
+                    questionLang = "es";
+                    answerLang = "de";
+                    break;
+                case "Deutsch zu Spanisch":
+                    questionLang = "de";
+                    answerLang = "es";
+                    break;
+                case "Zufällig":
+                default:
+                    List<String> langs = new ArrayList<>(List.of("en", "de", "fr", "es"));
+                    Collections.shuffle(Collections.unmodifiableList(langs));
+                    questionLang = langs.get(0);
+                    answerLang = langs.get(1).equals(questionLang) ? langs.get(2) : langs.get(1);
+                    break;
             }
 
-            Label vocabLabel = new Label(sourceWord);
+
+            String question = model.get(id, questionLang);
+            String solution = model.get(id, answerLang);
+
+            Label vocabLabel = new Label((i + 1) + ". " + question);
             vocabLabel.setMinWidth(150);
 
             TextField input = new TextField();
-            input.setPromptText("Vokabel eingeben...");
+            input.setPromptText("Antwort eingeben...");
             input.setMinWidth(200);
-            int currentIndexForEnter = i - currentIndex;
+            int currentIndexForEnter = i;
             input.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
                     if (currentIndexForEnter + 1 < vocabEntries.size()) {
@@ -135,7 +155,7 @@ public class TrainerController extends StageAwareController {
             HBox entryBox = new HBox(10, vocabLabel, input);
 
             VocabEntry entry = new VocabEntry();
-            entry.solution = solutionWord;
+            entry.solution = solution;
             entry.inputField = input;
             entry.container = entryBox;
 
@@ -148,9 +168,9 @@ public class TrainerController extends StageAwareController {
         }
     }
 
-    /**
-     * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
-     */
+                    /**
+                     * Prüft alle Eingaben und zeigt richtige bzw. falsche Buchstaben an.
+                     */
     public void checkAnswers() {
         boolean allCorrect = true;
         for (VocabEntry entry : vocabEntries) {
