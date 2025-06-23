@@ -186,9 +186,13 @@ public class TrainerController extends StageAwareController {
             String diff = model.get(id, "difficulty");
 
 
-            String labelPrefix = ("Zufällig".equals(mode))
-                    ? "(" + langName(questionLang) + " -> " + langName(answerLang) + ") "
-                    : "";
+            String labelPrefix = "";
+            if ("Zufällig".equals(mode)) {
+                String from = langName(questionLang);
+                String to = langName(answerLang);
+                labelPrefix = "(" + from + " -> " + to + ") ";
+            }
+
 
             Label vocabLabel = new Label((i + 1) + ". " + labelPrefix + question);
             vocabLabel.setMinWidth(150);
