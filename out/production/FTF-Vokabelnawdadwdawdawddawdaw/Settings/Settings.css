@@ -75,6 +75,12 @@
     -fx-text-fill: #2c3e50;
 }
 
+#darkModeToggle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 7 0 7 0;
+}
+
 /* VBox Container */
 .vbox {
     -fx-spacing: 15;
