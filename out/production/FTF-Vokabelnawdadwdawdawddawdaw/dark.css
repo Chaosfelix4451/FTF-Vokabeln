@@ -7,6 +7,7 @@
     -fx-text-fill: #e0e0e0;
 }
 
+
 .button {
     -fx-background-color: #444444;
     -fx-text-fill: #e0e0e0;
@@ -19,5 +20,202 @@
 }
 
 .table-view {
-    -fx-background-color: #3b3b3b;
+    -fx-background-color: #3b3b3b !important;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #444444 !important;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent !important;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+.table-row-cell {
+    -fx-background-color: #3b3b3b !important;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #444444 !important;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #3498db !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: #3b3b3b !important;
+}
+
+.table-view .increment-button,
+.table-view .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #e0e0e0 !important;
+}
+
+#mainLable {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#mainLabel {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#backButton {
+    -fx-background-color: #444444 !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#Button:hover {
+    -fx-background-color: #555555 !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#burgerMenu {
+    -fx-background-color: #444444 !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#darkModeToggle {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#buttonSettings {
+    -fx-background-color: #444444 !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+.list-view {
+    -fx-background-color: #3b3b3b !important;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #3b3b3b !important;
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+.list-view .list-cell:filled:selected {
+    -fx-background-color: #3498db !important;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-background-color: #444444 !important;
+}
+
+.list-view .list-cell:filled:selected:hover {
+    -fx-background-color: #2980b9 !important;
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-background-color: #3b3b3b !important;
+}
+
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #e0e0e0 !important;
+}
+
+.list-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #95a5a6 !important;
+}
+
+.text-field {
+    -fx-background-color: #3b3b3b !important;
+    -fx-border-color: #e0e0e0;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
+}
+
+#listChoiceBox {
+    -fx-background-color: #3b3b3b !important;
+    -fx-border-color: #e0e0e0;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+#listChoiceBox:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
+}
+
+#listChoiceBox .context-menu {
+    -fx-background-color: #3b3b3b !important;
+}
+
+#vocabListBox {
+    -fx-background-color: #3b3b3b !important;
+    -fx-border-color: #e0e0e0;
+    -fx-text-fill: #aaaaaa !important;
+}
+
+#vocabListBox:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
+}
+
+#vocabListBox .context-menu {
+    -fx-background-color: #3b3b3b !important;
+}
+
+#vocabListBox:hover, #vocabListBox:showing {
+    -fx-background-color: #444444 !important;
+}
+
+#vocabListBox .menu-item > .label {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#vocabListBox .menu-item:hover {
+    -fx-background-color: #555555 !important;
+}
+
+#vocabListBox .menu-item:focused {
+    -fx-background-color: #3498db !important;
+}
+
+#vocabModeBox {
+    -fx-background-color: #3b3b3b !important;
+    -fx-border-color: #e0e0e0;
+    -fx-prompt-text-fill: #aaaaaa;
+}
+
+#vocabModeBox:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
+}
+
+#vocabModeBox .context-menu {
+    -fx-background-color: #3b3b3b !important;
+}
+
+#vocabModeBox:hover, #vocabModeBox:showing {
+    -fx-background-color: #444444 !important;
+}
+
+#vocabModeBox .menu-item > .label {
+    -fx-text-fill: #e0e0e0 !important;
+}
+
+#vocabModeBox .menu-item:hover {
+    -fx-background-color: #555555 !important;
+}
+
+#vocabModeBox .menu-item:focused {
+    -fx-background-color: #3498db !important;
 }
