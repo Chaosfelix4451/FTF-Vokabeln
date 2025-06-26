@@ -66,18 +66,10 @@ public class MainMenuController extends StageAwareController {
         String input = getUserInput();
 
 
-        // Alle Usernamen holen
-        var allUsers = UserSys.getAllUserNames();
-
-        if (input.length() >= 3) {
-            // Benutzer suchen, der mit den Buchstaben beginnt
-            for (int i = 0; i < allUsers.size(); i++) {
-                String user = allUsers.get(i);
-                if (user.toLowerCase().startsWith(input)) {
-                    setUserField(user); // im Textfeld den vollständigen Namen anzeigen
-                    return; // Suche abbrechen, ersten Treffer anzeigen
-                }
-            }
+        var matches = UserSys.searchUsers(input);
+        if (!matches.isEmpty()) {
+            setUserField(matches.get(0));
+            return;
         }
 
         // Kein Treffer gefunden
@@ -108,7 +100,7 @@ public class MainMenuController extends StageAwareController {
         if (name.isEmpty()) name = "user";
 
         if (!UserSys.userExists(name)) {
-            UserSys.addUser(name);
+            UserSys.createUser(name);
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + name + "' erstellt.");
             }
@@ -131,10 +123,9 @@ public class MainMenuController extends StageAwareController {
 
         String completedName = getUserInput();
 
-
-        if (UserSystem.userExists(completedName)) {
-            UserSystem.setCurrentUser(completedName);
-            UserSystem.saveToFile();
+        if (UserSys.userExists(completedName)) {
+            UserSys.setCurrentUser(completedName);
+            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + completedName + "' ausgewählt.");
                 statusLabel.setStyle("-fx-text-fill: green;");

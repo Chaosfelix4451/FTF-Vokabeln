@@ -40,7 +40,7 @@ public class UserManagementController extends StageAwareController implements In
     private void createUser() {
         String name = newUserField.getText().trim();
         if (!name.isEmpty()) {
-            UserSys.addUser(name);
+            UserSys.createUser(name);
             UserSys.setCurrentUser(name);
             UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
             refreshList(searchField.getText().trim());
@@ -65,10 +65,8 @@ public class UserManagementController extends StageAwareController implements In
      */
     private void refreshList(String filter) {
         userList.getItems().clear();
-        for (String name : UserSys.getAllUserNames()) {
-            if (filter == null || filter.isBlank() || name.toLowerCase().contains(filter.toLowerCase())) {
-                userList.getItems().add(name);
-            }
+        for (String name : UserSys.searchUsers(filter)) {
+            userList.getItems().add(name);
         }
     }
 

@@ -1,8 +1,8 @@
 package ScoreBoard;
 
 import Utils.SceneLoader.SceneLoader;
-
 import Utils.StageAwareController;
+import Utils.UserSys.UserSys;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -53,7 +53,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
         sCorrectColumn.setCellValueFactory(new PropertyValueFactory<>("correct"));
         sIncorrectColumn.setCellValueFactory(new PropertyValueFactory<>("incorrect"));
 
-        userLabel.setText("Statistik für " + UserSystem.getCurrentUser());
+        userLabel.setText("Statistik für " + UserSys.getCurrentUser());
         fillAllTable();
         fillChoiceBox();
         listChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n) -> updateSingleTable(n));
@@ -64,11 +64,12 @@ public class ScoreBoardController extends StageAwareController implements Initia
      */
     private void fillAllTable() {
         ObservableList<StatsRow> rows = FXCollections.observableArrayList();
-        String user = UserSystem.getCurrentUser();
-        for (String list : UserSystem.getAllListIds(user)) {
+        String user = UserSys.getCurrentUser();
+        for (String list : UserSys.getAllListIds(user)) {
+            var stats = UserSys.getUser(user).getStats(list);
             rows.add(new StatsRow(list,
-                    UserSystem.getTotalCorrect(user, list),
-                    UserSystem.getTotalIncorrect(user, list)));
+                    stats.getCorrect(),
+                    stats.getIncorrect()));
         }
         allTable.setItems(rows);
     }
@@ -78,8 +79,8 @@ public class ScoreBoardController extends StageAwareController implements Initia
      */
     private void fillChoiceBox() {
         listChoiceBox.getItems().clear();
-        String user = UserSystem.getCurrentUser();
-        listChoiceBox.getItems().addAll(UserSystem.getAllListIds(user));
+        String user = UserSys.getCurrentUser();
+        listChoiceBox.getItems().addAll(UserSys.getAllListIds(user));
         if (!listChoiceBox.getItems().isEmpty()) {
             listChoiceBox.getSelectionModel().selectFirst();
             updateSingleTable(listChoiceBox.getValue());
@@ -92,10 +93,11 @@ public class ScoreBoardController extends StageAwareController implements Initia
     private void updateSingleTable(String listId) {
         if (listId == null) return;
         ObservableList<StatsRow> rows = FXCollections.observableArrayList();
-        String user = UserSystem.getCurrentUser();
+        String user = UserSys.getCurrentUser();
+        var stats = UserSys.getUser(user).getStats(listId);
         rows.add(new StatsRow(listId,
-                UserSystem.getTotalCorrect(user, listId),
-                UserSystem.getTotalIncorrect(user, listId)));
+                stats.getCorrect(),
+                stats.getIncorrect()));
         singleTable.setItems(rows);
     }
 

@@ -190,7 +190,7 @@ public class TrainerController extends StageAwareController {
             stats.record(isCorrect);
             if (isCorrect) {
                 int pts = pointsForDifficulty(entry.difficulty);
-                UserSys.getUser(currentUser).points += pts;
+                UserSys.getUser(currentUser).addPoints(pts);
                 sessionPoints += pts;
                 correctCount++;
             }
