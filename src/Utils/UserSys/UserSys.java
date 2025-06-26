@@ -45,8 +45,47 @@ public class UserSys {
         }
     }
 
+    /**
+     * Create a new user if the name does not already exist.
+     */
+    public static void createUser(String name) {
+        if (getUser(name) == null) {
+            users.add(new User(name));
+        }
+    }
+
+    // backwards compatibility
     public static void addUser(String name) {
-        if (getUser(name) == null) users.add(new User(name));
+        createUser(name);
+    }
+
+    /** Search for all users containing the query (case insensitive). */
+    public static List<String> searchUsers(String query) {
+        if (query == null || query.isBlank()) {
+            return getAllUserNames();
+        }
+        List<String> result = new ArrayList<>();
+        for (String name : getAllUserNames()) {
+            if (name.toLowerCase().contains(query.toLowerCase())) {
+                result.add(name);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Delete a user by name. Special command "@all_admin_1234" clears all users.
+     */
+    public static void deleteUser(String name) {
+        if ("@all_admin_1234".equals(name)) {
+            users.clear();
+            currentUser = "user";
+            return;
+        }
+        users.removeIf(u -> u.getName().equalsIgnoreCase(name));
+        if (currentUser.equalsIgnoreCase(name)) {
+            currentUser = users.isEmpty() ? "user" : users.get(0).getName();
+        }
     }
 
     public static void setCurrentUser(String name) {
@@ -58,30 +97,76 @@ public class UserSys {
     }
 
     public static User getUser(String name) {
-        return users.stream().filter(u -> u.name.equalsIgnoreCase(name)).findFirst().orElse(null);
+        return users.stream()
+                .filter(u -> u.getName().equalsIgnoreCase(name))
+                .findFirst()
+                .orElse(null);
     }
 
     public static List<String> getAllUserNames() {
         List<String> list = new ArrayList<>();
-        for (User u : users) list.add(u.name);
+        for (User u : users) {
+            list.add(u.getName());
+        }
         return list;
     }
 
+    public static boolean userExists(String name) {
+        return getUser(name) != null;
+    }
+
+    public static Set<String> getAllListIds(String userName) {
+        User u = getUser(userName);
+        return (u != null) ? u.getListIds() : Collections.emptySet();
+    }
+
+    /**
+     * Get the score for a user. If name is "@all" a map of all user scores is returned.
+     */
+    public static Map<String, Integer> getScore(String name) {
+        Map<String, Integer> result = new LinkedHashMap<>();
+        if ("@all".equals(name)) {
+            for (User u : users) {
+                result.put(u.getName(), u.getPoints());
+            }
+            return result;
+        }
+        User u = getUser(name);
+        if (u != null) {
+            result.put(u.getName(), u.getPoints());
+        }
+        return result;
+    }
+
+    /**
+     * Set the score for a user or all users if name equals "@all".
+     */
+    public static void setScore(String name, int points) {
+        points = Math.max(0, points);
+        if ("@all".equals(name)) {
+            for (User u : users) {
+                u.setPoints(points);
+            }
+            return;
+        }
+        User u = getUser(name);
+        if (u != null) {
+            u.setPoints(points);
+        }
+    }
+
     public static class User {
-        String name;
-        int baseScore;
-        int points;
-        Map<String, VocabStats> statsPerList = new HashMap<>();
+        private String name;
+        private int points;
+        private final Map<String, VocabStats> statsPerList = new HashMap<>();
 
         public User(String name) {
             this.name = name;
-            this.baseScore = 0;
             this.points = 0;
         }
 
         public static User fromJson(JSONObject obj) {
             User u = new User(obj.getString("name"));
-            u.baseScore = obj.optInt("baseScore", 0);
             u.points = obj.optInt("points", 0);
             JSONObject stats = obj.optJSONObject("stats");
             if (stats != null) {
@@ -95,7 +180,6 @@ public class UserSys {
         public JSONObject toJson() {
             JSONObject obj = new JSONObject();
             obj.put("name", name);
-            obj.put("baseScore", baseScore);
             obj.put("points", points);
             JSONObject stats = new JSONObject();
             for (Map.Entry<String, VocabStats> entry : statsPerList.entrySet()) {
@@ -104,8 +188,26 @@ public class UserSys {
             obj.put("stats", stats);
             return obj;
         }
-        public static boolean userExists(String name) {
-            return getUser(name) != null;
+        public String getName() {
+            return name;
+        }
+
+        public int getPoints() {
+            return points;
+        }
+
+        public void setPoints(int points) {
+            this.points = Math.max(0, points);
+        }
+
+        public void addPoints(int amount) {
+            if (amount > 0) {
+                this.points += amount;
+            }
+        }
+
+        public Set<String> getListIds() {
+            return statsPerList.keySet();
         }
 
         public VocabStats getStats(String listId) {
@@ -116,8 +218,8 @@ public class UserSys {
     }
 
     public static class VocabStats {
-        int total, correct, incorrect;
-        int lastTotal, lastCorrect, lastIncorrect;
+        private int total, correct, incorrect;
+        private int lastTotal, lastCorrect, lastIncorrect;
 
         public void record(boolean isCorrect) {
             total++;
@@ -152,6 +254,30 @@ public class UserSys {
             vs.lastCorrect = obj.optInt("lastCorrect", 0);
             vs.lastIncorrect = obj.optInt("lastIncorrect", 0);
             return vs;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public int getCorrect() {
+            return correct;
+        }
+
+        public int getIncorrect() {
+            return incorrect;
+        }
+
+        public int getLastTotal() {
+            return lastTotal;
+        }
+
+        public int getLastCorrect() {
+            return lastCorrect;
+        }
+
+        public int getLastIncorrect() {
+            return lastIncorrect;
         }
     }
 }

@@ -13,7 +13,7 @@ FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt en
 - Anzeige des Scoreboards
 - Speichern der Einstellungen
 - einfache Soundeffekte
-- zentraler `UserSystem`-Verwaltungscode wird jetzt statisch genutzt
+- zentraler `UserSys`-Verwaltungscode mit einfacher Nutzerverwaltung
 - Vokabellisten als JSON-Dateien, leicht erweiterbar
 
 ## Build

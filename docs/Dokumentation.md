@@ -58,7 +58,7 @@ Alle Szenen werden über die Hilfsklasse `SceneLoader` geladen. Sie setzt die St
 
 * Zeigt das Hauptmenü an
 * Kann Training, Einstellungen, Benutzerverwaltung und ScoreBoard öffnen
-* Speichert den aktuell gewählten Benutzer mittels `UserSystem`
+* Speichert den aktuell gewählten Benutzer mittels `UserSys`
 
 ### UserManagementController
 
@@ -68,13 +68,13 @@ Alle Szenen werden über die Hilfsklasse `SceneLoader` geladen. Sie setzt die St
 
 ## Benutzersystem
 
-Das `UserSystem` verwaltet alle Benutzer samt Punkteständen. Es nutzt ausschließlich statische Methoden und speichert die Daten in `src/Utils/UserScore/user_data.csv`. Zu jeder Vokabelliste wird eine Statistik geführt. Wichtige Funktionen:
+Das `UserSys`-Modul verwaltet alle Benutzer samt Punkteständen in einer JSON-Datei. Es stellt komfortable Methoden zum Erstellen, Suchen und Löschen bereit und erlaubt das Abfragen bzw. Setzen der Punkte.
 
-* `addUser`, `removeUser`, `getAllUserNames`
-* Punktestand über `addPoint` und `getPoints`
-* Aufzeichnen von Antworten über `recordAnswer`
-* Sortieren nach Punkten (`sortByScoreDescending`)
-* Laden und Speichern der Daten mit `loadFromFile` und `saveToFile`
+Wichtige Funktionen:
+
+* `createUser`, `deleteUser`, `searchUsers`
+* Punktestand über `addPoints`, `getScore` und `setScore`
+* Laden und Speichern der Daten mit `loadFromJson` und `saveToJson`
 
 ## Training
 
@@ -83,14 +83,14 @@ Der `TrainerController` steuert den Ablauf des Trainings:
 1. Beim Start wird der aktuelle Benutzer geladen und eine neue Sitzung begonnen.
 2. Abhängig vom in den Einstellungen gewählten Modus (z.B. Deutsch→Englisch oder Zufällig) werden Vokabeln aus der gewählten JSON-Liste im `TrainerModel` geladen.
 3. `loadNextVocabSet` baut dynamisch Eingabefelder auf und merkt sich die korrekten Lösungen.
-4. `checkAnswers` vergleicht die Eingaben mit der Lösung, färbt richtige und falsche Buchstaben ein und aktualisiert den Punktestand über `UserSystem`.
+4. `checkAnswers` vergleicht die Eingaben mit der Lösung, färbt richtige und falsche Buchstaben ein und aktualisiert den Punktestand über `UserSys`.
 5. Nach einer kurzen Pause wird das nächste Set geladen oder das ScoreBoard geöffnet.
 
 Soundeffekte werden über `SoundModel` abgespielt.
 
 ## ScoreBoard
 
-`ScoreBoardController` zeigt alle Benutzer sortiert nach Punkten an und informiert über den Fortschritt der aktuellen Sitzung. Die Daten werden direkt aus dem `UserSystem` geladen.
+`ScoreBoardController` zeigt alle Benutzer sortiert nach Punkten an und informiert über den Fortschritt der aktuellen Sitzung. Die Daten werden direkt aus dem `UserSys` geladen.
 
 ## Einstellungen
 
