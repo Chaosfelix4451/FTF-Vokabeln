@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12"
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
-          AnchorPane.bottomAnchor="10">
+    <center>
+        <VBox spacing="10" padding="10">
         <Label fx:id="userLabel" text="Statistik"/>
         <TableView fx:id="allTable">
             <columns>
@@ -27,4 +27,5 @@
         </TableView>
         <Button text="Zurück zum Menü" onAction="#backToMenu"/>
     </VBox>
-</AnchorPane>
+    </center>
+</BorderPane>
