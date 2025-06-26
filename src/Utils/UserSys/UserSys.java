@@ -170,7 +170,7 @@ public class UserSys {
         private int points;
         private final Map<String, VocabStats> statsPerList = new HashMap<>();
 
-        public User(String name) {
+        private User(String name) {
             this.name = name;
             this.points = 0;
         }
