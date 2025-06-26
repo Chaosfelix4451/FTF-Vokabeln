@@ -1,0 +1,402 @@
+[
+  {
+    "id": "cat",
+    "translations": {
+      "en": "cat",
+      "de": "Cat"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "dog",
+    "translations": {
+      "en": "dog",
+      "de": "Dog"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "bird",
+    "translations": {
+      "en": "bird",
+      "de": "Bird"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "fish",
+    "translations": {
+      "en": "fish",
+      "de": "Fish"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "lion",
+    "translations": {
+      "en": "lion",
+      "de": "Lion"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "tiger",
+    "translations": {
+      "en": "tiger",
+      "de": "Tiger"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "bear",
+    "translations": {
+      "en": "bear",
+      "de": "Bear"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "horse",
+    "translations": {
+      "en": "horse",
+      "de": "Horse"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cow",
+    "translations": {
+      "en": "cow",
+      "de": "Cow"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "pig",
+    "translations": {
+      "en": "pig",
+      "de": "Pig"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "goat",
+    "translations": {
+      "en": "goat",
+      "de": "Goat"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "sheep",
+    "translations": {
+      "en": "sheep",
+      "de": "Sheep"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "chicken",
+    "translations": {
+      "en": "chicken",
+      "de": "Chicken"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "duck",
+    "translations": {
+      "en": "duck",
+      "de": "Duck"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "goose",
+    "translations": {
+      "en": "goose",
+      "de": "Goose"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "turkey",
+    "translations": {
+      "en": "turkey",
+      "de": "Turkey"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "rabbit",
+    "translations": {
+      "en": "rabbit",
+      "de": "Rabbit"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "deer",
+    "translations": {
+      "en": "deer",
+      "de": "Deer"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "fox",
+    "translations": {
+      "en": "fox",
+      "de": "Fox"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "wolf",
+    "translations": {
+      "en": "wolf",
+      "de": "Wolf"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "zebra",
+    "translations": {
+      "en": "zebra",
+      "de": "Zebra"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "giraffe",
+    "translations": {
+      "en": "giraffe",
+      "de": "Giraffe"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "elephant",
+    "translations": {
+      "en": "elephant",
+      "de": "Elephant"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "kangaroo",
+    "translations": {
+      "en": "kangaroo",
+      "de": "Kangaroo"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "monkey",
+    "translations": {
+      "en": "monkey",
+      "de": "Monkey"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "gorilla",
+    "translations": {
+      "en": "gorilla",
+      "de": "Gorilla"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "chimpanzee",
+    "translations": {
+      "en": "chimpanzee",
+      "de": "Chimpanzee"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "panda",
+    "translations": {
+      "en": "panda",
+      "de": "Panda"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "penguin",
+    "translations": {
+      "en": "penguin",
+      "de": "Penguin"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "dolphin",
+    "translations": {
+      "en": "dolphin",
+      "de": "Dolphin"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "whale",
+    "translations": {
+      "en": "whale",
+      "de": "Whale"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "shark",
+    "translations": {
+      "en": "shark",
+      "de": "Shark"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "crocodile",
+    "translations": {
+      "en": "crocodile",
+      "de": "Crocodile"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "alligator",
+    "translations": {
+      "en": "alligator",
+      "de": "Alligator"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "snake",
+    "translations": {
+      "en": "snake",
+      "de": "Snake"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "lizard",
+    "translations": {
+      "en": "lizard",
+      "de": "Lizard"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "turtle",
+    "translations": {
+      "en": "turtle",
+      "de": "Turtle"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "frog",
+    "translations": {
+      "en": "frog",
+      "de": "Frog"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "toad",
+    "translations": {
+      "en": "toad",
+      "de": "Toad"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "mouse",
+    "translations": {
+      "en": "mouse",
+      "de": "Mouse"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "rat",
+    "translations": {
+      "en": "rat",
+      "de": "Rat"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "squirrel",
+    "translations": {
+      "en": "squirrel",
+      "de": "Squirrel"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "bat",
+    "translations": {
+      "en": "bat",
+      "de": "Bat"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "hedgehog",
+    "translations": {
+      "en": "hedgehog",
+      "de": "Hedgehog"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "otter",
+    "translations": {
+      "en": "otter",
+      "de": "Otter"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "seal",
+    "translations": {
+      "en": "seal",
+      "de": "Seal"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "camel",
+    "translations": {
+      "en": "camel",
+      "de": "Camel"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "buffalo",
+    "translations": {
+      "en": "buffalo",
+      "de": "Buffalo"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "rhinoceros",
+    "translations": {
+      "en": "rhinoceros",
+      "de": "Rhinoceros"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "hippo",
+    "translations": {
+      "en": "hippo",
+      "de": "Hippo"
+    },
+    "difficulty": "easy"
+  }
+]

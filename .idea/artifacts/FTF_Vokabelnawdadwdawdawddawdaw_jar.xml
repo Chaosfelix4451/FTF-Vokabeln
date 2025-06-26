@@ -2,7 +2,7 @@
   <artifact type="jar" name="FTF-Vokabelnawdadwdawdawddawdaw:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/FTF_Vokabelnawdadwdawdawddawdaw_jar</output-path>
     <root id="archive" name="FTF-Vokabelnawdadwdawdawddawdaw.jar">
-      <element id="module-output" name="FTF-Vokabelnawdadwdawdawddawdaw" />
+      <element id="module-output" name="FTF-Vokabeln" />
     </root>
   </artifact>
 </component>

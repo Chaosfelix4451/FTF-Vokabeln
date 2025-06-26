@@ -1,0 +1,402 @@
+[
+  {
+    "id": "bread",
+    "translations": {
+      "en": "bread",
+      "de": "Bread"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cheese",
+    "translations": {
+      "en": "cheese",
+      "de": "Cheese"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "milk",
+    "translations": {
+      "en": "milk",
+      "de": "Milk"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "butter",
+    "translations": {
+      "en": "butter",
+      "de": "Butter"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "egg",
+    "translations": {
+      "en": "egg",
+      "de": "Egg"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "apple",
+    "translations": {
+      "en": "apple",
+      "de": "Apple"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "banana",
+    "translations": {
+      "en": "banana",
+      "de": "Banana"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "orange",
+    "translations": {
+      "en": "orange",
+      "de": "Orange"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "grape",
+    "translations": {
+      "en": "grape",
+      "de": "Grape"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "pear",
+    "translations": {
+      "en": "pear",
+      "de": "Pear"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "peach",
+    "translations": {
+      "en": "peach",
+      "de": "Peach"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cherry",
+    "translations": {
+      "en": "cherry",
+      "de": "Cherry"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "strawberry",
+    "translations": {
+      "en": "strawberry",
+      "de": "Strawberry"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "carrot",
+    "translations": {
+      "en": "carrot",
+      "de": "Carrot"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "potato",
+    "translations": {
+      "en": "potato",
+      "de": "Potato"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "tomato",
+    "translations": {
+      "en": "tomato",
+      "de": "Tomato"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cucumber",
+    "translations": {
+      "en": "cucumber",
+      "de": "Cucumber"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "lettuce",
+    "translations": {
+      "en": "lettuce",
+      "de": "Lettuce"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "onion",
+    "translations": {
+      "en": "onion",
+      "de": "Onion"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "garlic",
+    "translations": {
+      "en": "garlic",
+      "de": "Garlic"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "rice",
+    "translations": {
+      "en": "rice",
+      "de": "Rice"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "pasta",
+    "translations": {
+      "en": "pasta",
+      "de": "Pasta"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "pizza",
+    "translations": {
+      "en": "pizza",
+      "de": "Pizza"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "burger",
+    "translations": {
+      "en": "burger",
+      "de": "Burger"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "sausage",
+    "translations": {
+      "en": "sausage",
+      "de": "Sausage"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "steak",
+    "translations": {
+      "en": "steak",
+      "de": "Steak"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "chicken",
+    "translations": {
+      "en": "chicken",
+      "de": "Chicken"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "fish",
+    "translations": {
+      "en": "fish",
+      "de": "Fish"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "shrimp",
+    "translations": {
+      "en": "shrimp",
+      "de": "Shrimp"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "salad",
+    "translations": {
+      "en": "salad",
+      "de": "Salad"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "soup",
+    "translations": {
+      "en": "soup",
+      "de": "Soup"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cake",
+    "translations": {
+      "en": "cake",
+      "de": "Cake"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cookie",
+    "translations": {
+      "en": "cookie",
+      "de": "Cookie"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "chocolate",
+    "translations": {
+      "en": "chocolate",
+      "de": "Chocolate"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "icecream",
+    "translations": {
+      "en": "icecream",
+      "de": "Icecream"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "yogurt",
+    "translations": {
+      "en": "yogurt",
+      "de": "Yogurt"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "cereal",
+    "translations": {
+      "en": "cereal",
+      "de": "Cereal"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "honey",
+    "translations": {
+      "en": "honey",
+      "de": "Honey"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "jam",
+    "translations": {
+      "en": "jam",
+      "de": "Jam"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "sugar",
+    "translations": {
+      "en": "sugar",
+      "de": "Sugar"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "salt",
+    "translations": {
+      "en": "salt",
+      "de": "Salt"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "pepper",
+    "translations": {
+      "en": "pepper",
+      "de": "Pepper"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "oil",
+    "translations": {
+      "en": "oil",
+      "de": "Oil"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "vinegar",
+    "translations": {
+      "en": "vinegar",
+      "de": "Vinegar"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "water",
+    "translations": {
+      "en": "water",
+      "de": "Water"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "juice",
+    "translations": {
+      "en": "juice",
+      "de": "Juice"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "tea",
+    "translations": {
+      "en": "tea",
+      "de": "Tea"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "coffee",
+    "translations": {
+      "en": "coffee",
+      "de": "Coffee"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "beer",
+    "translations": {
+      "en": "beer",
+      "de": "Beer"
+    },
+    "difficulty": "easy"
+  },
+  {
+    "id": "wine",
+    "translations": {
+      "en": "wine",
+      "de": "Wine"
+    },
+    "difficulty": "easy"
+  }
+]

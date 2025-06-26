@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="UserManagement.UserManagementController">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+          AnchorPane.bottomAnchor="10">
+        <Label text="Benutzerverwaltung"/>
+        <HBox spacing="5">
+            <TextField fx:id="newUserField" promptText="Name"/>
+            <Button text="Erstellen" onAction="#createUser"/>
+        </HBox>
+        <HBox spacing="5">
+            <TextField fx:id="searchField" promptText="Suchen"/>
+            <Button text="Auswählen" onAction="#selectUser"/>
+        </HBox>
+        <ListView fx:id="userList" />
+        <Button fx:id="backButton" text="Zurück" onAction="#backToMenu"/>
+    </VBox>
+</AnchorPane>
