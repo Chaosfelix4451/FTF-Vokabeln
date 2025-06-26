@@ -15,22 +15,25 @@ public class UserSys {
     private static final List<User> users = new ArrayList<>();
     private static String currentUser = "user";
 
-    public static void loadFromJson(Path path) {
-        users.clear();
-        try (InputStream in = Files.newInputStream(path)) {
+    public static void loadFromJson() {
+        try (InputStream in = UserSys.class.getResourceAsStream("/Utils/UserSys/user.json")) {
+            if (in == null) throw new FileNotFoundException("user.json nicht gefunden");
+
             JSONObject root = new JSONObject(new JSONTokener(in));
             currentUser = root.optString("currentUser", "user");
             JSONArray userArray = root.getJSONArray("users");
+            users.clear();
             for (int i = 0; i < userArray.length(); i++) {
-                JSONObject obj = userArray.getJSONObject(i);
-                users.add(User.fromJson(obj));
+                users.add(User.fromJson(userArray.getJSONObject(i)));
             }
         } catch (IOException e) {
             throw new RuntimeException("Fehler beim Laden der JSON-Datei", e);
         }
     }
 
-    public static void saveToJson(Path path) {
+
+    public static void saveToJson() {
+        Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
         JSONObject root = new JSONObject();
         root.put("currentUser", currentUser);
         JSONArray userArray = new JSONArray();
@@ -38,10 +41,17 @@ public class UserSys {
             userArray.put(u.toJson());
         }
         root.put("users", userArray);
-        try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
-            writer.write(root.toString(2));
+
+        try {
+            Files.createDirectories(path.getParent());
+            if (!Files.exists(path)) {
+                Files.createFile(path);
+            }
+            try (BufferedWriter writer = Files.newBufferedWriter(path, StandardCharsets.UTF_8)) {
+                writer.write(root.toString(2));
+            }
         } catch (IOException e) {
-            throw new RuntimeException("Fehler beim Speichern", e);
+            throw new RuntimeException("Fehler beim Speichern der JSON-Datei: " + path.toString(), e);
         }
     }
 

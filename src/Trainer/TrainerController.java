@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -53,7 +54,7 @@ public class TrainerController extends StageAwareController {
 
     @FXML
     private void initialize() {
-        UserSys.loadFromJson(Path.of("Utils/UserSys/user.json"));
+        UserSys.loadFromJson();
         currentUser = UserSys.getCurrentUser();
         UserSys.addUser(currentUser);
         sessionPoints = 0;
@@ -200,7 +201,7 @@ public class TrainerController extends StageAwareController {
             pointsLabel.setText("Punkte: " + sessionPoints);
         }
 
-        UserSys.saveToJson(Path.of("Utils/UserSys/user.json"));
+        UserSys.saveToJson();
 
         double percent = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
         if (percent >= 50.0) {

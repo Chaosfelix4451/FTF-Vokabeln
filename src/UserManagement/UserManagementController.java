@@ -28,7 +28,7 @@ public class UserManagementController extends StageAwareController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserSys.loadFromJson(Path.of("Utils/UserSys/User.json"));
+        UserSys.loadFromJson();
         refreshList("");
         searchField.textProperty().addListener((obs, o, n) -> refreshList(n));
     }
@@ -42,7 +42,7 @@ public class UserManagementController extends StageAwareController implements In
         if (!name.isEmpty()) {
             UserSys.createUser(name);
             UserSys.setCurrentUser(name);
-            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
+            UserSys.saveToJson();
             refreshList(searchField.getText().trim());
             newUserField.clear();
         }
@@ -56,7 +56,7 @@ public class UserManagementController extends StageAwareController implements In
         String selected = userList.getSelectionModel().getSelectedItem();
         if (selected != null) {
             UserSys.setCurrentUser(selected);
-            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
+            UserSys.saveToJson();
         }
     }
 

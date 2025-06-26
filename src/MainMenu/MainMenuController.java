@@ -29,7 +29,7 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private void initialize() {
-        UserSys.loadFromJson(Path.of("Utils/UserSys/User.json"));
+        UserSys.loadFromJson();
 
         if (userField != null) {
             userField.setText(UserSys.getCurrentUser());
@@ -111,7 +111,7 @@ public class MainMenuController extends StageAwareController {
         }
 
         UserSys.setCurrentUser(name);
-        UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
+        UserSys.saveToJson();
     }
 
     @FXML
@@ -125,7 +125,7 @@ public class MainMenuController extends StageAwareController {
 
         if (UserSys.userExists(completedName)) {
             UserSys.setCurrentUser(completedName);
-            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
+            UserSys.saveToJson();
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + completedName + "' ausgewählt.");
                 statusLabel.setStyle("-fx-text-fill: green;");
