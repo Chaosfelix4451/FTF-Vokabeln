@@ -1,5 +1,6 @@
-package Trainer;
+package Trainer.old;
 
+import Trainer.TrainerModel;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -9,7 +10,7 @@ import javafx.geometry.Pos;
 
 import java.util.*;
 
-public class TrainerView {
+public class TrainerView_old {
 
     private final TrainerModel model;
     private final List<TextField> inputFields = new ArrayList<>();
@@ -17,17 +18,18 @@ public class TrainerView {
     private String questionLang = "en";
     private String answerLang = "de";
 
-    public TrainerView(TrainerModel model) {
+    public TrainerView_old(TrainerModel model) {
         this.model = model;
     }
 
-    public List<TextField> getInputFields() {
-        return inputFields;
-    }
-
-    public List<String> getShownIds() {
-        return shownIds;
-    }
+//+
+//    public List<TextField> getInputFields() {
+//        return inputFields;
+//    }
+//
+//    public List<String> getShownIds() {
+//        return shownIds;
+//    }
 
     public void setLanguageMode(String questionLang, String answerLang) {
         this.questionLang = questionLang;

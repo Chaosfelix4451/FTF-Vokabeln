@@ -1,139 +1,24 @@
-package Utils.UserScore;
+package Utils.UserScore_old;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-
+/**
+ *
+ *
+ */
 public final class UserSystem {
-
-    private UserSystem() { /* nur statische Nutzung */ }
-
-    private static String currentUser = "user";
 
     // Standardliste, falls keine Liste spezifiziert wurde
     private static final String DEFAULT_LIST = "default";
-
-
-    /**
-     * Eine Vokabelstatistik zu einer bestimmten Liste.
-     */
-    private static class VocabListEntry {
-        String listId;
-        VocabStats stats;
-
-        VocabListEntry(String listId, VocabStats stats) {
-            this.listId = listId;
-            this.stats = stats;
-        }
-    }
-
-    /**
-     * Ein Benutzer mit Punktestand und individuellen Statistiken.
-     */
-    private static class User {
-        String name;
-        int points;
-        List<VocabListEntry> vocabStatsPerList = new ArrayList<>();
-
-        public User(String name) {
-            this.name = (name == null || name.trim().isEmpty()) ? "user" : name.trim();
-            this.points = 0;
-        }
-
-        // Serialisiert Benutzer inkl. Statistiken
-        private String toCSV() {
-            String csv = name + "," + points;
-            for (VocabListEntry entry : vocabStatsPerList) {
-                csv += ",LIST:" + entry.listId + "," + entry.stats.toCSV();
-            }
-            return csv;
-        }
-
-        // Deserialisiert Benutzer aus CSV-Zeile
-        private static User fromCSV(String line) {
-            String[] parts = line.strip().split(",");
-            if (parts.length < 2) return null;
-
-            try {
-                User u = new User(parts[0].trim());
-                u.points = Integer.parseInt(parts[1].trim());
-                for (int i = 2; i < parts.length - 1; i++) {
-                    if (parts[i].startsWith("LIST:")) {
-                        String listId = parts[i].substring(5);
-                        VocabStats stats = VocabStats.fromCSV(parts[++i]);
-                        if (stats != null) u.vocabStatsPerList.add(new VocabListEntry(listId, stats));
-                    }
-                }
-                return u;
-            } catch (NumberFormatException e) {
-                System.err.println("Ungültige Daten in Zeile: " + line);
-                return null;
-            }
-        }
-
-        // Gibt die Statistik für eine bestimmte Liste zurück (oder erzeugt neue)
-        public VocabStats getStats(String listId) {
-            String id = (listId == null || listId.isBlank()) ? DEFAULT_LIST : listId;
-            for (VocabListEntry entry : vocabStatsPerList) {
-                if (entry.listId.equals(id)) {
-                    return entry.stats;
-                }
-            }
-            VocabStats newStats = new VocabStats();
-            vocabStatsPerList.add(new VocabListEntry(id, newStats));
-            return newStats;
-        }
-    }
-
-    /**
-     * Vokabelstatistik mit Verlauf für Vergleich zum Vorlauf.
-     */
-    private static class VocabStats {
-        int total, correct, incorrect;
-        int lastTotal, lastCorrect, lastIncorrect;
-
-        void startNewSession() {
-            lastTotal = total;
-            lastCorrect = correct;
-            lastIncorrect = incorrect;
-            total = correct = incorrect = 0;
-        }
-
-        void record(boolean correctAnswer) {
-            total++;
-            if (correctAnswer) correct++;
-            else incorrect++;
-        }
-
-        int getDiffCorrect() { return correct - lastCorrect; }
-        int getDiffIncorrect() { return incorrect - lastIncorrect; }
-
-        String toCSV() {
-            return total + ":" + correct + ":" + incorrect + ":" +
-                    lastTotal + ":" + lastCorrect + ":" + lastIncorrect;
-        }
-
-
-        static VocabStats fromCSV(String csv) {
-            try {
-                String[] parts = csv.split(":");
-                if (parts.length != 6) return null;
-                VocabStats vs = new VocabStats();
-                vs.total = Integer.parseInt(parts[0]);
-                vs.correct = Integer.parseInt(parts[1]);
-                vs.incorrect = Integer.parseInt(parts[2]);
-                vs.lastTotal = Integer.parseInt(parts[3]);
-                vs.lastCorrect = Integer.parseInt(parts[4]);
-                vs.lastIncorrect = Integer.parseInt(parts[5]);
-                return vs;
-            } catch (Exception e) {
-                return null;
-            }
-        }
-    }
-
     // Liste aller Benutzer
     private static final List<User> users = new ArrayList<>();
+    private static String currentUser = "user";
+
+
+
+    private UserSystem() { /* nur statische Nutzung */ }
 
     // Benutzerverwaltung
     public static void addUser(String name) {
@@ -319,5 +204,127 @@ public final class UserSystem {
             }
         }
         return ids;
+    }
+
+    /**
+     * Eine Vokabelstatistik zu einer bestimmten Liste.
+     */
+    private static class VocabListEntry {
+        String listId;
+        VocabStats stats;
+
+        VocabListEntry(String listId, VocabStats stats) {
+            this.listId = listId;
+            this.stats = stats;
+        }
+    }
+
+    /**
+     * Ein Benutzer mit Punktestand und individuellen Statistiken.
+     */
+    private static class User {
+        String name;
+        int points;
+        List<VocabListEntry> vocabStatsPerList = new ArrayList<>();
+
+        public User(String name) {
+            this.name = (name == null || name.trim().isEmpty()) ? "user" : name.trim();
+            this.points = 0;
+        }
+
+        // Deserialisiert Benutzer aus CSV-Zeile
+        private static User fromCSV(String line) {
+            String[] parts = line.strip().split(",");
+            if (parts.length < 2) return null;
+
+            try {
+                User u = new User(parts[0].trim());
+                u.points = Integer.parseInt(parts[1].trim());
+                for (int i = 2; i < parts.length - 1; i++) {
+                    if (parts[i].startsWith("LIST:")) {
+                        String listId = parts[i].substring(5);
+                        VocabStats stats = VocabStats.fromCSV(parts[++i]);
+                        if (stats != null) u.vocabStatsPerList.add(new VocabListEntry(listId, stats));
+                    }
+                }
+                return u;
+            } catch (NumberFormatException e) {
+                System.err.println("Ungültige Daten in Zeile: " + line);
+                return null;
+            }
+        }
+
+        // Serialisiert Benutzer inkl. Statistiken
+        private String toCSV() {
+            String csv = name + "," + points;
+            for (VocabListEntry entry : vocabStatsPerList) {
+                csv += ",LIST:" + entry.listId + "," + entry.stats.toCSV();
+            }
+            return csv;
+        }
+
+        // Gibt die Statistik für eine bestimmte Liste zurück (oder erzeugt neue)
+        public VocabStats getStats(String listId) {
+            String id = (listId == null || listId.isBlank()) ? DEFAULT_LIST : listId;
+            for (VocabListEntry entry : vocabStatsPerList) {
+                if (entry.listId.equals(id)) {
+                    return entry.stats;
+                }
+            }
+            VocabStats newStats = new VocabStats();
+            vocabStatsPerList.add(new VocabListEntry(id, newStats));
+            return newStats;
+        }
+    }
+
+    /**
+     * Vokabelstatistik mit Verlauf für Vergleich zum Vorlauf.
+     */
+    private static class VocabStats {
+        int total, correct, incorrect;
+        int lastTotal, lastCorrect, lastIncorrect;
+
+        static VocabStats fromCSV(String csv) {
+            try {
+                String[] parts = csv.split(":");
+                if (parts.length != 6) return null;
+                VocabStats vs = new VocabStats();
+                vs.total = Integer.parseInt(parts[0]);
+                vs.correct = Integer.parseInt(parts[1]);
+                vs.incorrect = Integer.parseInt(parts[2]);
+                vs.lastTotal = Integer.parseInt(parts[3]);
+                vs.lastCorrect = Integer.parseInt(parts[4]);
+                vs.lastIncorrect = Integer.parseInt(parts[5]);
+                return vs;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        void startNewSession() {
+            lastTotal = total;
+            lastCorrect = correct;
+            lastIncorrect = incorrect;
+            total = correct = incorrect = 0;
+        }
+
+        void record(boolean correctAnswer) {
+            total++;
+            if (correctAnswer) correct++;
+            else incorrect++;
+        }
+
+        int getDiffCorrect() {
+            return correct - lastCorrect;
+        }
+
+        int getDiffIncorrect() {
+            return incorrect - lastIncorrect;
+        }
+
+        String toCSV() {
+            return total + ":" + correct + ":" + incorrect + ":" +
+                    lastTotal + ":" + lastCorrect + ":" + lastIncorrect;
+        }
     }
 }

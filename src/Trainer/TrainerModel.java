@@ -12,51 +12,45 @@ import java.util.*;
 
 /**
  * Verwaltet die Vokabellisten des Trainers. Beim Erzeugen werden die
- * Einträge aus einer JSON-Datei geladen, standardmäßig aus
- * {@code src/Trainer/Vocabsets/defaultvocab.json}.
+ * Einträge aus einer JSON-Datei geladen.
  */
 public class TrainerModel {
-    private final List<String> englishList = new ArrayList<>();
-    private final List<String> germanList = new ArrayList<>();
-    private final List<String> spanishList = new ArrayList<>();
-    private final List<String> frenchList = new ArrayList<>();
-
+    private final Map<String, Map<String, String>> vocabData = new HashMap<>();
     private final Set<String> availableLanguages = new HashSet<>();
 
-    public TrainerModel() {}
-    // Map<ID, Map<"en"/"de"/"difficulty", String>>
-    private final Map<String, Map<String, String>> vocabData = new HashMap<>();
-    public void LoadJSONtoDataObj(String fileName){
+    public void LoadJSONtoDataObj(String fileName) {
         vocabData.clear();
-        try(InputStream in = Files.newInputStream(Path.of(fileName))){
+        availableLanguages.clear();
+        try (InputStream in = Files.newInputStream(Path.of(fileName))) {
             JSONArray array = new JSONArray(new JSONTokener(in));
-            availableLanguages.clear();
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
                 String id = obj.getString("id");
                 String difficulty = obj.getString("difficulty");
                 JSONObject translations = obj.getJSONObject("translations");
+
                 Map<String, String> data = new HashMap<>();
                 for (String lang : translations.keySet()) {
-                    data.put(lang, translations.getString(lang).trim());
-                    availableLanguages.add(lang);
+                    String value = translations.getString(lang).trim();
+                    if (!value.isEmpty()) {
+                        data.put(lang, value);
+                        availableLanguages.add(lang);
+                    }
                 }
                 data.put("difficulty", difficulty);
                 vocabData.put(id, data);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Fehler beim Laden der Vokabelliste", e);
         }
     }
 
-    public String get(String id,String field){
+    public String get(String id, String field) {
         Map<String, String> entry = vocabData.get(id);
-        if(entry == null) return "";
-        return entry.get(field);
+        if (entry == null) return "";
+        return entry.getOrDefault(field, "");
     }
-    public int getSize(){
-        return (vocabData.size());
-    }
+
     public Set<String> getAllIds() {
         return vocabData.keySet();
     }
@@ -65,4 +59,45 @@ public class TrainerModel {
         return new HashSet<>(availableLanguages);
     }
 
+    public boolean hasValidTranslation(String id, String mode) {
+        String[] langPair = getLangPairForMode(mode);
+        if (langPair == null) return false;
+        Map<String, String> entry = vocabData.get(id);
+        if (entry == null) return false;
+        return entry.containsKey(langPair[0]) && entry.containsKey(langPair[1]);
+    }
+
+    public String[] getLangPairForMode(String mode) {
+        if (mode == null) return null;
+        if ("Zufällig".equalsIgnoreCase(mode)) {
+            List<String> langs = new ArrayList<>(availableLanguages);
+            if (langs.size() < 2) return null;
+            Collections.shuffle(langs);
+            String from = langs.get(0);
+            String to = langs.stream().filter(l -> !l.equals(from)).findFirst().orElse(null);
+            if (to == null) return null;
+            return new String[]{from, to};
+        }
+
+        // Format: "Deutsch zu Englisch"
+        String[] parts = mode.split(" zu ");
+        if (parts.length != 2) return null;
+
+        String from = langCode(parts[0].trim());
+        String to = langCode(parts[1].trim());
+
+        if (from == null || to == null || from.equals(to)) return null;
+        return new String[]{from, to};
+    }
+
+    private static final Map<String, String> LANG_NAME_TO_CODE = Map.of(
+            "Deutsch", "de",
+            "Englisch", "en",
+            "Französisch", "fr",
+            "Spanisch", "es"
+    );
+
+    private String langCode(String name) {
+        return LANG_NAME_TO_CODE.getOrDefault(name, name.toLowerCase());
+    }
 }

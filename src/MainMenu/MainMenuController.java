@@ -1,5 +1,6 @@
 package MainMenu;
 
+import Utils.UserSys.UserSys;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,8 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import Utils.SceneLoader.SceneLoader;
-import Utils.UserScore.UserSystem;
+
 import Utils.StageAwareController;
+
+import java.nio.file.Path;
 
 public class MainMenuController extends StageAwareController {
     public Button exitButton;
@@ -26,10 +29,10 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private void initialize() {
-        UserSystem.loadFromFile();
+        UserSys.loadFromJson(Path.of("Utils/UserSys/User.json"));
 
         if (userField != null) {
-            userField.setText(UserSystem.getCurrentUser());
+            userField.setText(UserSys.getCurrentUser());
         }
     }
 
@@ -64,7 +67,7 @@ public class MainMenuController extends StageAwareController {
 
 
         // Alle Usernamen holen
-        var allUsers = UserSystem.getAllUserNames();
+        var allUsers = UserSys.getAllUserNames();
 
         if (input.length() >= 3) {
             // Benutzer suchen, der mit den Buchstaben beginnt
@@ -104,8 +107,8 @@ public class MainMenuController extends StageAwareController {
         String name = userField.getText().trim();
         if (name.isEmpty()) name = "user";
 
-        if (!UserSystem.userExists(name)) {
-            UserSystem.addUser(name);
+        if (!UserSys.userExists(name)) {
+            UserSys.addUser(name);
             if (statusLabel != null) {
                 statusLabel.setText("Benutzer '" + name + "' erstellt.");
             }
@@ -115,8 +118,8 @@ public class MainMenuController extends StageAwareController {
             }
         }
 
-        UserSystem.setCurrentUser(name);
-        UserSystem.saveToFile();
+        UserSys.setCurrentUser(name);
+        UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
     }
 
     @FXML

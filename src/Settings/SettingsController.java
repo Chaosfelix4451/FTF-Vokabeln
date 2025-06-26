@@ -1,28 +1,23 @@
 package Settings;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import java.io.File;
+import javafx.scene.control.Label;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
-import javafx.scene.control.Label;
+import Trainer.TrainerModel;
 
-
+import java.io.File;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.prefs.Preferences;
 
-/**
- * Controller für die Einstellungen.
- */
 public class SettingsController extends StageAwareController implements Initializable {
 
-    // Einstellungen werden im Preferences-Objekt gespeichert
     private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
     public Label mainLable;
@@ -33,64 +28,27 @@ public class SettingsController extends StageAwareController implements Initiali
 
     private String darkCss;
 
-    /**
-     * Zurück zum Hauptmenü.
-     */
-    @FXML
-    public void openMainMenu(ActionEvent event) {
-        SceneLoader.load("/MainMenu/mainMenu.fxml");
-    }
-
-    /**
-     * Startet den Trainer.
-     */
-    @FXML
-    public void openTrainer(ActionEvent event) {
-        SceneLoader.load(stage, "/Trainer/Trainer.fxml");
-    }
-
     @FXML
     private ChoiceBox<String> vocabModeBox;
     @FXML
     private ChoiceBox<String> vocabListBox;
 
-    private static final java.util.Map<String, String> LANG_NAMES = java.util.Map.of(
-            "de", "Deutsch",
-            "en", "Englisch",
-            "fr", "Französisch",
-            "es", "Spanisch"
-    );
+    @FXML
+    public void openMainMenu(ActionEvent event) {
+        SceneLoader.load("/MainMenu/mainMenu.fxml");
+    }
 
-    private java.util.List<String> generateModes(java.util.Set<String> langs) {
-        java.util.List<String> codes = new java.util.ArrayList<>(LANG_NAMES.keySet());
-        codes.removeIf(code -> !langs.contains(code));
-        for (String code : langs) {
-            if (!codes.contains(code)) codes.add(code);
-        }
-
-        java.util.List<String> modes = new java.util.ArrayList<>();
-        for (String q : codes) {
-            for (String a : codes) {
-                if (!q.equals(a)) {
-                    String qName = LANG_NAMES.getOrDefault(q, q);
-                    String aName = LANG_NAMES.getOrDefault(a, a);
-                    modes.add(qName + " zu " + aName);
-                }
-            }
-        }
-        if (codes.size() >= 2) {
-            modes.add("Zufällig");
-        }
-        return modes;
+    @FXML
+    public void openTrainer(ActionEvent event) {
+        SceneLoader.load(stage, "/Trainer/Trainer.fxml");
     }
 
     private void updateVocabModes() {
         String file = vocabListBox.getValue();
         if (file == null) return;
-        Trainer.TrainerModel model = new Trainer.TrainerModel();
+        TrainerModel model = new TrainerModel();
         model.LoadJSONtoDataObj("src/Trainer/Vocabsets/" + file);
-        java.util.Set<String> langs = model.getAvailableLanguages();
-        java.util.List<String> options = generateModes(langs);
+        List<String> options = model.generateAllLanguageModes();
         String current = vocabModeBox.getValue();
         vocabModeBox.getItems().setAll(options);
         if (current != null && options.contains(current)) {
@@ -104,9 +62,6 @@ public class SettingsController extends StageAwareController implements Initiali
         }
     }
 
-    /**
-     * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
-     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File vocabDir = new File("src/Trainer/Vocabsets");
@@ -155,25 +110,17 @@ public class SettingsController extends StageAwareController implements Initiali
         });
 
         javafx.application.Platform.runLater(this::applyDarkMode);
-
     }
 
-    /**
-     * Beispiel-Handler für den Startknopf.
-     */
     @FXML
     private void handleStart(ActionEvent event) {
         String auswahl = vocabModeBox.getValue();
-
         switch (auswahl) {
             case "Deutsch zu Englisch":
-                // Starte Deutsch->Englisch Modus
                 break;
             case "Englisch zu Deutsch":
-                // Starte Englisch->Deutsch Modus
                 break;
             case "Zufällig":
-                // Wähle zufällig einen Modus
                 break;
         }
     }
@@ -190,5 +137,4 @@ public class SettingsController extends StageAwareController implements Initiali
             scene.getStylesheets().remove(darkCss);
         }
     }
-
 }

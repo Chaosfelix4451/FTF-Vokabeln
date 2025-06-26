@@ -1,9 +1,8 @@
 package ScoreBoard;
 
 import Utils.SceneLoader.SceneLoader;
-import Utils.UserScore.UserSystem;
+
 import Utils.StageAwareController;
-import ScoreBoard.StatsRow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

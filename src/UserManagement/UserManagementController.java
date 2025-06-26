@@ -1,7 +1,7 @@
 package UserManagement;
 
 import Utils.SceneLoader.SceneLoader;
-import Utils.UserScore.UserSystem;
+import Utils.UserSys.UserSys;
 import Utils.StageAwareController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 /**
@@ -27,7 +28,7 @@ public class UserManagementController extends StageAwareController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserSystem.loadFromFile();
+        UserSys.loadFromJson(Path.of("Utils/UserSys/User.json"));
         refreshList("");
         searchField.textProperty().addListener((obs, o, n) -> refreshList(n));
     }
@@ -39,9 +40,9 @@ public class UserManagementController extends StageAwareController implements In
     private void createUser() {
         String name = newUserField.getText().trim();
         if (!name.isEmpty()) {
-            UserSystem.addUser(name);
-            UserSystem.setCurrentUser(name);
-            UserSystem.saveToFile();
+            UserSys.addUser(name);
+            UserSys.setCurrentUser(name);
+            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
             refreshList(searchField.getText().trim());
             newUserField.clear();
         }
@@ -54,8 +55,8 @@ public class UserManagementController extends StageAwareController implements In
     private void selectUser() {
         String selected = userList.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            UserSystem.setCurrentUser(selected);
-            UserSystem.saveToFile();
+            UserSys.setCurrentUser(selected);
+            UserSys.saveToJson(Path.of("Utils/UserSys/User.json"));
         }
     }
 
@@ -64,7 +65,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     private void refreshList(String filter) {
         userList.getItems().clear();
-        for (String name : UserSystem.getAllUserNames()) {
+        for (String name : UserSys.getAllUserNames()) {
             if (filter == null || filter.isBlank() || name.toLowerCase().contains(filter.toLowerCase())) {
                 userList.getItems().add(name);
             }

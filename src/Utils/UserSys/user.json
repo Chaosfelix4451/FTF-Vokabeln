@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "name": "Felix",
+      "points": 120,
+      "stats": {
+        "default": {
+          "total": 15,
+          "correct": 12,
+          "incorrect": 3,
+          "lastTotal": 10,
+          "lastCorrect": 8,
+          "lastIncorrect": 2
+        },
+        "food": {
+          "total": 8,
+          "correct": 5,
+          "incorrect": 3,
+          "lastTotal": 5,
+          "lastCorrect": 3,
+          "lastIncorrect": 2
+        }
+      }
+    }
+  ],
+  "currentUser": "Felix"
+}
