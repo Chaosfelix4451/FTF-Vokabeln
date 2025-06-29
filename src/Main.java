@@ -2,6 +2,7 @@ import Utils.SceneLoader.SceneLoader;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.util.Objects;
 
 /*
 7PG_T2 Vokabeltrainer
@@ -32,7 +33,9 @@ public class Main extends Application {
         //Fenster zentrieren
         primaryStage.centerOnScreen();
 
-        Image icon = new Image("utils/media/logo.png", 128, 128, true, true);
+        Image icon = new Image(Objects.requireNonNull(
+                getClass().getResourceAsStream("/Utils/media/Logo.png")),
+                128, 128, true, true);
         if (icon.isError()) {
             System.out.println("Logo konnte nicht geladen werden: " + icon.getException());
         } else {
