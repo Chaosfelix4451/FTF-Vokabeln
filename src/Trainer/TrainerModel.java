@@ -18,10 +18,31 @@ public class TrainerModel {
     private final Map<String, Map<String, String>> vocabData = new HashMap<>();
     private final Set<String> availableLanguages = new HashSet<>();
 
+    /**
+     * Open the vocabulary file either from the filesystem (development) or
+     * bundled resources when running from a JAR.
+     */
+    private InputStream openVocabStream(String fileName) throws IOException {
+        // Try direct path first
+        Path path = Path.of(fileName);
+        if (!Files.exists(path)) {
+            path = Path.of("src", "Trainer", "Vocabsets", fileName);
+        }
+        if (Files.exists(path)) {
+            return Files.newInputStream(path);
+        }
+
+        InputStream in = TrainerModel.class.getResourceAsStream("/Trainer/Vocabsets/" + fileName);
+        if (in != null) {
+            return in;
+        }
+        throw new IOException("Vokabelliste nicht gefunden: " + fileName);
+    }
+
     public void LoadJSONtoDataObj(String fileName) {
         vocabData.clear();
         availableLanguages.clear();
-        try (InputStream in = Files.newInputStream(Path.of(fileName))) {
+        try (InputStream in = openVocabStream(fileName)) {
             JSONArray array = new JSONArray(new JSONTokener(in));
             for (int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
