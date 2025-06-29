@@ -5,13 +5,16 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController">
-<HBox AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController">
+   <top>
+      <HBox>
 
             <Button fx:id="burgerMenu" alignment="CENTER" mnemonicParsing="false" onAction="#toggleSideMenu" text="≡" />
          <!--fx:id="burgerButton"-->
-      </HBox>
-<VBox alignment="CENTER" layoutX="9.0" layoutY="33.0" spacing="20.0" AnchorPane.topAnchor="33.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+</HBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" spacing="20.0">
 
             <Label fx:id="mainLabel" alignment="TOP_CENTER" text="Vokabeltrainer">
                <font>
@@ -40,8 +43,10 @@
             <Button mnemonicParsing="false" onAction="#openScoreBoard" text="Highscore" />
             <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleExit" text="Beenden" />
          <!--fx:id="exitButton"-->
-      </VBox>
-      <VBox fx:id="sideMenu" layoutY="37.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="25.0">
+</VBox>
+   </center>
+   <left>
+      <VBox fx:id="sideMenu" layoutY="37.0" visible="false">
    <!--style="-fx-background-color: rgb(77,77,77);"-->
             <Button fx:id="buttonSettings" mnemonicParsing="false" onAction="#openSettings" text="Einstellungen">
                <VBox.margin>
@@ -51,4 +56,5 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets></VBox>
-</AnchorPane>
+   </left>
+</BorderPane>
