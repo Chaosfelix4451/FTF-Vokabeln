@@ -231,6 +231,10 @@ public class TrainerController extends StageAwareController {
     }
 
     private void finishTraining() {
-        SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
+        if (stage != null) {
+            SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
+        } else {
+            SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
+        }
     }
 }
