@@ -3,7 +3,6 @@ package MainMenu;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
-import ScoreBoard.ScoreBoardController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,7 +50,6 @@ public class MainMenuController extends StageAwareController {
     }
 
     public void openScoreBoard() {
-        ScoreBoard.ScoreBoardController.setLastSessionList(null);
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
 
