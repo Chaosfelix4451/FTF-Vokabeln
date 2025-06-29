@@ -230,6 +230,7 @@ public class TrainerController extends StageAwareController {
     }
 
     private void finishTraining() {
+        ScoreBoard.ScoreBoardController.setLastSessionList(listId);
         if (stage != null) {
             SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
         } else {
