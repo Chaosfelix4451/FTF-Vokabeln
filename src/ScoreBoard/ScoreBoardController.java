@@ -119,7 +119,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
             }
         } else {
             String user = UserSys.getCurrentUser();
-            List<String> lists = UserSys.getAllListIds(user);
+            List<String> lists = (List<String>) UserSys.getAllListIds(user);
             Collections.sort(lists, (a, b) -> {
                 int ca = UserSys.getUser(user).getStats(a).getCorrect();
                 int cb = UserSys.getUser(user).getStats(b).getCorrect();
