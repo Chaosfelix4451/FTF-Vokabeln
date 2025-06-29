@@ -1,5 +1,10 @@
 {
   "currentUser": "adssd",
+  "preferences": {
+    "vocabFile": "defaultvocab.json",
+    "vocabMode": "Zufällig",
+    "darkMode": false
+  },
   "users": [
     {
       "stats": {

@@ -14,6 +14,7 @@ public class UserSys {
 
     private static final List<User> users = new ArrayList<>();
     private static String currentUser = "user";
+    private static final Map<String, Object> preferences = new HashMap<>();
 
     public static void loadFromJson() {
         try (InputStream in = UserSys.class.getResourceAsStream("/Utils/UserSys/user.json")) {
@@ -21,6 +22,13 @@ public class UserSys {
 
             JSONObject root = new JSONObject(new JSONTokener(in));
             currentUser = root.optString("currentUser", "user");
+            JSONObject prefsObj = root.optJSONObject("preferences");
+            preferences.clear();
+            if (prefsObj != null) {
+                for (String key : prefsObj.keySet()) {
+                    preferences.put(key, prefsObj.get(key));
+                }
+            }
             JSONArray userArray = root.getJSONArray("users");
             users.clear();
             for (int i = 0; i < userArray.length(); i++) {
@@ -36,6 +44,8 @@ public class UserSys {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
         JSONObject root = new JSONObject();
         root.put("currentUser", currentUser);
+        JSONObject prefsObj = new JSONObject(preferences);
+        root.put("preferences", prefsObj);
         JSONArray userArray = new JSONArray();
         for (User u : users) {
             userArray.put(u.toJson());
@@ -104,6 +114,26 @@ public class UserSys {
 
     public static String getCurrentUser() {
         return currentUser;
+    }
+
+    public static String getPreference(String key, String def) {
+        Object val = preferences.get(key);
+        return val != null ? val.toString() : def;
+    }
+
+    public static boolean getBooleanPreference(String key, boolean def) {
+        Object val = preferences.get(key);
+        if (val instanceof Boolean b) return b;
+        if (val instanceof String s) return Boolean.parseBoolean(s);
+        return def;
+    }
+
+    public static void setPreference(String key, String value) {
+        preferences.put(key, value);
+    }
+
+    public static void setBooleanPreference(String key, boolean value) {
+        preferences.put(key, value);
     }
 
     public static User getUser(String name) {

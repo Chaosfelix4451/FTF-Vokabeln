@@ -62,9 +62,9 @@ public class TrainerController extends StageAwareController {
             pointsLabel.setText("Punkte: 0");
         }
 
-        var prefs = java.util.prefs.Preferences.userNodeForPackage(SettingsController.class);
-        mode = prefs.get("vocabMode", "Deutsch zu Englisch");
-        listId = prefs.get("vocabFile", "defaultvocab.json");
+        UserSys.loadFromJson();
+        mode = UserSys.getPreference("vocabMode", "Deutsch zu Englisch");
+        listId = UserSys.getPreference("vocabFile", "defaultvocab.json");
 
         model = new TrainerModel();
         model.LoadJSONtoDataObj(listId);
