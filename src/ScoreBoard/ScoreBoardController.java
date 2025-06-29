@@ -13,10 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 /**
  * Displays vocabulary statistics using bar charts.
@@ -73,6 +72,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
         XYChart.Series<String, Number> correctSeries = new XYChart.Series<>();
         XYChart.Series<String, Number> incorrectSeries = new XYChart.Series<>();
         String user = UserSys.getCurrentUser();
+
         if (lastSessionList != null) {
             var stats = UserSys.getUser(user).getStats(lastSessionList);
             correctSeries.getData().add(new XYChart.Data<>(lastSessionList, stats.getCorrect()));
@@ -84,6 +84,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
                 incorrectSeries.getData().add(new XYChart.Data<>(list, stats.getIncorrect()));
             }
         }
+
         correctSeries.setName("Richtig");
         incorrectSeries.setName("Falsch");
         overallChart.getData().addAll(correctSeries, incorrectSeries);
@@ -100,28 +101,38 @@ public class ScoreBoardController extends StageAwareController implements Initia
             count = Integer.parseInt(countField.getText());
         } catch (NumberFormatException ignored) {}
 
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Richtig");
+
         if ("User".equals(mode)) {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName("Richtig");
-            List<XYChart.Data<String, Number>> data = UserSys.getAllUserNames().stream()
-                    .map(name -> new XYChart.Data<>(name, UserSys.getUser(name).getStats(listId).getCorrect()))
-                    .sorted(Comparator.comparingInt(d -> -d.getYValue().intValue()))
-                    .limit(count)
-                    .collect(Collectors.toList());
-            series.getData().addAll(data);
-            comparisonChart.getData().add(series);
+            List<String> users = UserSys.getAllUserNames();
+            Collections.sort(users, (a, b) -> {
+                int ca = UserSys.getUser(a).getStats(listId).getCorrect();
+                int cb = UserSys.getUser(b).getStats(listId).getCorrect();
+                return Integer.compare(cb, ca);
+            });
+            int max = Math.min(count, users.size());
+            for (int i = 0; i < max; i++) {
+                String name = users.get(i);
+                int value = UserSys.getUser(name).getStats(listId).getCorrect();
+                series.getData().add(new XYChart.Data<>(name, value));
+            }
         } else {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName("Richtig");
             String user = UserSys.getCurrentUser();
-            List<XYChart.Data<String, Number>> data = UserSys.getAllListIds(user).stream()
-                    .map(l -> new XYChart.Data<>(l, UserSys.getUser(user).getStats(l).getCorrect()))
-                    .sorted(Comparator.comparingInt(d -> -d.getYValue().intValue()))
-                    .limit(count)
-                    .collect(Collectors.toList());
-            series.getData().addAll(data);
-            comparisonChart.getData().add(series);
+            List<String> lists = UserSys.getAllListIds(user);
+            Collections.sort(lists, (a, b) -> {
+                int ca = UserSys.getUser(user).getStats(a).getCorrect();
+                int cb = UserSys.getUser(user).getStats(b).getCorrect();
+                return Integer.compare(cb, ca);
+            });
+            int max = Math.min(count, lists.size());
+            for (int i = 0; i < max; i++) {
+                String l = lists.get(i);
+                int value = UserSys.getUser(user).getStats(l).getCorrect();
+                series.getData().add(new XYChart.Data<>(l, value));
+            }
         }
+        comparisonChart.getData().add(series);
     }
 
     @FXML
