@@ -88,7 +88,7 @@ public class SettingsController extends StageAwareController implements Initiali
         String file = vocabListBox.getValue();
         if (file == null) return;
         Trainer.TrainerModel model = new Trainer.TrainerModel();
-        model.LoadJSONtoDataObj("src/Trainer/Vocabsets/" + file);
+        model.LoadJSONtoDataObj(file);
         java.util.Set<String> langs = model.getAvailableLanguages();
         java.util.List<String> options = generateModes(langs);
         String current = vocabModeBox.getValue();
@@ -109,12 +109,8 @@ public class SettingsController extends StageAwareController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File vocabDir = new File("src/Trainer/Vocabsets");
-        File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
-        if (files != null) {
-            for (File f : files) {
-                vocabListBox.getItems().add(f.getName());
-            }
+        for (String name : listVocabFiles()) {
+            vocabListBox.getItems().add(name);
         }
 
         String savedFile = prefs.get("vocabFile", "defaultvocab.json");
@@ -176,6 +172,47 @@ public class SettingsController extends StageAwareController implements Initiali
                 // Wähle zufällig einen Modus
                 break;
         }
+    }
+
+    private java.util.List<String> listVocabFiles() {
+        java.io.File vocabDir = new java.io.File("src/Trainer/Vocabsets");
+        java.io.File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
+        java.util.List<String> result = new java.util.ArrayList<>();
+        if (files != null && files.length > 0) {
+            for (java.io.File f : files) {
+                result.add(f.getName());
+            }
+            return result;
+        }
+        result.addAll(listResourceFiles("/Trainer/Vocabsets"));
+        return result;
+    }
+
+    private java.util.List<String> listResourceFiles(String path) {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        try {
+            java.net.URI uri = getClass().getResource(path).toURI();
+            java.nio.file.Path dirPath;
+            if ("jar".equals(uri.getScheme())) {
+                java.nio.file.FileSystem fs;
+                try {
+                    fs = java.nio.file.FileSystems.getFileSystem(uri);
+                } catch (java.nio.file.FileSystemNotFoundException e) {
+                    fs = java.nio.file.FileSystems.newFileSystem(uri, java.util.Collections.emptyMap());
+                }
+                dirPath = fs.getPath(path);
+            } else {
+                dirPath = java.nio.file.Paths.get(uri);
+            }
+            try (java.nio.file.DirectoryStream<java.nio.file.Path> stream = java.nio.file.Files.newDirectoryStream(dirPath, "*.json")) {
+                for (java.nio.file.Path p : stream) {
+                    result.add(p.getFileName().toString());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     private void applyDarkMode() {

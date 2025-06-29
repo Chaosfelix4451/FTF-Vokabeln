@@ -67,7 +67,7 @@ public class TrainerController extends StageAwareController {
         listId = prefs.get("vocabFile", "defaultvocab.json");
 
         model = new TrainerModel();
-        model.LoadJSONtoDataObj("src/Trainer/Vocabsets/" + listId);
+        model.LoadJSONtoDataObj(listId);
         UserSys.getUser(currentUser).getStats(listId).startNewSession();
 
         remainingIds = new ArrayList<>(model.getAllIds());
