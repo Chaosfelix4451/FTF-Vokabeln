@@ -7,8 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.prefs.Preferences;
-import Settings.SettingsController;
+import Utils.UserSys.UserSys;
 
 public class SceneLoader {
 
@@ -64,8 +63,8 @@ public class SceneLoader {
                 System.out.println("⚠️ Keine CSS-Datei gefunden für " + cssPath);
             }
 
-            Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
-            if (prefs.getBoolean("darkMode", false)) {
+            UserSys.loadFromJson();
+            if (UserSys.getBooleanPreference("darkMode", false)) {
                 URL darkUrl = SceneLoader.class.getResource("/dark.css");
                 if (darkUrl != null) {
                     scene.getStylesheets().add(darkUrl.toExternalForm());

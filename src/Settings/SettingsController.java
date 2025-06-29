@@ -15,15 +15,11 @@ import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.prefs.Preferences;
 
 /**
  * Controller für die Einstellungen.
  */
 public class SettingsController extends StageAwareController implements Initializable {
-
-    // Einstellungen werden im Preferences-Objekt gespeichert
-    private final Preferences prefs = Preferences.userNodeForPackage(SettingsController.class);
 
     public Label mainLable;
     public Button Button;
@@ -109,45 +105,50 @@ public class SettingsController extends StageAwareController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        UserSys.loadFromJson();
+
         for (String name : listVocabFiles()) {
             vocabListBox.getItems().add(name);
         }
 
-        String savedFile = prefs.get("vocabFile", "defaultvocab.json");
+        String savedFile = UserSys.getPreference("vocabFile", "defaultvocab.json");
         if (vocabListBox.getItems().contains(savedFile)) {
             vocabListBox.setValue(savedFile);
         }
 
         updateVocabModes();
 
-        String savedMode = prefs.get("vocabMode", "Zufällig");
+        String savedMode = UserSys.getPreference("vocabMode", "Zufällig");
         if (vocabModeBox.getItems().contains(savedMode)) {
             vocabModeBox.setValue(savedMode);
         }
 
         vocabModeBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                prefs.put("vocabMode", newVal);
+                UserSys.setPreference("vocabMode", newVal);
+                UserSys.saveToJson();
             }
         });
 
         vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                prefs.put("vocabFile", newVal);
+                UserSys.setPreference("vocabFile", newVal);
             }
             updateVocabModes();
             String mode = vocabModeBox.getValue();
             if (mode != null) {
-                prefs.put("vocabMode", mode);
+                UserSys.setPreference("vocabMode", mode);
             }
+            UserSys.saveToJson();
         });
 
         darkCss = getClass().getResource("/dark.css").toExternalForm();
-        boolean dark = prefs.getBoolean("darkMode", false);
+        boolean dark = UserSys.getBooleanPreference("darkMode", false);
         darkModeToggle.setSelected(dark);
         darkModeToggle.selectedProperty().addListener((obs, o, n) -> {
-            prefs.putBoolean("darkMode", n);
+            UserSys.setBooleanPreference("darkMode", n);
             applyDarkMode();
+            UserSys.saveToJson();
         });
 
         javafx.application.Platform.runLater(this::applyDarkMode);

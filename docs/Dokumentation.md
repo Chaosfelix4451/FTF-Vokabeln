@@ -94,6 +94,6 @@ Soundeffekte werden über `SoundModel` abgespielt.
 
 ## Einstellungen
 
-Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus sowie die zu verwendende Vokabelliste aus. Beide Werte werden über `java.util.prefs.Preferences` gespeichert und beim nächsten Start wieder geladen. Die verfügbaren Modi richten sich nach den Sprachen der gewählten Liste. Neue JSON-Dateien im Ordner `src/Trainer/Vocabsets` erscheinen automatisch in der Auswahlliste.
+Im `SettingsController` wählt der Nutzer den gewünschten Vokabelmodus sowie die zu verwendende Vokabelliste aus. Diese Einstellungen werden jetzt gemeinsam mit dem aktuellen Dark‑Mode‑Status in `user.json` gespeichert und beim nächsten Start wieder geladen. Die verfügbaren Modi richten sich nach den Sprachen der gewählten Liste. Neue JSON-Dateien im Ordner `src/Trainer/Vocabsets` erscheinen automatisch in der Auswahlliste.
 
 
