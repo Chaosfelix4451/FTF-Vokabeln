@@ -1,13 +1,13 @@
 package Settings;
 
 
+import Utils.UserSys.UserSys;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import java.io.File;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 import javafx.scene.control.Label;
@@ -142,16 +142,28 @@ public class SettingsController extends StageAwareController implements Initiali
             UserSys.saveToJson();
         });
 
+        darkModeToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                UserSys.setPreference("darkMode", String.valueOf(newVal));
+                if(newVal.equals("true")) {
+                    updateDarkThemeState();
+                }else if(newVal.equals("false")) {
+
+                }
+            }
+            UserSys.saveToJson();
+        });
+
         darkCss = getClass().getResource("/dark.css").toExternalForm();
         boolean dark = UserSys.getBooleanPreference("darkMode", false);
         darkModeToggle.setSelected(dark);
         darkModeToggle.selectedProperty().addListener((obs, o, n) -> {
             UserSys.setBooleanPreference("darkMode", n);
-            applyDarkMode();
+            updateDarkThemeState();
             UserSys.saveToJson();
         });
 
-        javafx.application.Platform.runLater(this::applyDarkMode);
+        javafx.application.Platform.runLater(this::updateDarkThemeState);
 
     }
 
@@ -216,16 +228,18 @@ public class SettingsController extends StageAwareController implements Initiali
         return result;
     }
 
-    private void applyDarkMode() {
-        if (stage == null) return;
+    private void updateDarkThemeState() {
+        if (stage == null || stage.getScene() == null || darkCss == null) return;
+
         var scene = stage.getScene();
-        if (scene == null) return;
-        if (darkModeToggle.isSelected()) {
-            if (!scene.getStylesheets().contains(darkCss)) {
-                scene.getStylesheets().add(darkCss);
-            }
-        } else {
-            scene.getStylesheets().remove(darkCss);
+        var stylesheets = scene.getStylesheets();
+
+        boolean enableDarkMode = darkModeToggle.isSelected();
+
+        if (enableDarkMode && !stylesheets.contains(darkCss)) {
+            stylesheets.add(darkCss);
+        } else if (!enableDarkMode && stylesheets.contains(darkCss)) {
+            stylesheets.remove(darkCss);
         }
     }
 

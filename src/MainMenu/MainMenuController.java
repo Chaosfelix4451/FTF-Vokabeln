@@ -1,17 +1,17 @@
 package MainMenu;
 
+import Utils.SceneLoader.SceneLoader;
+import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import Utils.SceneLoader.SceneLoader;
 
-import Utils.StageAwareController;
-
-import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainMenuController extends StageAwareController {
     public Button exitButton;
@@ -63,20 +63,6 @@ public class MainMenuController extends StageAwareController {
     }
 
     public void searchAndSetUser() {
-        String input = getUserInput();
-
-
-        var matches = UserSys.searchUsers(input);
-        if (!matches.isEmpty()) {
-            setUserField(matches.get(0));
-            return;
-        }
-
-        // Kein Treffer gefunden
-        setUserField("");
-        if (statusLabel != null) {
-            statusLabel.setText("Kein Benutzer mit '" + input + "' gefunden.");
-        }
     }
 
 
@@ -118,24 +104,21 @@ public class MainMenuController extends StageAwareController {
     private void handleSearchUser() {
         String originalInput = getUserInput();
 
-        //Methode die autovervollständigt
-        searchAndSetUser();
-
-        String completedName = getUserInput();
-
-        if (UserSys.userExists(completedName)) {
-            UserSys.setCurrentUser(completedName);
+        String input =getUserInput();
+        List<String> matches = UserSys.searchUsers(input);
+        if (!matches.isEmpty()) {
+            setUserField(matches.getFirst());
+            statusLabel.setText("Benutzer '" + matches.getFirst() + "' gefunden und ausgewählt.");
+            UserSys.setCurrentUser(matches.getFirst());
             UserSys.saveToJson();
-            if (statusLabel != null) {
-                statusLabel.setText("Benutzer '" + completedName + "' ausgewählt.");
-                statusLabel.setStyle("-fx-text-fill: green;");
-            }
-        } else {
-            if (statusLabel != null) {
-                statusLabel.setText("Benutzer '" + originalInput + "' wurde nicht gefunden.");
-                statusLabel.setStyle("-fx-text-fill: red;");
-            }
+            statusLabel.setStyle("-fx-text-fill: green;");
+            return;
+        } else if (!UserSys.userExists(input)) {
+            statusLabel.setText("Benutzer '" + originalInput + "' wurde nicht gefunden, bitte erstellen sie einen neuen.");
+            statusLabel.setStyle("-fx-text-fill: red;");
+
         }
+
     }
 
 }

@@ -1,5 +1,10 @@
 {
-  "currentUser": "adssd",
+  "currentUser": "Felix",
+  "preferences": {
+    "vocabFile": "defaultvocab.json",
+    "vocabMode": "Zufällig",
+    "darkMode": true
+  },
   "users": [
     {
       "stats": {
@@ -24,7 +29,14 @@
       "points": 120
     },
     {
-      "stats": {},
+      "stats": {"defaultvocab.json": {
+        "total": 0,
+        "lastIncorrect": 0,
+        "correct": 0,
+        "incorrect": 0,
+        "lastCorrect": 0,
+        "lastTotal": 0
+      }},
       "name": "adssd",
       "points": 0
     }
