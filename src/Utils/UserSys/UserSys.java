@@ -85,6 +85,7 @@ public class UserSys {
             return getAllUserNames();
         }
         List<String> result = new ArrayList<>();
+        result.clear();
         for (String name : getAllUserNames()) {
             if (name.toLowerCase().contains(query.toLowerCase())) {
                 result.add(name);
@@ -111,7 +112,7 @@ public class UserSys {
     public static void setCurrentUser(String name) {
         if (getUser(name) != null) currentUser = name;
     }
-
+    public static void resetCurrentUser() {currentUser =""; };
     public static String getCurrentUser() {
         return currentUser;
     }

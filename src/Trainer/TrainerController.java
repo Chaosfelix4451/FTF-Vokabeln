@@ -1,23 +1,22 @@
 package Trainer;
 
+import Utils.SceneLoader.SceneLoader;
 import Utils.Sound.SoundModel;
+import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
-import Settings.SettingsController;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import Utils.SceneLoader.SceneLoader;
-import Utils.StageAwareController;
 
-import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Steuert den Ablauf des Trainings und wertet die Antworten aus.

@@ -20,6 +20,16 @@ import java.util.ResourceBundle;
  * Controller für die Highscore-Übersicht.
  */
 public class ScoreBoardController extends StageAwareController implements Initializable {
+    private  class StatsRow {
+        private final String list;
+        private final int correct;
+        private final int incorrect;
+
+        public StatsRow(String list, int correct, int incorrect) {
+            this.list = list;
+            this.correct = correct;
+            this.incorrect = incorrect;
+        }
     @FXML
     private TableView<StatsRow> allTable;
     @FXML

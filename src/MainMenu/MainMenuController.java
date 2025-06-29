@@ -10,7 +10,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainMenuController extends StageAwareController {
@@ -78,47 +77,82 @@ public class MainMenuController extends StageAwareController {
         Platform.exit();
     }
 
+    /**
+     * Erstellt einen neuen Benutzer, sofern dieser noch nicht existiert.
+     * Gibt Rückmeldung im GUI-Label und speichert Änderungen in der JSON-Datei.
+     */
     @FXML
     private void handleCreateUser() {
-        //prüfung ob das feld leer ist,um laufzeitfehler vermeiden
-        if (userField == null) return;
-        String name = userField.getText().trim();
-        if (name.isEmpty()) name = "user";
+        String error = null;
 
-        if (!UserSys.userExists(name)) {
-            UserSys.createUser(name);
-            if (statusLabel != null) {
-                statusLabel.setText("Benutzer '" + name + "' erstellt.");
-            }
-        } else {
-            if (statusLabel != null) {
-                statusLabel.setText("Benutzer '" + name + "' existiert bereits.");
+        if (userField == null || userField.getText() == null) {
+            statusLabel.setText("Fehler: Eingabefeld ist leer oder nicht initialisiert.");
+            statusLabel.setStyle("-fx-text-fill: red;");
+            return;
+        }else {
+
+            String name = userField.getText().trim();
+            if (name.isEmpty()) name = "user"; //Zusätzliche fehlersicherheit (nicht benötigt [redunant])
+
+            try {
+                if (!UserSys.userExists(name)) {
+                    UserSys.createUser(name);
+                    statusLabel.setText("Benutzer '" + name + "' wurde erstellt.");
+                    statusLabel.setStyle("-fx-text-fill: green;");
+                } else {
+                    statusLabel.setText("Benutzer '" + name + "' existiert bereits.");
+                    statusLabel.setStyle("-fx-text-fill: orange;");
+                }
+
+                UserSys.setCurrentUser(name);
+                UserSys.saveToJson();
+
+            } catch (Exception e) {
+                error = e.getMessage();
+                statusLabel.setText("Fehler bei Benutzererstellung: " + error);
+                statusLabel.setStyle("-fx-text-fill: red;");
             }
         }
-
-        UserSys.setCurrentUser(name);
-        UserSys.saveToJson();
     }
+
 
     @FXML
     private void handleSearchUser() {
+        String error = null;
         String originalInput = getUserInput();
 
-        String input =getUserInput();
-        List<String> matches = UserSys.searchUsers(input);
-        if (!matches.isEmpty()) {
-            setUserField(matches.getFirst());
-            statusLabel.setText("Benutzer '" + matches.getFirst() + "' gefunden und ausgewählt.");
-            UserSys.setCurrentUser(matches.getFirst());
-            UserSys.saveToJson();
-            statusLabel.setStyle("-fx-text-fill: green;");
-            return;
-        } else if (!UserSys.userExists(input)) {
-            statusLabel.setText("Benutzer '" + originalInput + "' wurde nicht gefunden, bitte erstellen sie einen neuen.");
-            statusLabel.setStyle("-fx-text-fill: red;");
+        if (userField != null && userField.getText() != null) {
+            try {
+                String input = getUserInput();
+                UserSys.resetCurrentUser();
+                UserSys.saveToJson();
+                List<String> matches = UserSys.searchUsers(input);
 
+                if (!matches.isEmpty()) {
+                    setUserField(matches.getFirst());
+                    statusLabel.setText("Benutzer '" + matches.getFirst() + "' gefunden und ausgewählt.");
+                    UserSys.setCurrentUser(matches.getFirst());
+                    UserSys.saveToJson();
+                    statusLabel.setStyle("-fx-text-fill: green;");
+                    return;
+                } else if (!UserSys.userExists(input)) {
+                    statusLabel.setText("Benutzer '" + originalInput + "' wurde nicht gefunden, bitte erstellen Sie einen neuen.");
+                    statusLabel.setStyle("-fx-text-fill: red;");
+                }
+                matches.clear();
+
+            } catch (Exception e) {
+                error = e.getMessage();
+                statusLabel.setText("Ein Fehler ist aufgetreten: " + error);
+                statusLabel.setStyle("-fx-text-fill: red;");
+            }
+
+        } else {
+            statusLabel.setText("Fehler bei der Eingabe: Eingabefeld ist leer.");
+            statusLabel.setStyle("-fx-text-fill: red;");
         }
 
     }
+
 
 }
