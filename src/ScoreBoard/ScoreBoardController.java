@@ -7,6 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -20,7 +25,7 @@ import java.util.ResourceBundle;
  * Controller für die Highscore-Übersicht.
  */
 public class ScoreBoardController extends StageAwareController implements Initializable {
-    private  class StatsRow {
+    private static class StatsRow {
         private final String list;
         private final int correct;
         private final int incorrect;
@@ -30,6 +35,10 @@ public class ScoreBoardController extends StageAwareController implements Initia
             this.correct = correct;
             this.incorrect = incorrect;
         }
+        public String getList() { return list; }
+        public int getCorrect() { return correct; }
+        public int getIncorrect() { return incorrect; }
+    }
     @FXML
     private TableView<StatsRow> allTable;
     @FXML
@@ -39,19 +48,20 @@ public class ScoreBoardController extends StageAwareController implements Initia
     @FXML
     private TableColumn<StatsRow, Integer> incorrectColumn;
 
-    @FXML
-    private TableView<StatsRow> singleTable;
-    @FXML
-    private TableColumn<StatsRow, String> sListColumn;
-    @FXML
-    private TableColumn<StatsRow, Integer> sCorrectColumn;
-    @FXML
-    private TableColumn<StatsRow, Integer> sIncorrectColumn;
 
     @FXML
     private ChoiceBox<String> listChoiceBox;
     @FXML
     private Label userLabel;
+    @FXML
+    private LineChart<String, Number> progressChart;
+    @FXML
+    private CategoryAxis xAxis;
+    @FXML
+    private NumberAxis yAxis;
+
+    private final XYChart.Series<String, Number> correctSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Number> incorrectSeries = new XYChart.Series<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,14 +69,12 @@ public class ScoreBoardController extends StageAwareController implements Initia
         correctColumn.setCellValueFactory(new PropertyValueFactory<>("correct"));
         incorrectColumn.setCellValueFactory(new PropertyValueFactory<>("incorrect"));
 
-        sListColumn.setCellValueFactory(new PropertyValueFactory<>("list"));
-        sCorrectColumn.setCellValueFactory(new PropertyValueFactory<>("correct"));
-        sIncorrectColumn.setCellValueFactory(new PropertyValueFactory<>("incorrect"));
-
         userLabel.setText("Statistik für " + UserSys.getCurrentUser());
         fillAllTable();
         fillChoiceBox();
-        listChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n) -> updateSingleTable(n));
+        progressChart.getData().addAll(correctSeries, incorrectSeries);
+        updateProgress();
+        listChoiceBox.getSelectionModel().selectedItemProperty().addListener((obs,o,n) -> updateProgress());
     }
 
     /**
@@ -93,23 +101,56 @@ public class ScoreBoardController extends StageAwareController implements Initia
         listChoiceBox.getItems().addAll(UserSys.getAllListIds(user));
         if (!listChoiceBox.getItems().isEmpty()) {
             listChoiceBox.getSelectionModel().selectFirst();
-            updateSingleTable(listChoiceBox.getValue());
         }
     }
 
     /**
-     * Update the second table with stats only for the selected list.
+     * Display progress either for all lists or for the selected list.
      */
-    private void updateSingleTable(String listId) {
-        if (listId == null) return;
-        ObservableList<StatsRow> rows = FXCollections.observableArrayList();
+    @FXML
+    private void updateProgress() {
         String user = UserSys.getCurrentUser();
-        var stats = UserSys.getUser(user).getStats(listId);
-        rows.add(new StatsRow(listId,
-                stats.getCorrect(),
-                stats.getIncorrect()));
-        singleTable.setItems(rows);
+        String listId = listChoiceBox.getValue();
+        correctSeries.setName("Richtig");
+        incorrectSeries.setName("Falsch");
+        correctSeries.getData().clear();
+        incorrectSeries.getData().clear();
+
+        int lastCorrect = 0, correct = 0;
+        int lastIncorrect = 0, incorrect = 0;
+
+        if (listId == null) {
+            for (String id : UserSys.getAllListIds(user)) {
+                var s = UserSys.getUser(user).getStats(id);
+                lastCorrect += s.getLastCorrect();
+                correct += s.getCorrect();
+                lastIncorrect += s.getLastIncorrect();
+                incorrect += s.getIncorrect();
+            }
+        } else {
+            var s = UserSys.getUser(user).getStats(listId);
+            lastCorrect = s.getLastCorrect();
+            correct = s.getCorrect();
+            lastIncorrect = s.getLastIncorrect();
+            incorrect = s.getIncorrect();
+        }
+
+        correctSeries.getData().add(new XYChart.Data<>("Letzte", lastCorrect));
+        correctSeries.getData().add(new XYChart.Data<>("Aktuell", correct));
+        incorrectSeries.getData().add(new XYChart.Data<>("Letzte", lastIncorrect));
+        incorrectSeries.getData().add(new XYChart.Data<>("Aktuell", incorrect));
     }
+
+    /**
+     * Reset selection and show progress for all lists.
+     */
+    @FXML
+    private void showAllProgress() {
+        listChoiceBox.getSelectionModel().clearSelection();
+        updateProgress();
+    }
+
+
 
     /**
      * Zurück zum Hauptmenü.

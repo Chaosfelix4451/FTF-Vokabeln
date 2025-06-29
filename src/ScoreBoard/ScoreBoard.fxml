@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
-          AnchorPane.bottomAnchor="10">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ScoreBoard.ScoreBoardController">
+    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
         <Label fx:id="userLabel" text="Statistik"/>
         <TableView fx:id="allTable">
             <columns>
@@ -16,15 +17,23 @@
             </columns>
         </TableView>
         <HBox spacing="5">
+            <Label text="Vokabelliste:"/>
             <ChoiceBox fx:id="listChoiceBox" />
+            <Button text="Alle" onAction="#showAllProgress" />
+            <Button text="Aktualisieren" onAction="#updateProgress" />
         </HBox>
-        <TableView fx:id="singleTable">
-            <columns>
-                <TableColumn fx:id="sListColumn" text="Liste" prefWidth="200.0"/>
-                <TableColumn fx:id="sCorrectColumn" text="Richtig"/>
-                <TableColumn fx:id="sIncorrectColumn" text="Falsch"/>
-            </columns>
-        </TableView>
+        <ScrollPane fitToWidth="true" prefHeight="200">
+            <content>
+                <LineChart fx:id="progressChart" animated="false">
+                    <xAxis>
+                        <CategoryAxis fx:id="xAxis" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" />
+                    </yAxis>
+                </LineChart>
+            </content>
+        </ScrollPane>
         <Button text="Zurück zum Menü" onAction="#backToMenu"/>
     </VBox>
 </AnchorPane>
