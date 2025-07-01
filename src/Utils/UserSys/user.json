@@ -3,11 +3,19 @@
   "preferences": {
     "vocabFile": "defaultvocab.json",
     "vocabMode": "Zufällig",
-    "darkMode": true
+    "darkMode": false
   },
   "users": [
     {
       "stats": {
+        "defaultvocab.json": {
+          "total": 50,
+          "lastIncorrect": 0,
+          "correct": 1,
+          "incorrect": 49,
+          "lastCorrect": 0,
+          "lastTotal": 0
+        },
         "default": {
           "total": 15,
           "lastIncorrect": 2,
@@ -26,7 +34,7 @@
         }
       },
       "name": "Felix",
-      "points": 120
+      "points": 122
     },
     {
       "stats": {"defaultvocab.json": {

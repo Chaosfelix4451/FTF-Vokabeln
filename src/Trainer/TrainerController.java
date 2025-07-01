@@ -203,33 +203,50 @@ public class TrainerController extends StageAwareController {
         UserSys.saveToJson();
 
         double percent = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
-        if (percent >= 50.0) {
+        if (percent >= 75.0) {
             soundModel.playSound("src/Utils/Sound/richtig.mp3");
+        } else if (percent >= 50.0) {
+            soundModel.playSound("src/Utils/Sound/teilweise.mp3");
         } else {
             soundModel.playSound("src/Utils/Sound/falsch.mp3");
         }
 
-        nextButton.setDisable(true);
-        Thread delayThread = new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
 
-            Platform.runLater(() -> {
+        nextButton.setDisable(true); // Button deaktivieren
+
+// Neue Aktion definieren
+        Runnable naechsteAktion = new Runnable() {
+            @Override
+            public void run() {
                 if (!remainingIds.isEmpty()) {
                     loadNextVocabSet();
                     nextButton.setDisable(false);
                 } else {
                     finishTraining();
                 }
-            });
+            }
+        };
+
+// Neuer Thread mit einfacher Wartezeit
+        Thread warteThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000); // 5 Sekunden warten
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+
+                // Aktion im JavaFX-GUI-Thread ausführen
+                Platform.runLater(naechsteAktion);
+            }
         });
-        delayThread.start();
+
+        warteThread.setDaemon(true); // Beenden mit Programmende erlauben
+        warteThread.start();         // Thread starten
     }
 
-    private void finishTraining() {
+        private void finishTraining() {
         ScoreBoard.ScoreBoardController.setLastSessionList(listId);
         if (stage != null) {
             SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");

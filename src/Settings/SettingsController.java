@@ -103,6 +103,15 @@ public class SettingsController extends StageAwareController implements Initiali
     /**
      * Initialisiert die ComboBox für den Vokabelmodus und lädt gespeicherte Werte.
      */
+
+    /**
+     * Initializes the settings view and sets up the necessary components such as vocab lists, vocab modes,
+     * and the dark mode toggle. This method handles loading preferences, updating UI elements, and
+     * adding event listeners for interactive elements.
+     *
+     * @param location The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resources The resources used to localize the root object, or null if undefined.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         UserSys.loadFromJson();

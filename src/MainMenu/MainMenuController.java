@@ -13,10 +13,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+
 public class MainMenuController extends StageAwareController {
     public Button exitButton;
     public Button buttonSettings;
     public Button burgerMenu;
+    public Label mainLabel;
+    public Button searchButton;
+    public Button addButton;
 
     @FXML
     private TextField userField;
@@ -71,7 +75,7 @@ public class MainMenuController extends StageAwareController {
     private void toggleSideMenu() {
         boolean isVisible = sideMenu.isVisible();
         sideMenu.setVisible(!isVisible);
-        sideMenu.setManaged(!isVisible);
+       // sideMenu.setManaged(!isVisible);
     }
 
     @FXML

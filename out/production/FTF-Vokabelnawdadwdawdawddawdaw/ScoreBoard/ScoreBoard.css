@@ -115,3 +115,12 @@
     -fx-spacing: 10;
     -fx-padding: 15;
 }
+
+#listChoiceBox {
+ -fx-background-color: white;
+ -fx-border-color: #bdc3c7;
+ -fx-border-radius: 5px;
+ -fx-background-radius: 5px;
+ -fx-padding: 5;
+ -fx-pref-height: 35px;
+}

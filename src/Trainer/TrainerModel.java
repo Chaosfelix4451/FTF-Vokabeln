@@ -14,6 +14,7 @@ import java.util.*;
  * Verwaltet die Vokabellisten des Trainers. Beim Erzeugen werden die
  * Einträge aus einer JSON-Datei geladen.
  */
+
 public class TrainerModel {
     private final Map<String, Map<String, String>> vocabData = new HashMap<>();
     private final Set<String> availableLanguages = new HashSet<>();

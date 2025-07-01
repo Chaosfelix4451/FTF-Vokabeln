@@ -63,6 +63,7 @@ public class UserManagementController extends StageAwareController implements In
     /**
      * Aktualisiert die Liste der Benutzer unter Berücksichtigung eines Filters.
      */
+
     private void refreshList(String filter) {
         userList.getItems().clear();
         for (String name : UserSys.searchUsers(filter)) {

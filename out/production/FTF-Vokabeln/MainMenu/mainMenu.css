@@ -1,13 +1,17 @@
 .root {
     -fx-background-color: #f0f2f5;
     -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
 }
 
 /* Hauptüberschrift */
 .label {
     -fx-text-fill: #2c3e50;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 }
+
 #mainLabel {
     -fx-text-fill: #2c3e50;
     -fx-font-size: 28px;
@@ -15,8 +19,21 @@
     -fx-font-family: "Arial Black";
     -fx-padding: 10 0 20 0;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
+.border-pane {
+    -fx-pref-width: USE_COMPUTED_SIZE;
+    -fx-pref-height: USE_COMPUTED_SIZE;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+    -fx-alignment: center;
+    -fx-padding: 20;
+}
 
 /* Burger-Menü Button */
 #burgerMenu {
@@ -27,10 +44,11 @@
     -fx-padding: 5 10;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-}
+    -fx-min-width: 50;
+    -fx-min-height: 35;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 
-#burgerMenu:hover {
-    -fx-background-color: rgba(0,0,0,0.4);
 }
 
 /* Textfeld */
@@ -41,40 +59,27 @@
     -fx-background-radius: 5;
     -fx-padding: 8;
     -fx-prompt-text-fill: #95a5a6;
+    -fx-min-height: 35;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
 }
 
-.text-field:focused {
-    -fx-border-color: #3498db;
-    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.3), 5, 0, 0, 0);
-}
-
-/* Hauptmenü Buttons (in der zentralen VBox) */
+/* Hauptmenü Buttons */
 VBox > Button {
     -fx-background-color: #3498db;
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10 20;
-    -fx-min-width: 200px;
+    -fx-min-width: 200;
+    -fx-min-height: 40;
     -fx-background-radius: 5;
     -fx-cursor: hand;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-wrap-text: true;
 }
-
-VBox > Button:hover {
-    -fx-background-color: #2980b9;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
-    -fx-translate-y: -1px;
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
-}
-
-VBox > Button:pressed {
-    -fx-background-color: #2472a4;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
-    -fx-translate-y: 1px;
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
-}
-
 
 /* Seitenmenü */
 #sideMenu Button {
@@ -82,38 +87,20 @@ VBox > Button:pressed {
     -fx-text-fill: #1a1a1a;
     -fx-alignment: center-left;
     -fx-padding: 10 15;
-    -fx-min-width: 150px;
+    -fx-min-width: 150;
+    -fx-min-height: 35;
     -fx-effect: none;
-    -fx-translate-y: 5;
-
-}
-
-#sideMenu Button:hover {
-    -fx-background-color: #808080;
-    -fx-effect: none;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
     -fx-translate-y: 5;
 }
 
-/* Beenden-Button spezielles Styling */
-#exitButton {
-    -fx-background-color: #e74c3c;
-}
-
-#exitButton:hover {
-    -fx-background-color: #c0392b;
-    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.6), 15, 0.5, 0, 0);
-    -fx-translate-y: -1px;
-}
-#exitButton:pressed {
-    -fx-background-color: #a93226;
-    -fx-translate-y: 1px;
-    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 5, 0.3, 0, 0);
-}
+/* Such- und Hinzufügen-Buttons */
 #searchButton, #addButton {
-    -fx-min-width: 50px;
-    -fx-pref-width: 50px;
-    -fx-min-height: 25px;
-    -fx-pref-height: 25px;
+    -fx-min-width: 50;
+    -fx-pref-width: 50;
+    -fx-min-height: 25;
+    -fx-pref-height: 25;
     -fx-font-size: 12px;
     -fx-padding: 5 10;
     -fx-background-color: #4CAF50;
@@ -123,16 +110,81 @@ VBox > Button:pressed {
     -fx-border-radius: 3;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+}
+
+/* Beenden-Button */
+#exitButton {
+    -fx-background-color: #e74c3c;
+    -fx-min-width: 200;
+    -fx-min-height: 40;
+    -fx-max-width: Infinity;
+    -fx-max-height: Infinity;
+}
+
+/* Hover und Pressed Effekte */
+#burgerMenu:hover {
+    -fx-background-color: rgba(0,0,0,0.4);
+}
+
+VBox > Button:hover {
+    -fx-background-color: #2980b9;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -fx-translate-y: -2;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+VBox > Button:pressed {
+    -fx-background-color: #2472a4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
+    -fx-translate-y: 1;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+#sideMenu Button:hover {
+    -fx-background-color: #808080;
 }
 
 #searchButton:hover, #addButton:hover {
     -fx-background-color: #45a049;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
-    -fx-translate-y: -1px;
+    -fx-translate-y: -1;
 }
 
 #searchButton:pressed, #addButton:pressed {
     -fx-background-color: #3d8b40;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 0);
-    -fx-translate-y: 1px;
+    -fx-translate-y: 1;
+}
+
+#exitButton:hover {
+    -fx-background-color: #c0392b;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.6), 15, 0.5, 0, 0);
+    -fx-translate-y: -2;
+}
+
+#exitButton:pressed {
+    -fx-background-color: #a93226;
+    -fx-translate-y: 1;
+    -fx-effect: dropshadow(gaussian, rgba(231,76,60,0.3), 5, 0.3, 0, 0);
+}
+
+.center-vbox {
+    -fx-alignment: center;
+    -fx-spacing: 15;
+    -fx-max-width: 800;
+    -fx-fill-width: true;
+}
+/* Container Spacing */
+VBox {
+    -fx-spacing: 15;
+    -fx-fill-width: true;
+}
+
+HBox {
+    -fx-spacing: 10;
+    -fx-fill-width: true;
 }
