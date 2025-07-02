@@ -36,6 +36,7 @@
             </VBox>
 
             <Button maxWidth="Infinity" onAction="#openTrainer" text="Vokabeltrainer starten" />
+            <Button maxWidth="Infinity" onAction="#openConnectTrainer" text="Verbindungsmodus" />
             <Button maxWidth="Infinity" onAction="#openUserManagement" text="Benutzer verwalten" />
             <Button maxWidth="Infinity" onAction="#openScoreBoard" text="Highscore" />
             <Button fx:id="exitButton" maxWidth="Infinity" onAction="#handleExit" text="Beenden" />
