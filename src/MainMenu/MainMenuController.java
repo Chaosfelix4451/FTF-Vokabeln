@@ -46,6 +46,11 @@ public class MainMenuController extends StageAwareController {
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
 
+    @FXML
+    public void openConnectTrainer() {
+        SceneLoader.load("/ConnectTrainer/ConnectTrainer.fxml");
+    }
+
     public void openSettings() {
         SceneLoader.load("/Settings/Settings.fxml");
     }
