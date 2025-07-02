@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Pane;
+import Utils.Confetti.Confetti;
 
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class MainMenuController extends StageAwareController {
     public Label mainLabel;
     public Button searchButton;
     public Button addButton;
+    @FXML
+    private Button confettiButton;
 
     @FXML
     private TextField userField;
@@ -139,6 +143,13 @@ public class MainMenuController extends StageAwareController {
                 UserSys.saveToJson();
                 List<String> matches = UserSys.searchUsers(input);
 
+                if ("@confetti".equalsIgnoreCase(input)) {
+                    Confetti.show((Pane) userField.getScene().getRoot());
+                    statusLabel.setText("Konfetti!");
+                    statusLabel.setStyle("-fx-text-fill: green;");
+                    return;
+                }
+
                 if (!matches.isEmpty()) {
                     setUserField(matches.getFirst());
                     statusLabel.setText("Benutzer '" + matches.getFirst() + "' gefunden und ausgewählt.");
@@ -166,4 +177,12 @@ public class MainMenuController extends StageAwareController {
     }
 
 
+    
+
+    @FXML
+    private void adminConfetti() {
+        if (userField != null) {
+            Confetti.show((Pane) userField.getScene().getRoot());
+        }
+    }
 }

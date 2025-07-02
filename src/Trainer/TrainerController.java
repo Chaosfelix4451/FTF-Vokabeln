@@ -4,6 +4,7 @@ import Utils.SceneLoader.SceneLoader;
 import Utils.Sound.SoundModel;
 import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
+import Utils.Confetti.Confetti;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -12,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -33,6 +36,10 @@ public class TrainerController extends StageAwareController {
     private Button finishButton;
     @FXML
     private Label pointsLabel;
+    @FXML
+    private Pane confettiPane;
+    @FXML
+    private AnchorPane rootPane;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
@@ -209,6 +216,10 @@ public class TrainerController extends StageAwareController {
             soundModel.playSound("src/Utils/Sound/teilweise.mp3");
         } else {
             soundModel.playSound("src/Utils/Sound/falsch.mp3");
+        }
+
+        if (allCorrect) {
+            Confetti.show(confettiPane != null ? confettiPane : rootPane);
         }
 
 
