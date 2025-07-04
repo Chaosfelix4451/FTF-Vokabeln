@@ -3,3 +3,12 @@
     -fx-border-color: gray;
     -fx-alignment: center;
 }
+
+.connector-box {
+    -fx-background-color: lightgray;
+    -fx-border-color: darkgray;
+    -fx-min-width: 30;
+    -fx-min-height: 30;
+    -fx-alignment: center;
+    -fx-background-radius: 5;
+}

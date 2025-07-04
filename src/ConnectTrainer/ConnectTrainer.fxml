@@ -9,8 +9,23 @@
               AnchorPane.topAnchor="40" AnchorPane.leftAnchor="20"
               AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
             <children>
-                <Label fx:id="leftLabel" layoutX="50" layoutY="180" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
-                <Label fx:id="rightLabel" layoutX="400" layoutY="180" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="leftLabel1" layoutX="50" layoutY="40" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="leftLabel2" layoutX="50" layoutY="100" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="leftLabel3" layoutX="50" layoutY="160" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="leftLabel4" layoutX="50" layoutY="220" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="leftLabel5" layoutX="50" layoutY="280" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+
+                <Label fx:id="rightLabel1" layoutX="400" layoutY="40" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="rightLabel2" layoutX="400" layoutY="100" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="rightLabel3" layoutX="400" layoutY="160" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="rightLabel4" layoutX="400" layoutY="220" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+                <Label fx:id="rightLabel5" layoutX="400" layoutY="280" prefWidth="150" prefHeight="40" styleClass="vocab-box" />
+
+                <Label fx:id="connector1" layoutX="275" layoutY="40" styleClass="connector-box" />
+                <Label fx:id="connector2" layoutX="275" layoutY="100" styleClass="connector-box" />
+                <Label fx:id="connector3" layoutX="275" layoutY="160" styleClass="connector-box" />
+                <Label fx:id="connector4" layoutX="275" layoutY="220" styleClass="connector-box" />
+                <Label fx:id="connector5" layoutX="275" layoutY="280" styleClass="connector-box" />
             </children>
         </Pane>
         <Button fx:id="backButton" text="Zurück" layoutX="20" layoutY="10" onAction="#handleBack" />

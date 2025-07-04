@@ -46,7 +46,9 @@ public class ConnectTrainerController extends StageAwareController {
         for (int i = 0; i < 5 && i < ids.size(); i++) {
             String id = ids.get(i);
             leftLabels.get(i).setText(model.get(id, langPair[0]));
+            leftLabels.get(i).setId("left_" + id);
             rightLabels.get(i).setText(model.get(id, langPair[1]));
+            rightLabels.get(i).setId("right_" + id);
             setupDrag(leftLabels.get(i), rightLabels.get(i));
             setupDrag(rightLabels.get(i), leftLabels.get(i));
         }
