@@ -3,9 +3,9 @@
     "id": "apple",
     "translations": {
       "en": "apple",
-      "de": "Apple",
-      "fr": "apple_fr",
-      "es": "apple_es"
+      "de": "Apfel",
+      "fr": "pomme",
+      "es": "manzana"
     },
     "difficulty": "medium"
   },
@@ -14,8 +14,8 @@
     "translations": {
       "en": "computer",
       "de": "Computer",
-      "fr": "computer_fr",
-      "es": "computer_es"
+      "fr": "ordinateur",
+      "es": "ordenador"
     },
     "difficulty": "medium"
   },
@@ -23,9 +23,9 @@
     "id": "book",
     "translations": {
       "en": "book",
-      "de": "Book",
-      "fr": "book_fr",
-      "es": "book_es"
+      "de": "Buch",
+      "fr": "livre",
+      "es": "libro"
     },
     "difficulty": "medium"
   },
@@ -33,9 +33,9 @@
     "id": "school",
     "translations": {
       "en": "school",
-      "de": "School",
-      "fr": "school_fr",
-      "es": "school_es"
+      "de": "Schule",
+      "fr": "école",
+      "es": "escuela"
     },
     "difficulty": "medium"
   },
@@ -43,9 +43,9 @@
     "id": "weather",
     "translations": {
       "en": "weather",
-      "de": "Weather",
-      "fr": "weather_fr",
-      "es": "weather_es"
+      "de": "Wetter",
+      "fr": "temps",
+      "es": "clima"
     },
     "difficulty": "medium"
   },
@@ -53,9 +53,9 @@
     "id": "house",
     "translations": {
       "en": "house",
-      "de": "House",
-      "fr": "house_fr",
-      "es": "house_es"
+      "de": "Haus",
+      "fr": "maison",
+      "es": "casa"
     },
     "difficulty": "medium"
   },
@@ -63,9 +63,9 @@
     "id": "car",
     "translations": {
       "en": "car",
-      "de": "Car",
-      "fr": "car_fr",
-      "es": "car_es"
+      "de": "Auto",
+      "fr": "voiture",
+      "es": "coche"
     },
     "difficulty": "medium"
   },
@@ -73,9 +73,9 @@
     "id": "train",
     "translations": {
       "en": "train",
-      "de": "Train",
-      "fr": "train_fr",
-      "es": "train_es"
+      "de": "Zug",
+      "fr": "train",
+      "es": "tren"
     },
     "difficulty": "medium"
   },
@@ -83,9 +83,9 @@
     "id": "plane",
     "translations": {
       "en": "plane",
-      "de": "Plane",
-      "fr": "plane_fr",
-      "es": "plane_es"
+      "de": "Flugzeug",
+      "fr": "avion",
+      "es": "avión"
     },
     "difficulty": "medium"
   },
@@ -93,9 +93,9 @@
     "id": "boat",
     "translations": {
       "en": "boat",
-      "de": "Boat",
-      "fr": "boat_fr",
-      "es": "boat_es"
+      "de": "Boot",
+      "fr": "bateau",
+      "es": "barco"
     },
     "difficulty": "medium"
   },
@@ -103,9 +103,9 @@
     "id": "tree",
     "translations": {
       "en": "tree",
-      "de": "Tree",
-      "fr": "tree_fr",
-      "es": "tree_es"
+      "de": "Baum",
+      "fr": "arbre",
+      "es": "árbol"
     },
     "difficulty": "medium"
   },
@@ -113,9 +113,9 @@
     "id": "flower",
     "translations": {
       "en": "flower",
-      "de": "Flower",
-      "fr": "flower_fr",
-      "es": "flower_es"
+      "de": "Blume",
+      "fr": "fleur",
+      "es": "flor"
     },
     "difficulty": "medium"
   },
@@ -123,9 +123,9 @@
     "id": "river",
     "translations": {
       "en": "river",
-      "de": "River",
-      "fr": "river_fr",
-      "es": "river_es"
+      "de": "Fluss",
+      "fr": "rivière",
+      "es": "río"
     },
     "difficulty": "medium"
   },
@@ -133,9 +133,9 @@
     "id": "mountain",
     "translations": {
       "en": "mountain",
-      "de": "Mountain",
-      "fr": "mountain_fr",
-      "es": "mountain_es"
+      "de": "Berg",
+      "fr": "montagne",
+      "es": "montaña"
     },
     "difficulty": "medium"
   },
@@ -143,9 +143,9 @@
     "id": "city",
     "translations": {
       "en": "city",
-      "de": "City",
-      "fr": "city_fr",
-      "es": "city_es"
+      "de": "Stadt",
+      "fr": "ville",
+      "es": "ciudad"
     },
     "difficulty": "medium"
   },
@@ -153,9 +153,9 @@
     "id": "village",
     "translations": {
       "en": "village",
-      "de": "Village",
-      "fr": "village_fr",
-      "es": "village_es"
+      "de": "Dorf",
+      "fr": "village",
+      "es": "pueblo"
     },
     "difficulty": "medium"
   },
@@ -163,9 +163,9 @@
     "id": "family",
     "translations": {
       "en": "family",
-      "de": "Family",
-      "fr": "family_fr",
-      "es": "family_es"
+      "de": "Familie",
+      "fr": "famille",
+      "es": "familia"
     },
     "difficulty": "medium"
   },
@@ -173,9 +173,9 @@
     "id": "friend",
     "translations": {
       "en": "friend",
-      "de": "Friend",
-      "fr": "friend_fr",
-      "es": "friend_es"
+      "de": "Freund",
+      "fr": "ami",
+      "es": "amigo"
     },
     "difficulty": "medium"
   },
@@ -183,9 +183,9 @@
     "id": "music",
     "translations": {
       "en": "music",
-      "de": "Music",
-      "fr": "music_fr",
-      "es": "music_es"
+      "de": "Musik",
+      "fr": "musique",
+      "es": "música"
     },
     "difficulty": "medium"
   },
@@ -193,9 +193,9 @@
     "id": "movie",
     "translations": {
       "en": "movie",
-      "de": "Movie",
-      "fr": "movie_fr",
-      "es": "movie_es"
+      "de": "Film",
+      "fr": "film",
+      "es": "película"
     },
     "difficulty": "medium"
   },
@@ -203,9 +203,9 @@
     "id": "game",
     "translations": {
       "en": "game",
-      "de": "Game",
-      "fr": "game_fr",
-      "es": "game_es"
+      "de": "Spiel",
+      "fr": "jeu",
+      "es": "juego"
     },
     "difficulty": "medium"
   },
@@ -213,9 +213,9 @@
     "id": "phone",
     "translations": {
       "en": "phone",
-      "de": "Phone",
-      "fr": "phone_fr",
-      "es": "phone_es"
+      "de": "Telefon",
+      "fr": "téléphone",
+      "es": "teléfono"
     },
     "difficulty": "medium"
   },
@@ -224,8 +224,8 @@
     "translations": {
       "en": "internet",
       "de": "Internet",
-      "fr": "internet_fr",
-      "es": "internet_es"
+      "fr": "internet",
+      "es": "internet"
     },
     "difficulty": "medium"
   },
@@ -233,9 +233,9 @@
     "id": "table",
     "translations": {
       "en": "table",
-      "de": "Table",
-      "fr": "table_fr",
-      "es": "table_es"
+      "de": "Tisch",
+      "fr": "table",
+      "es": "mesa"
     },
     "difficulty": "medium"
   },
@@ -243,9 +243,9 @@
     "id": "chair",
     "translations": {
       "en": "chair",
-      "de": "Chair",
-      "fr": "chair_fr",
-      "es": "chair_es"
+      "de": "Stuhl",
+      "fr": "chaise",
+      "es": "silla"
     },
     "difficulty": "medium"
   },
@@ -253,9 +253,9 @@
     "id": "window",
     "translations": {
       "en": "window",
-      "de": "Window",
-      "fr": "window_fr",
-      "es": "window_es"
+      "de": "Fenster",
+      "fr": "fenêtre",
+      "es": "ventana"
     },
     "difficulty": "medium"
   },
@@ -263,9 +263,9 @@
     "id": "door",
     "translations": {
       "en": "door",
-      "de": "Door",
-      "fr": "door_fr",
-      "es": "door_es"
+      "de": "Tür",
+      "fr": "porte",
+      "es": "puerta"
     },
     "difficulty": "medium"
   },
@@ -273,9 +273,9 @@
     "id": "teacher",
     "translations": {
       "en": "teacher",
-      "de": "Teacher",
-      "fr": "teacher_fr",
-      "es": "teacher_es"
+      "de": "Lehrer",
+      "fr": "professeur",
+      "es": "profesor"
     },
     "difficulty": "medium"
   },
@@ -283,9 +283,9 @@
     "id": "student",
     "translations": {
       "en": "student",
-      "de": "Student",
-      "fr": "student_fr",
-      "es": "student_es"
+      "de": "Schüler",
+      "fr": "étudiant",
+      "es": "estudiante"
     },
     "difficulty": "medium"
   },
@@ -293,209 +293,9 @@
     "id": "language",
     "translations": {
       "en": "language",
-      "de": "Language",
-      "fr": "language_fr",
-      "es": "language_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "idea",
-    "translations": {
-      "en": "idea",
-      "de": "Idea",
-      "fr": "idea_fr",
-      "es": "idea_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "story",
-    "translations": {
-      "en": "story",
-      "de": "Story",
-      "fr": "story_fr",
-      "es": "story_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "history",
-    "translations": {
-      "en": "history",
-      "de": "History",
-      "fr": "history_fr",
-      "es": "history_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "picture",
-    "translations": {
-      "en": "picture",
-      "de": "Picture",
-      "fr": "picture_fr",
-      "es": "picture_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "color",
-    "translations": {
-      "en": "color",
-      "de": "Color",
-      "fr": "color_fr",
-      "es": "color_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "smile",
-    "translations": {
-      "en": "smile",
-      "de": "Smile",
-      "fr": "smile_fr",
-      "es": "smile_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "laugh",
-    "translations": {
-      "en": "laugh",
-      "de": "Laugh",
-      "fr": "laugh_fr",
-      "es": "laugh_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "cry",
-    "translations": {
-      "en": "cry",
-      "de": "Cry",
-      "fr": "cry_fr",
-      "es": "cry_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "dream",
-    "translations": {
-      "en": "dream",
-      "de": "Dream",
-      "fr": "dream_fr",
-      "es": "dream_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "sun",
-    "translations": {
-      "en": "sun",
-      "de": "Sun",
-      "fr": "sun_fr",
-      "es": "sun_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "moon",
-    "translations": {
-      "en": "moon",
-      "de": "Moon",
-      "fr": "moon_fr",
-      "es": "moon_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "star",
-    "translations": {
-      "en": "star",
-      "de": "Star",
-      "fr": "star_fr",
-      "es": "star_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "cloud",
-    "translations": {
-      "en": "cloud",
-      "de": "Cloud",
-      "fr": "cloud_fr",
-      "es": "cloud_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "rain",
-    "translations": {
-      "en": "rain",
-      "de": "Rain",
-      "fr": "rain_fr",
-      "es": "rain_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "snow",
-    "translations": {
-      "en": "snow",
-      "de": "Snow",
-      "fr": "snow_fr",
-      "es": "snow_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "wind",
-    "translations": {
-      "en": "wind",
-      "de": "Wind",
-      "fr": "wind_fr",
-      "es": "wind_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "fire",
-    "translations": {
-      "en": "fire",
-      "de": "Fire",
-      "fr": "fire_fr",
-      "es": "fire_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "water",
-    "translations": {
-      "en": "water",
-      "de": "Water",
-      "fr": "water_fr",
-      "es": "water_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "earth",
-    "translations": {
-      "en": "earth",
-      "de": "Earth",
-      "fr": "earth_fr",
-      "es": "earth_es"
-    },
-    "difficulty": "medium"
-  },
-  {
-    "id": "air",
-    "translations": {
-      "en": "air",
-      "de": "Air",
-      "fr": "air_fr",
-      "es": "air_es"
+      "de": "Sprache",
+      "fr": "langue",
+      "es": "idioma"
     },
     "difficulty": "medium"
   }
