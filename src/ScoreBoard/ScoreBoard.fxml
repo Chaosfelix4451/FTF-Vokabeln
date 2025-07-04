@@ -4,24 +4,24 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
+<BorderPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
     <center>
         <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
             <Label fx:id="userLabel" text="Statistik" wrapText="true" />
-            <BarChart fx:id="overallChart" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+            <BarChart fx:id="overallChart" VBox.vgrow="ALWAYS" maxWidth="Infinity" minWidth="0" minHeight="0">
                 <xAxis><CategoryAxis label="Liste" /></xAxis>
                 <yAxis><NumberAxis label="Anzahl" /></yAxis>
             </BarChart>
-            <HBox spacing="5" alignment="CENTER" maxWidth="Infinity">
+            <HBox spacing="5" alignment="CENTER" maxWidth="Infinity" minWidth="0" minHeight="0">
                 <ChoiceBox fx:id="listChoiceBox" HBox.hgrow="ALWAYS" />
                 <ChoiceBox fx:id="modeChoiceBox" />
                 <TextField fx:id="countField" prefWidth="60" />
                 <Button text="Aktualisieren" onAction="#updateComparisonChart" />
             </HBox>
-            <BarChart fx:id="comparisonChart" VBox.vgrow="ALWAYS" maxWidth="Infinity">
+            <BarChart fx:id="comparisonChart" VBox.vgrow="ALWAYS" maxWidth="Infinity" minWidth="0" minHeight="0">
                 <xAxis><CategoryAxis /></xAxis>
                 <yAxis><NumberAxis /></yAxis>
             </BarChart>
