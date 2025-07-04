@@ -10,8 +10,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -52,19 +53,25 @@ public class ConnectTrainerController extends StageAwareController {
             Label connLeft = new Label();
             connLeft.setPrefSize(20, 20);
             connLeft.getStyleClass().add("connector-box");
+            connLeft.setTranslateX(-10); // overlap half with label
 
-            VBox leftRow = new VBox(5, vocabLeft, connLeft);
+            HBox leftRow = new HBox(vocabLeft, connLeft);
+            leftRow.setSpacing(0);
+            leftRow.setAlignment(Pos.CENTER_RIGHT);
             leftBox.getChildren().add(leftRow);
 
             // RIGHT
             Label connRight = new Label();
             connRight.setPrefSize(20, 20);
             connRight.getStyleClass().add("connector-box");
+            connRight.setTranslateX(10); // overlap half with label
 
             Label vocabRight = new Label(model.get(id, langPair[1]));
             vocabRight.getStyleClass().add("vocab-box");
 
-            VBox rightRow = new VBox(5, connRight, vocabRight);
+            HBox rightRow = new HBox(connRight, vocabRight);
+            rightRow.setSpacing(0);
+            rightRow.setAlignment(Pos.CENTER_LEFT);
             rightBox.getChildren().add(rightRow);
 
             setupDrag(connLeft);
