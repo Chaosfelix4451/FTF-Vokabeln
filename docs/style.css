@@ -67,3 +67,17 @@ input[type="text"] {
     display: block;
     margin-top: 0.5em;
 }
+
+@media (max-width: 700px) {
+    body {
+        flex-direction: column;
+    }
+    #sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+    #content {
+        padding: 1em;
+    }
+}
