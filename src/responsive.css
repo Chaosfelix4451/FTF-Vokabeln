@@ -3,3 +3,19 @@
     -fx-fill-width: true;
     -fx-fill-height: true;
 }
+
+/* allow text elements to wrap and use ellipsis when space becomes
+   too small instead of shrinking indefinitely */
+.responsive-wrapper .label,
+.responsive-wrapper .button {
+    -fx-wrap-text: true;
+    -fx-text-overrun: word-ellipsis;
+}
+
+/* slightly larger default controls for better readability */
+.responsive-wrapper .button,
+.responsive-wrapper .text-field,
+.responsive-wrapper .choice-box,
+.responsive-wrapper .list-view {
+    -fx-min-height: 40px;
+}

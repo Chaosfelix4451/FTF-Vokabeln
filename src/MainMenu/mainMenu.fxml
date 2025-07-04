@@ -18,7 +18,7 @@
                 <Insets bottom="20" left="20" right="20" top="20" />
             </padding>
 
-            <Label fx:id="mainLabel" maxWidth="Infinity" text="Vokabeltrainer">
+            <Label fx:id="mainLabel" maxWidth="Infinity" wrapText="true" text="Vokabeltrainer">
                 <font>
                     <Font size="28.0" />
                 </font>
@@ -32,7 +32,7 @@
                         <Button fx:id="addButton" maxWidth="Infinity" onAction="#handleCreateUser" text="+" />
                     </VBox>
                 </HBox>
-                <Label fx:id="statusLabel" maxWidth="Infinity" />
+                <Label fx:id="statusLabel" maxWidth="Infinity" wrapText="true" />
             </VBox>
 
             <Button maxWidth="Infinity" onAction="#openTrainer" text="Vokabeltrainer starten" />
