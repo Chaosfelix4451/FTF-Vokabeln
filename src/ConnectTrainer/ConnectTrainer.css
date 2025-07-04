@@ -1,14 +1,12 @@
 .vocab-box {
     -fx-background-color: lightblue;
-    -fx-border-color: gray;
+    -fx-border-color: black;
+    -fx-padding: 5;
     -fx-alignment: center;
 }
 
 .connector-box {
-    -fx-background-color: lightgray;
-    -fx-border-color: darkgray;
-    -fx-min-width: 20;
-    -fx-min-height: 20;
-    -fx-alignment: center;
-    -fx-background-radius: 5;
+    -fx-background-color: grey;
+    -fx-border-color: black;
+    -fx-border-radius: 3;
 }

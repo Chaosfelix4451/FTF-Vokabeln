@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="drawPane"
             fx:controller="ConnectTrainer.ConnectTrainerController">
-    <children>
-        <Button fx:id="backButton" text="Zurück" layoutX="20" layoutY="10" onAction="#handleBack" />
 
-        <Pane fx:id="drawPane" prefWidth="600" prefHeight="400"
-              AnchorPane.topAnchor="40" AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20"/>
+    <children>
+        <!-- Back Button -->
+        <Button fx:id="backButton" text="Zurück" onAction="#handleBack"
+                AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"/>
+
+        <!-- Main Layout -->
+        <GridPane fx:id="mainGrid"
+                  AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="10"
+                  AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"
+                  hgap="50">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS"/>
+            </rowConstraints>
+
+            <children>
+                <!-- Left container -->
+                <VBox fx:id="leftBox" spacing="20" GridPane.columnIndex="0" alignment="CENTER_RIGHT">
+                </VBox>
+
+                <!-- Right container -->
+                <VBox fx:id="rightBox" spacing="20" GridPane.columnIndex="1" alignment="CENTER_LEFT">
+                </VBox>
+            </children>
+        </GridPane>
     </children>
 </AnchorPane>
