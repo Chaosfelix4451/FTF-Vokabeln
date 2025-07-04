@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.stage.Window;
 
 import java.util.*;
 
@@ -47,7 +48,6 @@ public class ConnectTrainerController extends StageAwareController {
         for (int i = 0; i < 5 && i < ids.size(); i++) {
             String id = ids.get(i);
 
-            // LEFT
             Label vocabLeft = new Label(model.get(id, langPair[0]));
             vocabLeft.getStyleClass().add("vocab-box");
             VBox.setMargin(vocabLeft, new Insets(5));
@@ -63,7 +63,6 @@ public class ConnectTrainerController extends StageAwareController {
             VBox.setMargin(leftRow, new Insets(10));
             leftBox.getChildren().add(leftRow);
 
-            // RIGHT
             Label connRight = new Label();
             connRight.setPrefSize(20, 20);
             connRight.getStyleClass().add("connector-box");
@@ -83,26 +82,38 @@ public class ConnectTrainerController extends StageAwareController {
             setupDrag(connRight);
         }
 
-        // Redraw on pane size change
+        bindResizeListeners();
+    }
+
+    private void bindResizeListeners() {
+        // Redraw on pane resize
         drawPane.widthProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
         drawPane.heightProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
 
-        // Zusätzlich bei Layout-Änderung (z.B. Stage resized)
-        leftBox.layoutBoundsProperty().addListener((obs, o, n) -> redrawAllLines());
-        rightBox.layoutBoundsProperty().addListener((obs, o, n) -> redrawAllLines());
+        // Redraw on VBox layout change
+        leftBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
+        rightBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
 
-        // Zusätzlich bei Stage-Resize (z. B. Wechsel Vollbild/Fenster)
-        drawPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
+        // Redraw on stage resize (including fullscreen/window toggle)
+        drawPane.sceneProperty().addListener((obsScene, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.windowProperty().addListener((obsWin, oldWin, newWin) -> {
-                    if (newWin instanceof javafx.stage.Stage stage) {
-                        stage.widthProperty().addListener((o, oldW, newW) -> redrawAllLines());
-                        stage.heightProperty().addListener((o, oldH, newH) -> redrawAllLines());
+                    if (newWin != null) {
+                        newWin.widthProperty().addListener((o, oldW, newW) -> redrawAllLines());
+                        newWin.heightProperty().addListener((o, oldH, newH) -> redrawAllLines());
                     }
                 });
             }
         });
 
+        // Direktes Binden, falls Scene/Window schon vorhanden
+        if (drawPane.getScene() != null) {
+            Window win = drawPane.getScene().getWindow();
+            if (win != null) {
+                win.widthProperty().addListener((o, oldW, newW) -> redrawAllLines());
+                win.heightProperty().addListener((o, oldH, newH) -> redrawAllLines());
+            }
+        }
     }
 
     private void setupDrag(Label connector) {
@@ -161,10 +172,8 @@ public class ConnectTrainerController extends StageAwareController {
         for (Map.Entry<Line, Label[]> entry : lineEndpoints.entrySet()) {
             Line line = entry.getKey();
             Label[] pair = entry.getValue();
-
             Point2D p1 = getCenter(pair[0]);
             Point2D p2 = getCenter(pair[1]);
-
             line.setStartX(p1.getX());
             line.setStartY(p1.getY());
             line.setEndX(p2.getX());
