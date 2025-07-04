@@ -1,6 +1,9 @@
 package Settings;
 
 
+import Utils.Confetti.Confetti;
+import Utils.SceneLoader.SceneLoader;
+import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,10 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import Utils.SceneLoader.SceneLoader;
-import Utils.StageAwareController;
 import javafx.scene.control.Label;
-
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ public class SettingsController extends StageAwareController implements Initiali
     public Button button;
     public CheckBox darkModeToggle;
     public Label vDark;
+    public Button confettibutton;
 
     private String darkCss;
 
@@ -251,5 +253,16 @@ public class SettingsController extends StageAwareController implements Initiali
             stylesheets.remove(darkCss);
         }
     }
+
+    @FXML
+    private void adminConfetti() {
+        Confetti.show((Pane) confettibutton.getScene().getRoot());
+    }
+
+    @FXML
+    public void openConnectTrainer() {
+        SceneLoader.load("/ConnectTrainer/ConnectTrainer.fxml");
+    }
+
 
 }

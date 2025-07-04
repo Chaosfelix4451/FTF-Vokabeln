@@ -3,15 +3,12 @@ package MainMenu;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
-import ScoreBoard.ScoreBoardController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Pane;
-import Utils.Confetti.Confetti;
 
 import java.util.List;
 
@@ -76,10 +73,6 @@ public class MainMenuController extends StageAwareController {
         userField.setText(username);
     }
 
-    public void searchAndSetUser() {
-    }
-
-
     @FXML
     private void toggleSideMenu() {
         boolean isVisible = sideMenu.isVisible();
@@ -143,13 +136,6 @@ public class MainMenuController extends StageAwareController {
                 UserSys.saveToJson();
                 List<String> matches = UserSys.searchUsers(input);
 
-                if ("@confetti".equalsIgnoreCase(input)) {
-                    Confetti.show((Pane) userField.getScene().getRoot());
-                    statusLabel.setText("Konfetti!");
-                    statusLabel.setStyle("-fx-text-fill: green;");
-                    return;
-                }
-
                 if (!matches.isEmpty()) {
                     setUserField(matches.getFirst());
                     statusLabel.setText("Benutzer '" + matches.getFirst() + "' gefunden und ausgewählt.");
@@ -174,15 +160,5 @@ public class MainMenuController extends StageAwareController {
             statusLabel.setStyle("-fx-text-fill: red;");
         }
 
-    }
-
-
-    
-
-    @FXML
-    private void adminConfetti() {
-        if (userField != null) {
-            Confetti.show((Pane) userField.getScene().getRoot());
-        }
     }
 }
