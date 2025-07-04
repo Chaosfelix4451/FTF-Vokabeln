@@ -3,7 +3,12 @@ package Utils.SceneLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
+import javafx.geometry.Insets;
 import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,14 +49,17 @@ public class SceneLoader {
             }
 
             FXMLLoader loader = new FXMLLoader(url);
-            Parent root = loader.load();
+            Parent content = loader.load();
 
             Object controller = loader.getController();
             if (controller instanceof HasStage) {
                 ((HasStage) controller).setStage(stage);
             }
-            
-            Scene scene = new Scene(root);
+
+            StackPane wrapper = new StackPane(content);
+            wrapper.getStyleClass().add("responsive-wrapper");
+            Scene scene = new Scene(wrapper);
+            applyResponsivePadding(wrapper, stage, fxmlPath);
 
             // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
@@ -71,13 +79,35 @@ public class SceneLoader {
                 }
             }
 
+            URL responsiveUrl = SceneLoader.class.getResource("/responsive.css");
+            if (responsiveUrl != null) {
+                scene.getStylesheets().add(responsiveUrl.toExternalForm());
+            }
+
             stage.setScene(scene);
-            stage.setMaximized(true); // adjust to current display size
+            stage.setFullScreen(!fxmlPath.contains("Settings"));
+            stage.setMaximized(true);
             stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void applyResponsivePadding(StackPane wrapper, Stage stage, String fxmlPath) {
+        if (fxmlPath.contains("Settings")) {
+            return;
+        }
+        ChangeListener<Number> listener = (obs, o, n) -> {
+            double w = stage.getWidth();
+            double h = stage.getHeight();
+            double ratio = (w < 800 || h < 600) ? 0.05 : 0.1;
+            wrapper.setPadding(new Insets(h * ratio, w * ratio, h * ratio, w * ratio));
+        };
+        stage.widthProperty().addListener(listener);
+        stage.heightProperty().addListener(listener);
+        // initial call
+        listener.changed(null, null, null);
     }
 
     public interface HasStage {
