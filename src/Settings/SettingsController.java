@@ -116,6 +116,7 @@ public class SettingsController extends StageAwareController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("SettingsController: initialize");
         UserSys.loadFromJson();
 
         for (String name : listVocabFiles()) {

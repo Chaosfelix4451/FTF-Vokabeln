@@ -22,6 +22,7 @@ public class Main extends Application {
     }
     @Override
     public void start(Stage primaryStage) throws Exception {
+        System.out.println("Main: application start");
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml");
         primaryStage.setTitle("FTF-Vokabeln");

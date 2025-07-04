@@ -9,6 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class MainMenuController extends StageAwareController {
     @FXML
     private Button confettiButton;
 
+    /** Separate stage for the settings window. */
+    private Stage settingsStage;
+
     @FXML
     private TextField userField;
 
@@ -34,6 +40,7 @@ public class MainMenuController extends StageAwareController {
 
     @FXML
     private void initialize() {
+        System.out.println("MainMenu: initialize");
         UserSys.loadFromJson();
 
         if (userField != null) {
@@ -53,7 +60,28 @@ public class MainMenuController extends StageAwareController {
     }
 
     public void openSettings() {
-        SceneLoader.load("/Settings/Settings.fxml");
+        System.out.println("MainMenu: opening settings window");
+        if (settingsStage != null && settingsStage.isShowing()) {
+            settingsStage.requestFocus();
+            return;
+        }
+        settingsStage = new Stage();
+        SceneLoader.load(settingsStage, "/Settings/Settings.fxml");
+
+        Stage mainStage = this.stage;
+        if (mainStage != null) {
+            ChangeListener<Boolean> listener = new ChangeListener<>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> obs, Boolean oldVal, Boolean newVal) {
+                    if (newVal && settingsStage.isShowing()) {
+                        System.out.println("MainMenu: closing settings window");
+                        settingsStage.close();
+                        mainStage.focusedProperty().removeListener(this);
+                    }
+                }
+            };
+            mainStage.focusedProperty().addListener(listener);
+        }
     }
 
     public void openUserManagement() {

@@ -18,6 +18,7 @@ public class UserSys {
 
     public static void loadFromJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
+        System.out.println("UserSys: loading JSON from " + path.toString());
         InputStream in = null;
         try {
             if (Files.exists(path)) {
@@ -56,6 +57,7 @@ public class UserSys {
 
     public static void saveToJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
+        System.out.println("UserSys: saving JSON to " + path.toString());
         JSONObject root = new JSONObject();
         root.put("currentUser", currentUser);
         JSONObject prefsObj = new JSONObject(preferences);
@@ -83,6 +85,7 @@ public class UserSys {
      * Create a new user if the name does not already exist.
      */
     public static void createUser(String name) {
+        System.out.println("UserSys: create user " + name);
         if (getUser(name) == null) {
             users.add(new User(name));
         }
@@ -95,6 +98,7 @@ public class UserSys {
 
     /** Search for all users containing the query (case insensitive). */
     public static List<String> searchUsers(String query) {
+        System.out.println("UserSys: search users for '" + query + "'");
         if (query == null || query.isBlank()) {
             return getAllUserNames();
         }
@@ -112,6 +116,7 @@ public class UserSys {
      * Delete a user by name. Special command "@all_admin_1234" clears all users.
      */
     public static void deleteUser(String name) {
+        System.out.println("UserSys: delete user " + name);
         if ("@all_admin_1234".equals(name)) {
             users.clear();
             currentUser = "user";
@@ -124,6 +129,7 @@ public class UserSys {
     }
 
     public static void setCurrentUser(String name) {
+        System.out.println("UserSys: set current user " + name);
         if (getUser(name) != null) currentUser = name;
     }
     public static void resetCurrentUser() {currentUser =""; };
@@ -144,10 +150,12 @@ public class UserSys {
     }
 
     public static void setPreference(String key, String value) {
+        System.out.println("UserSys: set preference " + key + "=" + value);
         preferences.put(key, value);
     }
 
     public static void setBooleanPreference(String key, boolean value) {
+        System.out.println("UserSys: set boolean preference " + key + "=" + value);
         preferences.put(key, value);
     }
 

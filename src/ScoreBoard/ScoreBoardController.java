@@ -43,6 +43,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println("ScoreBoard: initialize");
         userLabel.setText("Statistik für " + UserSys.getCurrentUser());
         modeChoiceBox.setItems(FXCollections.observableArrayList("User", "List"));
         modeChoiceBox.setValue("User");
@@ -137,6 +138,7 @@ public class ScoreBoardController extends StageAwareController implements Initia
 
     @FXML
     private void backToMenu() {
+        System.out.println("ScoreBoard: back to menu");
         lastSessionList = null;
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
