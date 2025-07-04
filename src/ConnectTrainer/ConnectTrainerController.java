@@ -83,7 +83,8 @@ public class ConnectTrainerController extends StageAwareController {
                 return false;
             });
 
-            Point2D startPoint = getCenter(connector);
+            Point2D startScene = getCenter(connector);
+            Point2D startPoint = sceneToPane(startScene.getX(), startScene.getY());
             currentLine = new Line(startPoint.getX(), startPoint.getY(), startPoint.getX(), startPoint.getY());
             currentLine.setStroke(randomColor());
             currentLine.setUserData(connector);
@@ -116,7 +117,7 @@ public class ConnectTrainerController extends StageAwareController {
     }
 
     private Label findConnectorAt(Point2D scenePoint, Label ignore) {
-        for (javafx.scene.Node node : drawPane.lookupAll(".connector-box")) {
+        for (javafx.scene.Node node : mainGrid.lookupAll(".connector-box")) {
             if (!(node instanceof Label conn) || conn == ignore) continue;
             Bounds bounds = conn.localToScene(conn.getBoundsInLocal());
             if (bounds.contains(scenePoint)) return conn;

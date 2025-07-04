@@ -12,6 +12,11 @@
         <Button fx:id="backButton" text="Zurück" onAction="#handleBack"
                 AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10"/>
 
+        <!-- Pane for connecting lines -->
+        <Pane fx:id="drawPane" mouseTransparent="true" pickOnBounds="false"
+              AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="10"
+              AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" />
+
         <!-- Main Layout -->
         <GridPane fx:id="mainGrid"
                   AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="10"
