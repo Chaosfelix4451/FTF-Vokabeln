@@ -11,7 +11,7 @@ body {
 a { color: #0066cc; }
 
 #sidebar {
-    width: 260px;
+    width: 25%;
     overflow-y: auto;
     background: #eaeaea;
     border-right: 1px solid #ccc;
@@ -22,7 +22,7 @@ a { color: #0066cc; }
 #content {
     flex: 1;
     padding: 2em;
-    max-width: 900px;
+    max-width: 90%;
 }
 
 pre, code {
