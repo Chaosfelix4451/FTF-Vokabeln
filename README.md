@@ -18,13 +18,15 @@ FTF-Vokabeln ist ein kleiner Vokabeltrainer auf Basis von JavaFX. Das Projekt en
 
 ## Build
 
-Vorausgesetzt werden JDK 11, JavaFX und Ant. Unter Ubuntu können die Pakete wie folgt installiert und das JAR gebaut werden:
+Vorausgesetzt werden JDK 11 und JavaFX. Liegt JavaFX z.B. unter `/usr/share/openjfx`,
+kann das Projekt über das beiliegende Skript kompiliert werden:
 
 ```bash
-sudo apt-get update && sudo apt-get install -y ant openjdk-11-jdk openjfx
-ant jar
-java -jar build/jar/FTF-Vokabeln.jar
+sudo apt-get update && sudo apt-get install -y openjfx
+./build.sh
 ```
+
+Das Skript erstellt lediglich die `.class`‑Dateien. Für ein JAR wird weiterhin Ant benötigt.
 
 ## Vokabellisten hinzufügen
 

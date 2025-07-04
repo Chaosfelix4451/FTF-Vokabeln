@@ -59,8 +59,9 @@ public class SceneLoader {
             StackPane wrapper = new StackPane(content);
             wrapper.getStyleClass().add("responsive-wrapper");
             Scene scene = new Scene(wrapper);
-            applyResponsivePadding(wrapper, stage, fxmlPath);
-            applyResponsiveSize(wrapper, content, stage, fxmlPath);
+        applyResponsivePadding(wrapper, stage, fxmlPath);
+        applyResponsiveSize(wrapper, content, stage, fxmlPath);
+        applyResponsiveFontScale(content, stage, fxmlPath);
 
             // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
@@ -128,6 +129,19 @@ public class SceneLoader {
             double scale = Math.min(targetW / 800.0, targetH / 600.0);
             content.setScaleX(scale);
             content.setScaleY(scale);
+        };
+        stage.widthProperty().addListener(listener);
+        stage.heightProperty().addListener(listener);
+        listener.changed(null, null, null);
+    }
+
+    private static void applyResponsiveFontScale(Parent content, Stage stage, String fxmlPath) {
+        if (fxmlPath.contains("Settings")) {
+            return;
+        }
+        ChangeListener<Number> listener = (obs, o, n) -> {
+            double scale = Math.min(stage.getWidth() / 800.0, stage.getHeight() / 600.0);
+            content.setStyle("-fx-font-size: " + (14 * scale) + "px;");
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
