@@ -13,18 +13,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * Displays vocabulary statistics using bar charts.
  */
 public class ScoreBoardController extends StageAwareController implements Initializable {
     @FXML
-    private BarChart<String, Number> overallChart;
-    @FXML
-    private BarChart<String, Number> comparisonChart;
+    private Label userLabel;
     @FXML
     private ChoiceBox<String> listChoiceBox;
     @FXML
@@ -32,103 +31,102 @@ public class ScoreBoardController extends StageAwareController implements Initia
     @FXML
     private TextField countField;
     @FXML
-    private Label userLabel;
+    private BarChart<String, Number> overallChart;
+    @FXML
+    private BarChart<String, Number> comparisonChart;
 
     private static String lastSessionList;
 
-    /** Called by the trainer when a round finished. */
+    /**
+     * Called by the trainer when a round finished to remember the list.
+     */
     public static void setLastSessionList(String listId) {
         lastSessionList = listId;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("ScoreBoard: initialize");
         userLabel.setText("Statistik für " + UserSys.getCurrentUser());
         modeChoiceBox.setItems(FXCollections.observableArrayList("User", "List"));
         modeChoiceBox.setValue("User");
         countField.setText("5");
+
         fillChoiceBox();
-        fillOverallChart();
+        updateOverallChart();
         updateComparisonChart();
 
-        listChoiceBox.getSelectionModel().selectedItemProperty().addListener((o, oldVal, newVal) -> updateComparisonChart());
-        modeChoiceBox.getSelectionModel().selectedItemProperty().addListener((o, oldVal, newVal) -> updateComparisonChart());
+        modeChoiceBox.getSelectionModel().selectedItemProperty()
+                .addListener((o, ov, nv) -> updateComparisonChart());
+        listChoiceBox.getSelectionModel().selectedItemProperty()
+                .addListener((o, ov, nv) -> updateComparisonChart());
     }
 
     private void fillChoiceBox() {
-        String user = UserSys.getCurrentUser();
-        listChoiceBox.setItems(FXCollections.observableArrayList(UserSys.getAllListIds(user)));
-        if (!listChoiceBox.getItems().isEmpty()) {
-            if (lastSessionList != null && listChoiceBox.getItems().contains(lastSessionList)) {
-                listChoiceBox.setValue(lastSessionList);
-            } else {
-                listChoiceBox.getSelectionModel().selectFirst();
-            }
+        List<String> lists = new java.util.ArrayList<>(UserSys.getAllListIds(UserSys.getCurrentUser()));
+        listChoiceBox.setItems(FXCollections.observableArrayList(lists));
+        if (lastSessionList != null && lists.contains(lastSessionList)) {
+            listChoiceBox.setValue(lastSessionList);
+        } else if (!lists.isEmpty()) {
+            listChoiceBox.getSelectionModel().selectFirst();
         }
     }
 
-    private void fillOverallChart() {
+    private void updateOverallChart() {
         overallChart.getData().clear();
-        XYChart.Series<String, Number> correctSeries = new XYChart.Series<>();
-        XYChart.Series<String, Number> incorrectSeries = new XYChart.Series<>();
-        String user = UserSys.getCurrentUser();
+        XYChart.Series<String, Number> correct = new XYChart.Series<>();
+        XYChart.Series<String, Number> wrong = new XYChart.Series<>();
+        correct.setName("Richtig");
+        wrong.setName("Falsch");
 
+        String user = UserSys.getCurrentUser();
         if (lastSessionList != null) {
-            var stats = UserSys.getUser(user).getStats(lastSessionList);
-            correctSeries.getData().add(new XYChart.Data<>(lastSessionList, stats.getCorrect()));
-            incorrectSeries.getData().add(new XYChart.Data<>(lastSessionList, stats.getIncorrect()));
+            var s = UserSys.getUser(user).getStats(lastSessionList);
+            correct.getData().add(new XYChart.Data<>(lastSessionList, s.getCorrect()));
+            wrong.getData().add(new XYChart.Data<>(lastSessionList, s.getIncorrect()));
         } else {
             for (String list : UserSys.getAllListIds(user)) {
-                var stats = UserSys.getUser(user).getStats(list);
-                correctSeries.getData().add(new XYChart.Data<>(list, stats.getCorrect()));
-                incorrectSeries.getData().add(new XYChart.Data<>(list, stats.getIncorrect()));
+                var s = UserSys.getUser(user).getStats(list);
+                correct.getData().add(new XYChart.Data<>(list, s.getCorrect()));
+                wrong.getData().add(new XYChart.Data<>(list, s.getIncorrect()));
             }
         }
-
-        correctSeries.setName("Richtig");
-        incorrectSeries.setName("Falsch");
-        overallChart.getData().addAll(correctSeries, incorrectSeries);
+        overallChart.getData().addAll(correct, wrong);
     }
 
     @FXML
     private void updateComparisonChart() {
         comparisonChart.getData().clear();
         String listId = listChoiceBox.getValue();
-        if (listId == null) return;
-        String mode = modeChoiceBox.getValue();
-        int count = 5;
+        if (listId == null) {
+            return;
+        }
+
+        int max;
         try {
-            count = Integer.parseInt(countField.getText());
-        } catch (NumberFormatException ignored) {}
+            max = Integer.parseInt(countField.getText());
+        } catch (NumberFormatException e) {
+            max = 5;
+        }
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Richtig");
 
-        if ("User".equals(mode)) {
-            List<String> users = UserSys.getAllUserNames();
-            Collections.sort(users, (a, b) -> {
-                int ca = UserSys.getUser(a).getStats(listId).getCorrect();
-                int cb = UserSys.getUser(b).getStats(listId).getCorrect();
-                return Integer.compare(cb, ca);
-            });
-            int max = Math.min(count, users.size());
-            for (int i = 0; i < max; i++) {
-                String name = users.get(i);
-                int value = UserSys.getUser(name).getStats(listId).getCorrect();
-                series.getData().add(new XYChart.Data<>(name, value));
+        if ("User".equals(modeChoiceBox.getValue())) {
+            List<String> users = UserSys.getAllUserNames().stream()
+                    .sorted(Comparator.comparingInt(u -> -UserSys.getUser(u).getStats(listId).getCorrect()))
+                    .limit(max)
+                    .collect(Collectors.toList());
+            for (String u : users) {
+                int value = UserSys.getUser(u).getStats(listId).getCorrect();
+                series.getData().add(new XYChart.Data<>(u, value));
             }
         } else {
             String user = UserSys.getCurrentUser();
-            List<String> lists = (List<String>) UserSys.getAllListIds(user);
-            Collections.sort(lists, (a, b) -> {
-                int ca = UserSys.getUser(user).getStats(a).getCorrect();
-                int cb = UserSys.getUser(user).getStats(b).getCorrect();
-                return Integer.compare(cb, ca);
-            });
-            int max = Math.min(count, lists.size());
-            for (int i = 0; i < max; i++) {
-                String l = lists.get(i);
+            List<String> lists = UserSys.getAllListIds(user).stream()
+                    .sorted(Comparator.comparingInt(l -> -UserSys.getUser(user).getStats(l).getCorrect()))
+                    .limit(max)
+                    .collect(Collectors.toList());
+            for (String l : lists) {
                 int value = UserSys.getUser(user).getStats(l).getCorrect();
                 series.getData().add(new XYChart.Data<>(l, value));
             }
@@ -138,7 +136,6 @@ public class ScoreBoardController extends StageAwareController implements Initia
 
     @FXML
     private void backToMenu() {
-        System.out.println("ScoreBoard: back to menu");
         lastSessionList = null;
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }

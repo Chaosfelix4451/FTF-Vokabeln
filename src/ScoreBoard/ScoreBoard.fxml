@@ -2,6 +2,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
+<?import javafx.geometry.Insets?>
+
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
     <center>
         <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
@@ -10,13 +12,13 @@
             </padding>
             <Label fx:id="userLabel" text="Statistik" wrapText="true" />
             <BarChart fx:id="overallChart" VBox.vgrow="ALWAYS" maxWidth="Infinity">
-                <xAxis><CategoryAxis label="Liste"/></xAxis>
-                <yAxis><NumberAxis label="Anzahl"/></yAxis>
+                <xAxis><CategoryAxis label="Liste" /></xAxis>
+                <yAxis><NumberAxis label="Anzahl" /></yAxis>
             </BarChart>
             <HBox spacing="5" alignment="CENTER" maxWidth="Infinity">
                 <ChoiceBox fx:id="listChoiceBox" HBox.hgrow="ALWAYS" />
                 <ChoiceBox fx:id="modeChoiceBox" />
-                <TextField fx:id="countField" prefWidth="60" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="countField" prefWidth="60" />
                 <Button text="Aktualisieren" onAction="#updateComparisonChart" />
             </HBox>
             <BarChart fx:id="comparisonChart" VBox.vgrow="ALWAYS" maxWidth="Infinity">
