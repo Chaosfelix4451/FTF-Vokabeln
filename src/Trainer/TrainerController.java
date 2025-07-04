@@ -86,6 +86,11 @@ public class TrainerController extends StageAwareController {
         nextButton.setOnAction(event -> checkAnswers());
         finishButton.setOnAction(event -> finishTraining());
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
+
+        if (confettiPane != null && rootPane != null) {
+            confettiPane.prefWidthProperty().bind(rootPane.widthProperty());
+            confettiPane.prefHeightProperty().bind(rootPane.heightProperty());
+        }
     }
 
     private void loadNextVocabSet() {
