@@ -11,6 +11,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.Comparator;
@@ -34,6 +36,8 @@ public class ScoreBoardController extends StageAwareController implements Initia
     private BarChart<String, Number> overallChart;
     @FXML
     private BarChart<String, Number> comparisonChart;
+    @FXML
+    private BorderPane rootPane;
 
     private static String lastSessionList;
 
@@ -138,5 +142,14 @@ public class ScoreBoardController extends StageAwareController implements Initia
     private void backToMenu() {
         lastSessionList = null;
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
+    }
+
+    @Override
+    public void setStage(Stage stage) {
+        super.setStage(stage);
+        if (rootPane != null) {
+            rootPane.maxWidthProperty().bind(stage.widthProperty().multiply(0.8));
+            rootPane.maxHeightProperty().bind(stage.heightProperty().multiply(0.8));
+        }
     }
 }
