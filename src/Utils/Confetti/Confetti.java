@@ -13,12 +13,38 @@ public class Confetti {
     private static final Random random = new Random();
 
     public static void show(Pane pane) {
-        if (pane == null) return;
+        if (pane == null) {
+            return;
+        }
+
+        javafx.application.Platform.runLater(() -> spawnConfetti(pane));
+    }
+
+    private static void spawnConfetti(Pane pane) {
         double width = pane.getWidth();
         double height = pane.getHeight();
-        // fallback if width/height are zero (not yet laid out)
-        if (width == 0) width = 800; // default
-        if (height == 0) height = 600;
+
+        if (width < 2) {
+            width = pane.getLayoutBounds().getWidth();
+        }
+        if (height < 2) {
+            height = pane.getLayoutBounds().getHeight();
+        }
+
+        if (width < 2 && pane.getScene() != null) {
+            width = pane.getScene().getWidth();
+        }
+        if (height < 2 && pane.getScene() != null) {
+            height = pane.getScene().getHeight();
+        }
+
+        if (width < 2) {
+            width = 800;
+        }
+        if (height < 2) {
+            height = 600;
+        }
+
         for (int i = 0; i < 60; i++) {
             Circle c = new Circle(5, randomColor());
             c.setCenterX(random.nextDouble() * width);
