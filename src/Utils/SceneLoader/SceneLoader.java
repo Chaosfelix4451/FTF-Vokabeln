@@ -60,6 +60,7 @@ public class SceneLoader {
             wrapper.getStyleClass().add("responsive-wrapper");
             Scene scene = new Scene(wrapper);
             applyResponsivePadding(wrapper, stage, fxmlPath);
+            applyResponsiveSize(wrapper, stage, fxmlPath);
 
             // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
@@ -84,9 +85,11 @@ public class SceneLoader {
                 scene.getStylesheets().add(responsiveUrl.toExternalForm());
             }
 
+            boolean isSettings = fxmlPath.contains("Settings");
             stage.setScene(scene);
-            stage.setFullScreen(!fxmlPath.contains("Settings"));
-            stage.setMaximized(true);
+            stage.setFullScreen(false); // avoid movie style fullscreen
+            stage.setMaximized(!isSettings);
+            stage.setResizable(true);
             stage.show();
 
         } catch (IOException e) {
@@ -107,6 +110,25 @@ public class SceneLoader {
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
         // initial call
+        listener.changed(null, null, null);
+    }
+
+    private static void applyResponsiveSize(StackPane wrapper, Stage stage, String fxmlPath) {
+        if (fxmlPath.contains("Settings")) {
+            return;
+        }
+        ChangeListener<Number> listener = (obs, o, n) -> {
+            double w = stage.getWidth();
+            double h = stage.getHeight();
+            wrapper.setMinWidth(w * 0.7);
+            wrapper.setMinHeight(h * 0.7);
+            wrapper.setPrefWidth(w * 0.8);
+            wrapper.setPrefHeight(h * 0.8);
+            wrapper.setMaxWidth(w * 0.9);
+            wrapper.setMaxHeight(h * 0.9);
+        };
+        stage.widthProperty().addListener(listener);
+        stage.heightProperty().addListener(listener);
         listener.changed(null, null, null);
     }
 

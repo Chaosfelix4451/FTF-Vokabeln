@@ -1,3 +1,5 @@
 .responsive-wrapper {
     -fx-alignment: center;
+    -fx-fill-width: true;
+    -fx-fill-height: true;
 }
