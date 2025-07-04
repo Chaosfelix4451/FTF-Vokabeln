@@ -144,6 +144,7 @@ public class SettingsController extends StageAwareController implements Initiali
         vocabListBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 UserSys.setPreference("vocabFile", newVal);
+
             }
             updateVocabModes();
             String mode = vocabModeBox.getValue();
