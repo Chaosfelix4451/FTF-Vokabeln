@@ -60,7 +60,7 @@ public class SceneLoader {
             wrapper.getStyleClass().add("responsive-wrapper");
             Scene scene = new Scene(wrapper);
             applyResponsivePadding(wrapper, stage, fxmlPath);
-            applyResponsiveSize(wrapper, stage, fxmlPath);
+            applyResponsiveSize(wrapper, content, stage, fxmlPath);
 
             // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
@@ -87,7 +87,7 @@ public class SceneLoader {
 
             boolean isSettings = fxmlPath.contains("Settings");
             stage.setScene(scene);
-            stage.setFullScreen(false); // avoid movie style fullscreen
+            stage.setFullScreen(!isSettings);
             stage.setMaximized(!isSettings);
             stage.setResizable(true);
             stage.show();
@@ -102,10 +102,7 @@ public class SceneLoader {
             return;
         }
         ChangeListener<Number> listener = (obs, o, n) -> {
-            double w = stage.getWidth();
-            double h = stage.getHeight();
-            double ratio = (w < 800 || h < 600) ? 0.05 : 0.1;
-            wrapper.setPadding(new Insets(h * ratio, w * ratio, h * ratio, w * ratio));
+            wrapper.setPadding(Insets.EMPTY);
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
@@ -113,7 +110,7 @@ public class SceneLoader {
         listener.changed(null, null, null);
     }
 
-    private static void applyResponsiveSize(StackPane wrapper, Stage stage, String fxmlPath) {
+    private static void applyResponsiveSize(StackPane wrapper, Parent content, Stage stage, String fxmlPath) {
         if (fxmlPath.contains("Settings")) {
             return;
         }
@@ -128,6 +125,9 @@ public class SceneLoader {
             wrapper.setPrefHeight(targetH);
             wrapper.setMaxWidth(targetW);
             wrapper.setMaxHeight(targetH);
+            double scale = Math.min(targetW / 800.0, targetH / 600.0);
+            content.setScaleX(scale);
+            content.setScaleY(scale);
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
