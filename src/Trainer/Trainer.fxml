@@ -3,18 +3,17 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.Pane?>
-<AnchorPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Trainer.TrainerController">
+<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="Trainer.TrainerController"
+           alignment="CENTER">
 
-    <VBox alignment="CENTER" layoutX="20.0" layoutY="20.0" spacing="20.0"
-          AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+    <VBox alignment="CENTER" spacing="20.0">
 
         <!-- Anzeige der aktuellen Punkte -->
         <Label fx:id="pointsLabel" text="Punkte: 0" wrapText="true" />
@@ -31,4 +30,4 @@
     </VBox>
     <Pane fx:id="confettiPane" mouseTransparent="true" />
 
-</AnchorPane>
+</StackPane>

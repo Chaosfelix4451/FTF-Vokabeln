@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class TrainerController extends StageAwareController {
     @FXML
     private Pane confettiPane;
     @FXML
-    private AnchorPane rootPane;
+    private StackPane rootPane;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
