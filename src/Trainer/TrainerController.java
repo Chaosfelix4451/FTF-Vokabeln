@@ -135,9 +135,7 @@ public class TrainerController extends StageAwareController {
             vocabBox.getChildren().add(box);
         }
 
-        if (stage != null) {
-            Platform.runLater(stage::sizeToScene);
-        }
+        // Keep the window size from the previous scene
     }
 
     private String langName(String code) {

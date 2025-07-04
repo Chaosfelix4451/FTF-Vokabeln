@@ -86,10 +86,8 @@ public class SceneLoader {
                 scene.getStylesheets().add(responsiveUrl.toExternalForm());
             }
 
-            boolean isSettings = fxmlPath.contains("Settings");
             stage.setScene(scene);
-            stage.setFullScreen(!isSettings);
-            stage.setMaximized(!isSettings);
+            // keep current window state (fullscreen or not)
             stage.setResizable(true);
             stage.show();
 
