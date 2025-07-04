@@ -64,8 +64,8 @@ VBox > Button {
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10 20;
-    -fx-min-width: 150;
-    -fx-pref-width: 200;
+    -fx-min-width: 120;
+    -fx-pref-width: 150;
     -fx-min-height: 40;
     -fx-background-radius: 5;
     -fx-cursor: hand;

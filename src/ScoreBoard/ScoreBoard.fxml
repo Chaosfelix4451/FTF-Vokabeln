@@ -3,13 +3,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
         <Label fx:id="userLabel" text="Statistik" wrapText="true" />
         <BarChart fx:id="overallChart" prefHeight="200">
             <xAxis><CategoryAxis label="Liste"/></xAxis>
             <yAxis><NumberAxis label="Anzahl"/></yAxis>
         </BarChart>
-        <HBox spacing="5">
+        <HBox spacing="5" alignment="CENTER">
             <ChoiceBox fx:id="listChoiceBox" />
             <ChoiceBox fx:id="modeChoiceBox" />
             <TextField fx:id="countField" prefWidth="60" />
