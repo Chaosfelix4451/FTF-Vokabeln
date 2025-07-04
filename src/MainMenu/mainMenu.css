@@ -8,8 +8,6 @@
 .label {
     -fx-text-fill: #2c3e50;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
 }
 
 #mainLabel {
@@ -19,8 +17,6 @@
     -fx-font-family: "Arial Black";
     -fx-padding: 10 0 20 0;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 2);
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
     -fx-alignment: center;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
@@ -29,8 +25,6 @@
 .border-pane {
     -fx-pref-width: USE_COMPUTED_SIZE;
     -fx-pref-height: USE_COMPUTED_SIZE;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
     -fx-alignment: center;
     -fx-padding: 20;
 }
@@ -46,8 +40,8 @@
     -fx-background-radius: 5;
     -fx-min-width: 50;
     -fx-min-height: 35;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-width: 50;
+    -fx-pref-height: 35;
 
 }
 
@@ -60,8 +54,8 @@
     -fx-padding: 8;
     -fx-prompt-text-fill: #95a5a6;
     -fx-min-height: 35;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-width: 300;
+    -fx-pref-height: 35;
 }
 
 /* Hauptmenü Buttons */
@@ -70,12 +64,12 @@ VBox > Button {
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-padding: 10 20;
-    -fx-min-width: 200;
+    -fx-min-width: 150;
+    -fx-pref-width: 200;
     -fx-min-height: 40;
     -fx-background-radius: 5;
     -fx-cursor: hand;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-height: 40;
     -fx-alignment: center;
     -fx-content-display: center;
     -fx-wrap-text: true;
@@ -88,10 +82,10 @@ VBox > Button {
     -fx-alignment: center-left;
     -fx-padding: 10 15;
     -fx-min-width: 150;
+    -fx-pref-width: 150;
     -fx-min-height: 35;
     -fx-effect: none;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-height: 35;
     -fx-translate-y: 5;
 }
 
@@ -110,17 +104,17 @@ VBox > Button {
     -fx-border-radius: 3;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 3, 0, 0, 1);
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-width: 50;
+    -fx-pref-height: 25;
 }
 
 /* Beenden-Button */
 #exitButton {
     -fx-background-color: #e74c3c;
-    -fx-min-width: 200;
+    -fx-min-width: 150;
+    -fx-pref-width: 200;
     -fx-min-height: 40;
-    -fx-max-width: Infinity;
-    -fx-max-height: Infinity;
+    -fx-pref-height: 40;
 }
 
 /* Hover und Pressed Effekte */
