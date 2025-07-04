@@ -20,9 +20,9 @@
           </VBox.margin>
        </ChoiceBox>
       <Label text="Confetti" />
-       <Button fx:id="confettibutton" maxWidth="Infinity" onAction="#adminConfetti" text="🎉" />
+       <Button fx:id="confettibutton" onAction="#adminConfetti" text="🎉" />
       <Label prefHeight="17.0" prefWidth="272.0" text="Secret Game Mode (Alpha Connect Vocabluar)" />
-       <Button maxWidth="Infinity" onAction="#openConnectTrainer" text="Verbindungsmodus" />
+       <Button onAction="#openConnectTrainer" text="Verbindungsmodus" />
        <Label fx:id="vDark" text="Erscheinungsbild:">
           <VBox.margin>
              <Insets />

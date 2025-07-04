@@ -105,7 +105,7 @@ public class MainMenuController extends StageAwareController {
     private void toggleSideMenu() {
         boolean isVisible = sideMenu.isVisible();
         sideMenu.setVisible(!isVisible);
-       // sideMenu.setManaged(!isVisible);
+        sideMenu.setManaged(!isVisible);
     }
 
     @FXML
