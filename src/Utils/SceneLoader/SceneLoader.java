@@ -123,8 +123,8 @@ public class SceneLoader {
         ChangeListener<Number> listener = (obs, o, n) -> {
             double w = stage.getWidth();
             double h = stage.getHeight();
-            double targetW = w * 0.8;
-            double targetH = h * 0.8;
+            double targetW = w * 0.9;
+            double targetH = h * 0.9;
             wrapper.setMinWidth(targetW);
             wrapper.setMinHeight(targetH);
             wrapper.setPrefWidth(targetW);
