@@ -124,11 +124,20 @@
  -fx-padding: 5;
  -fx-pref-height: 35px;
 }
-/* Styling für die Balken im Chart */
-.default-color0.chart-bar { /* Erster Balken (links) */
+/* Styling für die Balken im oberen Chart (overallChart) */
+#overallChart .default-color0.chart-bar {
     -fx-bar-fill: #2ecc71; /* Grün */
 }
 
-.default-color1.chart-bar { /* Zweiter Balken (rechts) */
+#overallChart .default-color1.chart-bar {
     -fx-bar-fill: #e74c3c; /* Rot */
+}
+
+/* Styling für die Balken im unteren Chart (comparisonChart) */
+#comparisonChart .default-color0.chart-bar {
+    -fx-bar-fill: #3498db; /* Blau */
+}
+
+#comparisonChart .default-color1.chart-bar {
+    -fx-bar-fill: #e84393; /* Pink */
 }

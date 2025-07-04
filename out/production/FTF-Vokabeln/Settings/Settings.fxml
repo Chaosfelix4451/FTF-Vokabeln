@@ -32,7 +32,7 @@
          </padding></Label>
       <CheckBox fx:id="darkModeToggle" text="Dark Mode" />
    </VBox>
-   <Label fx:id="mainLable" layoutX="197.0" layoutY="38.0" text="Einstellungen">
+   <Label fx:id="mainLable" layoutX="197.0" layoutY="38.0" text="Einstellungen" wrapText="true">
       <font>
          <Font size="18.0" />
       </font>

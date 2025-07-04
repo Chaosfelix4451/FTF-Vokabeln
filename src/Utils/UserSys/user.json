@@ -1,7 +1,7 @@
 {
-  "currentUser": "Felix",
+  "currentUser": "Toby",
   "preferences": {
-    "vocabFile": "defaultvocab.json",
+    "vocabFile": "animals.json",
     "vocabMode": "Deutsch zu Englisch",
     "darkMode": false
   },
@@ -55,6 +55,28 @@
       }},
       "name": "adssd",
       "points": 0
+    },
+    {
+      "stats": {
+        "defaultvocab.json": {
+          "total": 60,
+          "lastIncorrect": 0,
+          "correct": 37,
+          "incorrect": 23,
+          "lastCorrect": 0,
+          "lastTotal": 0
+        },
+        "animals.json": {
+          "total": 50,
+          "lastIncorrect": 0,
+          "correct": 0,
+          "incorrect": 50,
+          "lastCorrect": 0,
+          "lastTotal": 0
+        }
+      },
+      "name": "Toby",
+      "points": 74
     }
   ]
 }
