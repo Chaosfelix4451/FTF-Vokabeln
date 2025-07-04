@@ -23,6 +23,7 @@ public class ConnectTrainerController extends StageAwareController {
 
     @FXML
     private void initialize() {
+        System.out.println("ConnectTrainer: initialize");
         String listId = UserSys.getPreference("vocabFile", "defaultvocab.json");
         String mode = UserSys.getPreference("vocabMode", "Deutsch zu Englisch");
         TrainerModel model = new TrainerModel();
@@ -79,6 +80,7 @@ public class ConnectTrainerController extends StageAwareController {
 
     @FXML
     private void handleBack() {
+        System.out.println("ConnectTrainer: back to menu");
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
 }

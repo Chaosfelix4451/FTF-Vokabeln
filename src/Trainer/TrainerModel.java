@@ -24,6 +24,7 @@ public class TrainerModel {
      * bundled resources when running from a JAR.
      */
     private InputStream openVocabStream(String fileName) throws IOException {
+        System.out.println("TrainerModel: opening vocab file " + fileName);
         // Try direct path first
         Path path = Path.of(fileName);
         if (!Files.exists(path)) {
@@ -41,6 +42,7 @@ public class TrainerModel {
     }
 
     public void LoadJSONtoDataObj(String fileName) {
+        System.out.println("TrainerModel: loading data from " + fileName);
         vocabData.clear();
         availableLanguages.clear();
         try (InputStream in = openVocabStream(fileName)) {
