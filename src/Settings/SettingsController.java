@@ -36,15 +36,7 @@ public class SettingsController extends StageAwareController implements Initiali
      */
     @FXML
     public void openMainMenu(ActionEvent event) {
-        SceneLoader.load("/MainMenu/mainMenu.fxml");
-    }
-
-    /**
-     * Startet den Trainer.
-     */
-    @FXML
-    public void openTrainer(ActionEvent event) {
-        SceneLoader.load(stage, "/Trainer/Trainer.fxml");
+        this.stage.close();
     }
 
     @FXML
