@@ -158,6 +158,19 @@ public class TrainerController extends StageAwareController {
             default -> 1;
         };
     }
+    private double calculatePercentage() {
+        int correctCount = 0;
+        for (VocabEntry entry : vocabEntries) {
+            String userInput = entry.inputField.getText().trim();
+            String expected = entry.solution;
+            if (userInput.equalsIgnoreCase(expected)) {
+                correctCount++;
+            }
+        }
+
+        double prozentKorrekt = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
+        return prozentKorrekt;
+    }
 
     public void checkAnswers() {
         boolean allCorrect = true;
@@ -209,6 +222,8 @@ public class TrainerController extends StageAwareController {
 
         UserSys.saveToJson();
 
+        double prozentKorrekt = calculatePercentage();
+
         double percent = (vocabEntries.isEmpty()) ? 0 : (correctCount * 100.0 / vocabEntries.size());
         if (percent >= 75.0) {
             soundModel.playSound("src/Utils/Sound/richtig.mp3");
@@ -218,14 +233,9 @@ public class TrainerController extends StageAwareController {
             soundModel.playSound("src/Utils/Sound/falsch.mp3");
         }
 
-        if (allCorrect) {
-            Confetti.show(confettiPane != null ? confettiPane : rootPane);
-        }
-
 
         nextButton.setDisable(true); // Button deaktivieren
 
-// Neue Aktion definieren
         Runnable naechsteAktion = new Runnable() {
             @Override
             public void run() {
@@ -233,34 +243,55 @@ public class TrainerController extends StageAwareController {
                     loadNextVocabSet();
                     nextButton.setDisable(false);
                 } else {
-                    finishTraining();
+                    if (calculatePercentage() >= 90.0) {
+                        Platform.runLater(() -> {
+                            // Zeige Konfetti und spiele Sound ab bei >=75%
+                            Confetti.show(confettiPane != null ? confettiPane : rootPane);
+                            soundModel.playSound("src/Utils/Sound/super.mp3");
+                            
+                            // Warte 5 Sekunden, dann zum Highscore
+                            Thread delayThread = new Thread(() -> {
+                                try {
+                                    Thread.sleep(5000);
+                                    Platform.runLater(() -> finishTraining());
+                                } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt();
+                                }
+                            });
+                            delayThread.setDaemon(true);
+                            delayThread.start();
+                        });
+                    } else {
+                        // Bei weniger als 75% direkt zum Highscore
+                        Platform.runLater(() -> finishTraining());
+                    }
                 }
             }
         };
 
-// Neuer Thread mit einfacher Wartezeit
+// Neuer Thread mit einfacher Wartezeit für die Anzeige der Ergebnisse
         Thread warteThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(5000); // 5 Sekunden warten
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-
-                // Aktion im JavaFX-GUI-Thread ausführen
                 Platform.runLater(naechsteAktion);
             }
         });
 
-        warteThread.setDaemon(true); // Beenden mit Programmende erlauben
-        warteThread.start();         // Thread starten
+        warteThread.setDaemon(true);
+        warteThread.start();
     }
 
         private void finishTraining() {
-        ScoreBoard.ScoreBoardController.setLastSessionList(listId);
+            ScoreBoard.ScoreBoardController.setLastSessionList(listId);
+
         if (stage != null) {
             SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");
+
         } else {
             SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
         }

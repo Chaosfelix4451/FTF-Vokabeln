@@ -2,17 +2,17 @@
   "currentUser": "Felix",
   "preferences": {
     "vocabFile": "defaultvocab.json",
-    "vocabMode": "Zufällig",
+    "vocabMode": "Deutsch zu Englisch",
     "darkMode": false
   },
   "users": [
     {
       "stats": {
         "defaultvocab.json": {
-          "total": 50,
+          "total": 530,
           "lastIncorrect": 0,
-          "correct": 1,
-          "incorrect": 49,
+          "correct": 73,
+          "incorrect": 457,
           "lastCorrect": 0,
           "lastTotal": 0
         },
@@ -24,6 +24,14 @@
           "lastCorrect": 8,
           "lastTotal": 10
         },
+        "animals.json": {
+          "total": 15,
+          "lastIncorrect": 0,
+          "correct": 2,
+          "incorrect": 13,
+          "lastCorrect": 0,
+          "lastTotal": 0
+        },
         "food": {
           "total": 8,
           "lastIncorrect": 2,
@@ -34,7 +42,7 @@
         }
       },
       "name": "Felix",
-      "points": 122
+      "points": 268
     },
     {
       "stats": {"defaultvocab.json": {

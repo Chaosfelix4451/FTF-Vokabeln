@@ -124,3 +124,11 @@
  -fx-padding: 5;
  -fx-pref-height: 35px;
 }
+/* Styling für die Balken im Chart */
+.default-color0.chart-bar { /* Erster Balken (links) */
+    -fx-bar-fill: #2ecc71; /* Grün */
+}
+
+.default-color1.chart-bar { /* Zweiter Balken (rechts) */
+    -fx-bar-fill: #e74c3c; /* Rot */
+}
