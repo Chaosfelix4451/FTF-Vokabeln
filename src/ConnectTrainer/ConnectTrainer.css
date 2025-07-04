@@ -7,8 +7,8 @@
 .connector-box {
     -fx-background-color: lightgray;
     -fx-border-color: darkgray;
-    -fx-min-width: 30;
-    -fx-min-height: 30;
+    -fx-min-width: 20;
+    -fx-min-height: 20;
     -fx-alignment: center;
     -fx-background-radius: 5;
 }

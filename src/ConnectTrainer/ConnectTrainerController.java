@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
@@ -22,6 +23,10 @@ public class ConnectTrainerController extends StageAwareController {
     private Label leftLabel1, leftLabel2, leftLabel3, leftLabel4, leftLabel5;
     @FXML
     private Label rightLabel1, rightLabel2, rightLabel3, rightLabel4, rightLabel5;
+    @FXML
+    private Label leftConnector1, leftConnector2, leftConnector3, leftConnector4, leftConnector5;
+    @FXML
+    private Label rightConnector1, rightConnector2, rightConnector3, rightConnector4, rightConnector5;
 
     private final List<Line> lines = new ArrayList<>();
     private Line currentLine;
@@ -42,6 +47,8 @@ public class ConnectTrainerController extends StageAwareController {
 
         List<Label> leftLabels = List.of(leftLabel1, leftLabel2, leftLabel3, leftLabel4, leftLabel5);
         List<Label> rightLabels = List.of(rightLabel1, rightLabel2, rightLabel3, rightLabel4, rightLabel5);
+        List<Label> leftConnectors = List.of(leftConnector1, leftConnector2, leftConnector3, leftConnector4, leftConnector5);
+        List<Label> rightConnectors = List.of(rightConnector1, rightConnector2, rightConnector3, rightConnector4, rightConnector5);
 
         for (int i = 0; i < 5 && i < ids.size(); i++) {
             String id = ids.get(i);
@@ -49,15 +56,16 @@ public class ConnectTrainerController extends StageAwareController {
             leftLabels.get(i).setId("left_" + id);
             rightLabels.get(i).setText(model.get(id, langPair[1]));
             rightLabels.get(i).setId("right_" + id);
-            setupDrag(leftLabels.get(i), rightLabels.get(i));
-            setupDrag(rightLabels.get(i), leftLabels.get(i));
+            setupDrag(leftConnectors.get(i), rightConnectors);
+            setupDrag(rightConnectors.get(i), leftConnectors);
         }
     }
 
-    private void setupDrag(Label start, Label target) {
+    private void setupDrag(Label start, List<Label> targets) {
         start.setOnMousePressed(e -> {
             Point2D startPoint = getCenter(start);
             currentLine = new Line(startPoint.getX(), startPoint.getY(), startPoint.getX(), startPoint.getY());
+            currentLine.setStroke(randomColor());
             drawPane.getChildren().add(currentLine);
         });
 
@@ -71,18 +79,32 @@ public class ConnectTrainerController extends StageAwareController {
 
         start.setOnMouseReleased(e -> {
             if (currentLine != null) {
-                Bounds b = target.localToScene(target.getBoundsInLocal());
-                if (b.contains(e.getSceneX(), e.getSceneY())) {
-                    Point2D endPoint = getCenter(target);
-                    currentLine.setEndX(endPoint.getX());
-                    currentLine.setEndY(endPoint.getY());
-                } else {
-                    drawPane.getChildren().remove(currentLine);
+                boolean placed = false;
+                for (Label target : targets) {
+                    Bounds b = target.localToScene(target.getBoundsInLocal());
+                    if (b.contains(e.getSceneX(), e.getSceneY())) {
+                        Point2D endPoint = getCenter(target);
+                        currentLine.setEndX(endPoint.getX());
+                        currentLine.setEndY(endPoint.getY());
+                        placed = true;
+                        break;
+                    }
                 }
-                lines.add(currentLine);
+                if (!placed) {
+                    drawPane.getChildren().remove(currentLine);
+                } else {
+                    lines.add(currentLine);
+                }
                 currentLine = null;
             }
         });
+    }
+
+    private Color randomColor() {
+        double hue = Math.random() * 360;
+        double saturation = 0.5 + Math.random() * 0.3; // avoid extremes
+        double brightness = 0.5 + Math.random() * 0.2;
+        return Color.hsb(hue, saturation, brightness);
     }
 
     private Point2D getCenter(Label node) {
