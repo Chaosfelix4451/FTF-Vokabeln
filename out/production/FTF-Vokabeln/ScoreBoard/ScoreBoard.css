@@ -114,6 +114,7 @@
 .vbox {
     -fx-spacing: 10;
     -fx-padding: 15;
+    -fx-alignment: center;
 }
 
 #listChoiceBox {
