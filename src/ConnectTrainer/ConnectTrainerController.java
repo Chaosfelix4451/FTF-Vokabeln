@@ -87,20 +87,32 @@ public class ConnectTrainerController extends StageAwareController {
 
     private void bindResizeListeners() {
         // Redraw on pane resize
-        drawPane.widthProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
-        drawPane.heightProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
+        drawPane.widthProperty().addListener((obs, oldVal, newVal) ->
+                javafx.application.Platform.runLater(this::redrawAllLines));
+        drawPane.heightProperty().addListener((obs, oldVal, newVal) ->
+                javafx.application.Platform.runLater(this::redrawAllLines));
 
         // Redraw on VBox layout change
-        leftBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
-        rightBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) -> redrawAllLines());
+        leftBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) ->
+                javafx.application.Platform.runLater(this::redrawAllLines));
+        rightBox.layoutBoundsProperty().addListener((obs, oldVal, newVal) ->
+                javafx.application.Platform.runLater(this::redrawAllLines));
 
         // Redraw on stage resize (including fullscreen/window toggle)
         drawPane.sceneProperty().addListener((obsScene, oldScene, newScene) -> {
             if (newScene != null) {
                 newScene.windowProperty().addListener((obsWin, oldWin, newWin) -> {
                     if (newWin != null) {
-                        newWin.widthProperty().addListener((o, oldW, newW) -> redrawAllLines());
-                        newWin.heightProperty().addListener((o, oldH, newH) -> redrawAllLines());
+                        newWin.widthProperty().addListener((o, oldW, newW) ->
+                                javafx.application.Platform.runLater(this::redrawAllLines));
+                        newWin.heightProperty().addListener((o, oldH, newH) ->
+                                javafx.application.Platform.runLater(this::redrawAllLines));
+                        if (newWin instanceof javafx.stage.Stage stage) {
+                            stage.fullScreenProperty().addListener((o, oldV, newV) ->
+                                    javafx.application.Platform.runLater(this::redrawAllLines));
+                            stage.maximizedProperty().addListener((o, oldV, newV) ->
+                                    javafx.application.Platform.runLater(this::redrawAllLines));
+                        }
                     }
                 });
             }
@@ -110,8 +122,16 @@ public class ConnectTrainerController extends StageAwareController {
         if (drawPane.getScene() != null) {
             Window win = drawPane.getScene().getWindow();
             if (win != null) {
-                win.widthProperty().addListener((o, oldW, newW) -> redrawAllLines());
-                win.heightProperty().addListener((o, oldH, newH) -> redrawAllLines());
+                win.widthProperty().addListener((o, oldW, newW) ->
+                        javafx.application.Platform.runLater(this::redrawAllLines));
+                win.heightProperty().addListener((o, oldH, newH) ->
+                        javafx.application.Platform.runLater(this::redrawAllLines));
+                if (win instanceof javafx.stage.Stage stage) {
+                    stage.fullScreenProperty().addListener((o, oldV, newV) ->
+                            javafx.application.Platform.runLater(this::redrawAllLines));
+                    stage.maximizedProperty().addListener((o, oldV, newV) ->
+                            javafx.application.Platform.runLater(this::redrawAllLines));
+                }
             }
         }
     }
