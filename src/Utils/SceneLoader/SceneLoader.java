@@ -20,7 +20,9 @@ public class SceneLoader {
      * bounds prevent extremely small or excessively large UI elements on
      * unusual window sizes.
      */
-    private static final double MIN_SCALE = 0.5;
+    // Allow the UI to shrink a bit more so that the burger menu and
+    // side menu remain visible even on narrow windows.
+    private static final double MIN_SCALE = 0.3;
     private static final double MAX_SCALE = 1.5;
 
     private static class StageManager {
