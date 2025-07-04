@@ -8,7 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainerView_old {
 

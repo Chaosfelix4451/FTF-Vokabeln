@@ -1,24 +1,27 @@
 package ConnectTrainer;
 
-import Trainer.TrainerModel;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
 import Utils.UserSys.UserSys;
+import ConnectTrainer.ConnectTrainerModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Window;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConnectTrainerController extends StageAwareController {
 
@@ -30,25 +33,17 @@ public class ConnectTrainerController extends StageAwareController {
     private final List<Line> lines = new ArrayList<>();
     private final Map<Line, Label[]> lineEndpoints = new HashMap<>();
     private Line currentLine;
+    private final ConnectTrainerModel model = new ConnectTrainerModel();
 
     @FXML
     private void initialize() {
         String listId = UserSys.getPreference("vocabFile", "defaultvocab.json");
         String mode = UserSys.getPreference("vocabMode", "Deutsch zu Englisch");
 
-        TrainerModel model = new TrainerModel();
-        model.LoadJSONtoDataObj(listId);
+        model.loadData(listId, mode);
 
-        String[] langPair = model.getLangPairForMode(mode);
-        if (langPair == null) langPair = new String[]{"de", "en"};
-
-        List<String> ids = new ArrayList<>(model.getAllIds());
-        Collections.shuffle(ids);
-
-        for (int i = 0; i < 5 && i < ids.size(); i++) {
-            String id = ids.get(i);
-
-            Label vocabLeft = new Label(model.get(id, langPair[0]));
+        for (ConnectTrainerModel.VocabPair pair : model.getRandomPairs(5)) {
+            Label vocabLeft = new Label(pair.left);
             vocabLeft.getStyleClass().add("vocab-box");
             VBox.setMargin(vocabLeft, new Insets(5));
 
@@ -68,7 +63,7 @@ public class ConnectTrainerController extends StageAwareController {
             connRight.getStyleClass().add("connector-box");
             connRight.setTranslateX(10);
 
-            Label vocabRight = new Label(model.get(id, langPair[1]));
+            Label vocabRight = new Label(pair.right);
             vocabRight.getStyleClass().add("vocab-box");
             VBox.setMargin(vocabRight, new Insets(5));
 
