@@ -104,9 +104,6 @@ public class SceneLoader {
     }
 
     private static void applyResponsivePadding(StackPane wrapper, Stage stage, String fxmlPath) {
-        if (fxmlPath.contains("Settings")) {
-            return;
-        }
         ChangeListener<Number> listener = (obs, o, n) -> {
             wrapper.setPadding(Insets.EMPTY);
         };
@@ -117,9 +114,6 @@ public class SceneLoader {
     }
 
     private static void applyResponsiveSize(StackPane wrapper, Parent content, Stage stage, String fxmlPath) {
-        if (fxmlPath.contains("Settings")) {
-            return;
-        }
         ChangeListener<Number> listener = (obs, o, n) -> {
             double w = stage.getWidth();
             double h = stage.getHeight();
@@ -142,9 +136,6 @@ public class SceneLoader {
     }
 
     private static void applyResponsiveFontScale(Parent content, Stage stage, String fxmlPath) {
-        if (fxmlPath.contains("Settings")) {
-            return;
-        }
         ChangeListener<Number> listener = (obs, o, n) -> {
             double scale = Math.min(stage.getWidth() / 800.0, stage.getHeight() / 600.0);
             scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
