@@ -12,7 +12,11 @@ VBox {
 
 HBox {
     -fx-spacing: 10;
-    -fx-alignment: CENTER-LEFT;
+    -fx-alignment: CENTER;
+}
+
+#vocabBox {
+    -fx-alignment: CENTER;
 }
 
 /* Label Styling */
