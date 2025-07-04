@@ -17,8 +17,15 @@ public class UserSys {
     private static final Map<String, Object> preferences = new HashMap<>();
 
     public static void loadFromJson() {
-        try (InputStream in = UserSys.class.getResourceAsStream("/Utils/UserSys/user.json")) {
-            if (in == null) throw new FileNotFoundException("user.json nicht gefunden");
+        Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
+        InputStream in = null;
+        try {
+            if (Files.exists(path)) {
+                in = Files.newInputStream(path);
+            } else {
+                in = UserSys.class.getResourceAsStream("/Utils/UserSys/user.json");
+                if (in == null) throw new FileNotFoundException("user.json nicht gefunden");
+            }
 
             JSONObject root = new JSONObject(new JSONTokener(in));
             currentUser = root.optString("currentUser", "user");
@@ -36,6 +43,13 @@ public class UserSys {
             }
         } catch (IOException e) {
             throw new RuntimeException("Fehler beim Laden der JSON-Datei", e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException ignore) {
+                }
+            }
         }
     }
 
