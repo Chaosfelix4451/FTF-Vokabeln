@@ -9,10 +9,10 @@
     {
       "stats": {
         "defaultvocab.json": {
-          "total": 530,
+          "total": 535,
           "lastIncorrect": 0,
           "correct": 73,
-          "incorrect": 457,
+          "incorrect": 462,
           "lastCorrect": 0,
           "lastTotal": 0
         },

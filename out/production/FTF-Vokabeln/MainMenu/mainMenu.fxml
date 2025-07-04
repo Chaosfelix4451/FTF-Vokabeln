@@ -28,8 +28,8 @@
                 <HBox alignment="CENTER" spacing="10">
                     <TextField fx:id="userField" maxWidth="300" promptText="Benutzername" />
                     <VBox alignment="CENTER_LEFT" spacing="5">
-                        <Button fx:id="searchButton" maxWidth="Infinity" text="🔍" />
-                        <Button fx:id="addButton" maxWidth="Infinity" text="+" />
+                        <Button fx:id="searchButton" maxWidth="Infinity" onAction="#handleSearchUser" text="🔍" />
+                        <Button fx:id="addButton" maxWidth="Infinity" onAction="#handleCreateUser" text="+" />
                     </VBox>
                 </HBox>
                 <Label fx:id="statusLabel" maxWidth="Infinity" />
