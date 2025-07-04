@@ -28,6 +28,12 @@ public class ConnectTrainerController extends StageAwareController {
     @FXML
     private Label rightConnector1, rightConnector2, rightConnector3, rightConnector4, rightConnector5;
 
+    private final List<Label> leftLabels = new ArrayList<>();
+    private final List<Label> rightLabels = new ArrayList<>();
+    private final List<Label> leftConnectors = new ArrayList<>();
+    private final List<Label> rightConnectors = new ArrayList<>();
+
+
     private final List<Line> lines = new ArrayList<>();
     private Line currentLine;
 
@@ -45,21 +51,52 @@ public class ConnectTrainerController extends StageAwareController {
         List<String> ids = new ArrayList<>(model.getAllIds());
         Collections.shuffle(ids);
 
-        List<Label> leftLabels = List.of(leftLabel1, leftLabel2, leftLabel3, leftLabel4, leftLabel5);
-        List<Label> rightLabels = List.of(rightLabel1, rightLabel2, rightLabel3, rightLabel4, rightLabel5);
-        List<Label> leftConnectors = List.of(leftConnector1, leftConnector2, leftConnector3, leftConnector4, leftConnector5);
-        List<Label> rightConnectors = List.of(rightConnector1, rightConnector2, rightConnector3, rightConnector4, rightConnector5);
-
         for (int i = 0; i < 5 && i < ids.size(); i++) {
             String id = ids.get(i);
-            leftLabels.get(i).setText(model.get(id, langPair[0]));
-            leftLabels.get(i).setId("left_" + id);
-            rightLabels.get(i).setText(model.get(id, langPair[1]));
-            rightLabels.get(i).setId("right_" + id);
-            setupDrag(leftConnectors.get(i), rightConnectors);
-            setupDrag(rightConnectors.get(i), leftConnectors);
+            double y = 40 + i * 60;
+
+            // Linke Seite: Label halb in Connector
+            Label lLabel = new Label(model.get(id, langPair[0]));
+            lLabel.setId("left_" + id);
+            lLabel.setLayoutX(100);
+            lLabel.setLayoutY(y);
+            lLabel.setPrefSize(100, 40);
+            lLabel.getStyleClass().add("vocab-box");
+
+            Label lConn = new Label();
+            lConn.setLayoutX(180);
+            lConn.setLayoutY(y + 10);
+            lConn.setPrefSize(20, 20);
+            lConn.getStyleClass().add("connector-box");
+
+            leftLabels.add(lLabel);
+            leftConnectors.add(lConn);
+            drawPane.getChildren().addAll(lLabel, lConn);
+
+            // Rechte Seite: Label halb in Connector
+            Label rConn = new Label();
+            rConn.setLayoutX(400);
+            rConn.setLayoutY(y + 10);
+            rConn.setPrefSize(20, 20);
+            rConn.getStyleClass().add("connector-box");
+
+            Label rLabel = new Label(model.get(id, langPair[1]));
+            rLabel.setId("right_" + id);
+            rLabel.setLayoutX(410);
+            rLabel.setLayoutY(y);
+            rLabel.setPrefSize(100, 40);
+            rLabel.getStyleClass().add("vocab-box");
+
+            rightLabels.add(rLabel);
+            rightConnectors.add(rConn);
+            drawPane.getChildren().addAll(rConn, rLabel);
+
+            // Drag & Drop Setup
+            setupDrag(lConn, rightConnectors);
+            setupDrag(rConn, leftConnectors);
         }
     }
+
 
     private void setupDrag(Label start, List<Label> targets) {
         start.setOnMousePressed(e -> {
