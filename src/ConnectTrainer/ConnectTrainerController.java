@@ -11,14 +11,19 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ConnectTrainerController extends StageAwareController {
     @FXML
     private Pane drawPane;
     @FXML
-    private Label leftLabel;
+    private Label leftLabel1, leftLabel2, leftLabel3, leftLabel4, leftLabel5;
     @FXML
-    private Label rightLabel;
+    private Label rightLabel1, rightLabel2, rightLabel3, rightLabel4, rightLabel5;
 
+    private final List<Line> lines = new ArrayList<>();
     private Line currentLine;
 
     @FXML
@@ -28,24 +33,32 @@ public class ConnectTrainerController extends StageAwareController {
         String mode = UserSys.getPreference("vocabMode", "Deutsch zu Englisch");
         TrainerModel model = new TrainerModel();
         model.LoadJSONtoDataObj(listId);
-        String id = model.getAllIds().iterator().next();
-        String[] langPair = model.getLangPairForMode(mode);
-        if (langPair == null) {
-            langPair = new String[]{"de", "en"};
-        }
-        leftLabel.setText(model.get(id, langPair[0]));
-        rightLabel.setText(model.get(id, langPair[1]));
 
-        setupDrag(leftLabel, rightLabel);
-        setupDrag(rightLabel, leftLabel);
+        String[] langPair = model.getLangPairForMode(mode);
+        if (langPair == null) langPair = new String[]{"de", "en"};
+
+        List<String> ids = new ArrayList<>(model.getAllIds());
+        Collections.shuffle(ids);
+
+        List<Label> leftLabels = List.of(leftLabel1, leftLabel2, leftLabel3, leftLabel4, leftLabel5);
+        List<Label> rightLabels = List.of(rightLabel1, rightLabel2, rightLabel3, rightLabel4, rightLabel5);
+
+        for (int i = 0; i < 5 && i < ids.size(); i++) {
+            String id = ids.get(i);
+            leftLabels.get(i).setText(model.get(id, langPair[0]));
+            rightLabels.get(i).setText(model.get(id, langPair[1]));
+            setupDrag(leftLabels.get(i), rightLabels.get(i));
+            setupDrag(rightLabels.get(i), leftLabels.get(i));
+        }
     }
 
-    private void setupDrag(Label start, Label other) {
+    private void setupDrag(Label start, Label target) {
         start.setOnMousePressed(e -> {
             Point2D startPoint = getCenter(start);
             currentLine = new Line(startPoint.getX(), startPoint.getY(), startPoint.getX(), startPoint.getY());
             drawPane.getChildren().add(currentLine);
         });
+
         start.setOnMouseDragged(e -> {
             if (currentLine != null) {
                 Point2D p = sceneToPane(e.getSceneX(), e.getSceneY());
@@ -53,16 +66,18 @@ public class ConnectTrainerController extends StageAwareController {
                 currentLine.setEndY(p.getY());
             }
         });
+
         start.setOnMouseReleased(e -> {
             if (currentLine != null) {
-                Bounds b = other.localToScene(other.getBoundsInLocal());
+                Bounds b = target.localToScene(target.getBoundsInLocal());
                 if (b.contains(e.getSceneX(), e.getSceneY())) {
-                    Point2D endPoint = getCenter(other);
+                    Point2D endPoint = getCenter(target);
                     currentLine.setEndX(endPoint.getX());
                     currentLine.setEndY(endPoint.getY());
                 } else {
                     drawPane.getChildren().remove(currentLine);
                 }
+                lines.add(currentLine);
                 currentLine = null;
             }
         });
