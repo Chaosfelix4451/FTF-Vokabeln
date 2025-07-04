@@ -24,7 +24,6 @@ public class SettingsController extends StageAwareController implements Initiali
 
     public Label mainLable;
     public Button Button;
-    public Button button;
     public CheckBox darkModeToggle;
     public Label vDark;
     public Button confettibutton;
