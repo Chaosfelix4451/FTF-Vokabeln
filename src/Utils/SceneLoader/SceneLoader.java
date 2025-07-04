@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,9 +21,7 @@ public class SceneLoader {
      * bounds prevent extremely small or excessively large UI elements on
      * unusual window sizes.
      */
-    // Allow the UI to shrink a bit more so that the burger menu and
-    // side menu remain visible even on narrow windows.
-    private static final double MIN_SCALE = 0.3;
+    private static final double MIN_SCALE = 0.5;
     private static final double MAX_SCALE = 1.5;
 
     private static class StageManager {
@@ -67,6 +66,9 @@ public class SceneLoader {
 
             StackPane wrapper = new StackPane(content);
             wrapper.getStyleClass().add("responsive-wrapper");
+            // Anchor content to the top-left so menus remain visible on
+            // very wide displays.
+            wrapper.setAlignment(Pos.TOP_LEFT);
             Scene scene = new Scene(wrapper);
         applyResponsivePadding(wrapper, stage, fxmlPath);
         applyResponsiveSize(wrapper, content, stage, fxmlPath);
