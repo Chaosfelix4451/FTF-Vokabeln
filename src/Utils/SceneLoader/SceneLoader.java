@@ -15,6 +15,13 @@ import java.net.URL;
 import Utils.UserSys.UserSys;
 
 public class SceneLoader {
+    /**
+     * Minimum and maximum scale factors applied when resizing scenes. These
+     * bounds prevent extremely small or excessively large UI elements on
+     * unusual window sizes.
+     */
+    private static final double MIN_SCALE = 0.5;
+    private static final double MAX_SCALE = 1.5;
 
     private static class StageManager {
         private static Stage primaryStage;
@@ -125,6 +132,7 @@ public class SceneLoader {
             wrapper.setMaxWidth(targetW);
             wrapper.setMaxHeight(targetH);
             double scale = Math.min(targetW / 800.0, targetH / 600.0);
+            scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
             content.setScaleX(scale);
             content.setScaleY(scale);
         };
@@ -139,6 +147,7 @@ public class SceneLoader {
         }
         ChangeListener<Number> listener = (obs, o, n) -> {
             double scale = Math.min(stage.getWidth() / 800.0, stage.getHeight() / 600.0);
+            scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
             content.setStyle("-fx-font-size: " + (14 * scale) + "px;");
         };
         stage.widthProperty().addListener(listener);

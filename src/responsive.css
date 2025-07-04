@@ -2,6 +2,7 @@
     -fx-alignment: center;
     -fx-fill-width: true;
     -fx-fill-height: true;
+    -fx-padding: 10;
 }
 
 /* allow text elements to wrap and use ellipsis when space becomes
@@ -18,4 +19,5 @@
 .responsive-wrapper .choice-box,
 .responsive-wrapper .list-view {
     -fx-min-height: 2em;
+    -fx-max-width: Infinity;
 }
