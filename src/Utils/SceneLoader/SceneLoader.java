@@ -120,12 +120,14 @@ public class SceneLoader {
         ChangeListener<Number> listener = (obs, o, n) -> {
             double w = stage.getWidth();
             double h = stage.getHeight();
-            wrapper.setMinWidth(w * 0.7);
-            wrapper.setMinHeight(h * 0.7);
-            wrapper.setPrefWidth(w * 0.8);
-            wrapper.setPrefHeight(h * 0.8);
-            wrapper.setMaxWidth(w * 0.9);
-            wrapper.setMaxHeight(h * 0.9);
+            double targetW = w * 0.8;
+            double targetH = h * 0.8;
+            wrapper.setMinWidth(targetW);
+            wrapper.setMinHeight(targetH);
+            wrapper.setPrefWidth(targetW);
+            wrapper.setPrefHeight(targetH);
+            wrapper.setMaxWidth(targetW);
+            wrapper.setMaxHeight(targetH);
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
