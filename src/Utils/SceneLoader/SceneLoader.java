@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -65,6 +66,9 @@ public class SceneLoader {
 
             StackPane wrapper = new StackPane(content);
             wrapper.getStyleClass().add("responsive-wrapper");
+            // Anchor content to the top-left so menus remain visible on
+            // very wide displays.
+            wrapper.setAlignment(Pos.TOP_LEFT);
             Scene scene = new Scene(wrapper);
         applyResponsivePadding(wrapper, stage, fxmlPath);
         applyResponsiveSize(wrapper, content, stage, fxmlPath);
