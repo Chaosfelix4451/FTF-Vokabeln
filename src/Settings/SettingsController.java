@@ -8,6 +8,8 @@ import Utils.StageRegistry;
 import Utils.UserSys.UserSys;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -109,7 +111,7 @@ public class SettingsController extends StageAwareController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("SettingsController: initialize");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ⚙️ Einstellungen werden geladen");
         UserSys.loadFromJson();
 
         for (String name : listVocabFiles()) {
