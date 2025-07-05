@@ -2,7 +2,8 @@ package Utils;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Utils.UserSys.UserSys;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class StageRegistry {
      * @param enable {@code true} aktiviert den Modus, {@code false} deaktiviert ihn
      */
     public static void applyDarkMode(boolean enable) {
-        UserSys.log((enable ? "🌙" : "☀️") + " Dark Mode " + (enable ? "aktiviert" : "deaktiviert"));
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] " + (enable ? "🌙" : "☀️") + " Dark Mode " + (enable ? "aktiviert" : "deaktiviert"));
         String css = getDarkCss();
         for (Stage stage : new ArrayList<>(STAGES)) {
             Scene scene = stage.getScene();

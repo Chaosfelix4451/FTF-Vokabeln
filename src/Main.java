@@ -1,6 +1,7 @@
 import Utils.SceneLoader.SceneLoader;
-import Utils.UserSys.UserSys;
 import javafx.application.Application;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        UserSys.log("🚀 Anwendung startet");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🚀 Anwendung startet");
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml");
         primaryStage.setTitle("FTF-Vokabeln");
@@ -54,7 +55,7 @@ public class Main extends Application {
                 getClass().getResourceAsStream("/Utils/media/Logo.png")),
                 128, 128, true, true);
         if (icon.isError()) {
-            UserSys.log("⚠️ Logo konnte nicht geladen werden: " + icon.getException());
+            System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ⚠️ Logo konnte nicht geladen werden: " + icon.getException());
         } else {
             primaryStage.getIcons().add(icon);
         }

@@ -3,6 +3,8 @@ package Utils.UserSys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -18,8 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Verwaltet Benutzer, Punkte und Einstellungen. Alle Daten werden in einer
@@ -33,19 +33,11 @@ public class UserSys {
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     /**
-     * Prints a log line with timestamp for easier reading.
-     */
-    public static void log(String message) {
-        String time = LocalTime.now().format(TIME_FMT);
-        System.out.println("[" + time + "] " + message);
-    }
-
-    /**
      * Lädt alle Benutzerdaten und Einstellungen aus der JSON-Datei.
      */
     public static void loadFromJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
-        log("📥 Lade Benutzerdaten von " + path.toString());
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] 📥 Lade Benutzerdaten von " + path.toString());
         InputStream in = null;
         try {
             if (Files.exists(path)) {
@@ -87,7 +79,7 @@ public class UserSys {
      */
     public static void saveToJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
-        log("💾 Speichere Benutzerdaten nach " + path.toString());
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] 💾 Speichere Benutzerdaten nach " + path.toString());
         JSONObject root = new JSONObject();
         root.put("currentUser", currentUser);
         JSONObject prefsObj = new JSONObject(preferences);
@@ -115,7 +107,7 @@ public class UserSys {
      * Legt einen neuen Benutzer an, sofern der Name noch nicht vergeben ist.
      */
     public static void createUser(String name) {
-        log("👤 Neuer Benutzer: " + name);
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] 👤 Neuer Benutzer: " + name);
         if (getUser(name) == null) {
             users.add(new User(name));
         }
@@ -130,7 +122,7 @@ public class UserSys {
      * Sucht nach Benutzernamen, die den Suchbegriff enthalten.
      */
     public static List<String> searchUsers(String query) {
-        log("🔍 Suche nach Benutzern mit '" + query + "'");
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] 🔍 Suche nach Benutzern mit '" + query + "'");
         if (query == null || query.isBlank()) {
             return getAllUserNames();
         }
@@ -148,7 +140,7 @@ public class UserSys {
      * Löscht einen Benutzer. Der Spezialname "@all_admin_1234" entfernt alle Benutzer.
      */
     public static void deleteUser(String name) {
-        log("❌ Lösche Benutzer " + name);
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] ❌ Lösche Benutzer " + name);
         if ("@all_admin_1234".equals(name)) {
             users.clear();
             currentUser = "user";
@@ -161,7 +153,7 @@ public class UserSys {
     }
 
     public static void setCurrentUser(String name) {
-        log("➡️ Aktiver Benutzer: " + name);
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] ➡️ Aktiver Benutzer: " + name);
         if (getUser(name) != null) currentUser = name;
     }
     public static void resetCurrentUser() {currentUser =""; };
@@ -182,12 +174,12 @@ public class UserSys {
     }
 
     public static void setPreference(String key, String value) {
-        log("⚙️ Setze Einstellung " + key + "=" + value);
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] ⚙️ Setze Einstellung " + key + "=" + value);
         preferences.put(key, value);
     }
 
     public static void setBooleanPreference(String key, boolean value) {
-        log("⚙️ Setze Einstellung " + key + "=" + value);
+        System.out.println("[" + LocalTime.now().format(TIME_FMT) + "] ⚙️ Setze Einstellung " + key + "=" + value);
         preferences.put(key, value);
     }
 

@@ -18,6 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class TrainerController extends StageAwareController {
      */
     @FXML
     private void initialize() {
-        UserSys.log("🚀 Starte Training");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🚀 Starte Training");
         UserSys.loadFromJson();
         currentUser = UserSys.getCurrentUser();
         UserSys.addUser(currentUser);
@@ -100,7 +102,7 @@ public class TrainerController extends StageAwareController {
      * Lädt die nächste Runde an Fragen und baut die Eingabefelder auf.
      */
     private void loadNextVocabSet() {
-        UserSys.log("📚 Neue Fragen werden geladen (" + remainingIds.size() + " verbleibend)");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 📚 Neue Fragen werden geladen (" + remainingIds.size() + " verbleibend)");
         vocabBox.getChildren().clear();
         vocabEntries.clear();
 
@@ -196,7 +198,7 @@ public class TrainerController extends StageAwareController {
      * Prüft alle Benutzereingaben, vergibt Punkte und spielt passende Sounds ab.
      */
     public void checkAnswers() {
-        UserSys.log("📝 Auswertung der Antworten");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 📝 Auswertung der Antworten");
         boolean allCorrect = true;
         int correctCount = 0;
         var stats = UserSys.getUser(currentUser).getStats(listId);
@@ -308,14 +310,14 @@ public class TrainerController extends StageAwareController {
 
         warteThread.setDaemon(true);
         warteThread.start();
-        UserSys.log("➡️ Runde beendet. Gesamtpunkte: " + sessionPoints);
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ➡️ Runde beendet. Gesamtpunkte: " + sessionPoints);
     }
 
         /**
          * Schließt das Training ab und zeigt das Scoreboard an.
          */
         private void finishTraining() {
-            UserSys.log("🏁 Training beendet, öffne Scoreboard");
+            System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🏁 Training beendet, öffne Scoreboard");
             ScoreBoard.ScoreBoardController.setLastSessionList(listId);
 
         if (stage != null) {

@@ -12,6 +12,8 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ResourceBundle;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Verwaltung der vorhandenen Benutzer.
@@ -28,7 +30,7 @@ public class UserManagementController extends StageAwareController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        UserSys.log("👥 Benutzerverwaltung gestartet");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 👥 Benutzerverwaltung gestartet");
         UserSys.loadFromJson();
         refreshList("");
         searchField.textProperty().addListener((obs, o, n) -> refreshList(n));
@@ -39,7 +41,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void createUser() {
-        UserSys.log("➕ Benutzer erstellen");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ➕ Benutzer erstellen");
         String name = newUserField.getText().trim();
         if (!name.isEmpty()) {
             UserSys.createUser(name);
@@ -55,7 +57,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void selectUser() {
-        UserSys.log("✅ Benutzer auswählen");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ✅ Benutzer auswählen");
         String selected = userList.getSelectionModel().getSelectedItem();
         if (selected != null) {
             UserSys.setCurrentUser(selected);
@@ -70,7 +72,7 @@ public class UserManagementController extends StageAwareController implements In
      */
 
     private void refreshList(String filter) {
-        UserSys.log("🔄 Aktualisiere Liste mit Filter '" + filter + "'");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🔄 Aktualisiere Liste mit Filter '" + filter + "'");
         userList.getItems().clear();
         for (String name : UserSys.searchUsers(filter)) {
             userList.getItems().add(name);
@@ -82,7 +84,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void backToMenu() {
-        UserSys.log("↩️ Zurück zum Hauptmenü");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ↩️ Zurück zum Hauptmenü");
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
 }

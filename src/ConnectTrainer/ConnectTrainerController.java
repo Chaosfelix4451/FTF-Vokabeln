@@ -17,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Window;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +46,7 @@ public class ConnectTrainerController extends StageAwareController {
      */
     @FXML
     private void initialize() {
-        UserSys.log("🔗 Starte ConnectTrainer");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🔗 Starte ConnectTrainer");
         String listId = UserSys.getPreference("vocabFile", "defaultvocab.json");
         String mode = UserSys.getPreference("vocabMode", "Deutsch zu Englisch");
 
@@ -266,7 +268,7 @@ public class ConnectTrainerController extends StageAwareController {
      */
     @FXML
     private void handleBack() {
-        UserSys.log("↩️ Zurück zum Hauptmenü");
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ↩️ Zurück zum Hauptmenü");
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
 }

@@ -2,6 +2,8 @@ package Utils.SceneLoader;
 
 import Utils.UserSys.UserSys;
 import Utils.StageRegistry;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,7 +63,7 @@ public class SceneLoader {
             double oldY = stage.getY();
 
             URL url = SceneLoader.class.getResource(fxmlPath);
-            UserSys.log("📄 Lade Szene " + fxmlPath + " -> " + url);
+            System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 📄 Lade Szene " + fxmlPath + " -> " + url);
             if (url == null) {
                 throw new IllegalArgumentException("FXML-Datei nicht gefunden: " + fxmlPath);
             }
@@ -81,7 +83,7 @@ public class SceneLoader {
             if (cssUrl != null) {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
             } else {
-                UserSys.log("⚠️ Keine CSS-Datei gefunden für " + cssPath);
+                System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ⚠️ Keine CSS-Datei gefunden für " + cssPath);
             }
             UserSys.loadFromJson();
             if (UserSys.getBooleanPreference("darkMode", false)) {
