@@ -223,14 +223,14 @@
 #countField {
     -fx-font-size: 80%;
     -fx-padding: 4;
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
     -fx-text-fill: #ecf0f1;
     -fx-border-color: #34495e;
 }
 
 /* BarCharts */
 #overallChart, #comparisonChart {
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
     -fx-border-color: #34495e;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
@@ -240,16 +240,16 @@
 }
 
 #vSceneLoader {
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
 }
 
 #bPaneSceneLoader {
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
 }
 
 /* Plot-Hintergrund (Innenfläche der Diagramme) */
 .chart-plot-background {
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
 }
 /* Achsentitel */
 .axis-label {
@@ -272,7 +272,7 @@
 }
 
 .chart-legend {
-    -fx-background-color: #23272e;
+    -fx-background-color: #2b2b2b;
     -fx-border-color: #34495e;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;

@@ -1,8 +1,8 @@
 {
-  "currentUser": "Toby",
+  "currentUser": "Feras",
   "preferences": {
     "vocabFile": "defaultvocab.json",
-    "vocabMode": "Zufällig",
+    "vocabMode": "Deutsch zu Englisch",
     "darkMode": true
   },
   "users": [
@@ -65,6 +65,18 @@
       },
       "name": "Toby",
       "points": 74
+    },
+    {
+      "stats": {"defaultvocab.json": {
+        "total": 30,
+        "lastIncorrect": 0,
+        "correct": 30,
+        "incorrect": 0,
+        "lastCorrect": 0,
+        "lastTotal": 0
+      }},
+      "name": "Feras",
+      "points": 60
     }
   ]
 }
