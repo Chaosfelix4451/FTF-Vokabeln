@@ -148,18 +148,6 @@ public class SettingsController extends StageAwareController implements Initiali
             UserSys.saveToJson();
         });
 
-        darkModeToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) {
-                UserSys.setPreference("darkMode", String.valueOf(newVal));
-                if(newVal.equals("true")) {
-                    updateDarkThemeState();
-                }else if(newVal.equals("false")) {
-
-                }
-            }
-            UserSys.saveToJson();
-        });
-
         boolean dark = UserSys.getBooleanPreference("darkMode", false);
         darkModeToggle.setSelected(dark);
         darkModeToggle.selectedProperty().addListener((obs, o, n) -> {

@@ -1,6 +1,7 @@
 package Utils.SceneLoader;
 
 import Utils.UserSys.UserSys;
+import Utils.StageRegistry;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,6 +51,7 @@ public class SceneLoader {
      */
     public static void load(Stage stage, String fxmlPath) {
         try {
+            StageRegistry.register(stage);
             // Status speichern
             boolean wasMaximized = stage.isMaximized();
             boolean wasFullScreen = stage.isFullScreen();
@@ -91,6 +93,7 @@ public class SceneLoader {
 
             stage.setResizable(true);
             stage.setScene(scene);
+            StageRegistry.applyDarkMode(UserSys.getBooleanPreference("darkMode", false));
 
             // Status wiederherstellen (Reihenfolge ist wichtig!)
             if (wasFullScreen) {
