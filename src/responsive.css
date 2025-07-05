@@ -15,5 +15,5 @@
 .responsive-wrapper .text-field,
 .responsive-wrapper .choice-box,
 .responsive-wrapper .list-view {
-    -fx-min-height: 2em;
+    -fx-min-height: 40px;
 }
