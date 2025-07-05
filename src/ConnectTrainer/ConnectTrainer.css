@@ -10,3 +10,26 @@
     -fx-border-color: black;
     -fx-border-radius: 3;
 }
+
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 95%;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 2, 0, 0, 1);
+}
+
+#backButton {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #2980b9;
+}
+
+#backButton:hover {
+    -fx-background-color: #BBDEFB;
+}
+
+#backButton:pressed {
+    -fx-background-color: #90CAF9;
+}
