@@ -33,3 +33,11 @@
 #backButton:pressed {
     -fx-background-color: #90CAF9;
 }
+
+#leftLabel {
+    -fx-text-fill: black;
+}
+
+#rightLabel {
+    -fx-text-fill: black;
+}

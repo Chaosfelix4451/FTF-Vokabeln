@@ -298,3 +298,11 @@
 #scrollContainer .scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
     -fx-background-color: #e0e0e0 !important;
 }
+
+#leftLabel {
+    -fx-text-fill: black;
+}
+
+#rightLabel {
+    -fx-text-fill: black;
+}

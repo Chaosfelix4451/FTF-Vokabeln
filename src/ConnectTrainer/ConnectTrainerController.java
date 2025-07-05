@@ -54,6 +54,7 @@ public class ConnectTrainerController extends StageAwareController {
 
         for (ConnectTrainerModel.VocabPair pair : model.getRandomPairs(5)) {
             Label vocabLeft = new Label(pair.left);
+            vocabLeft.setId("leftLabel");
             vocabLeft.getStyleClass().add("vocab-box");
             VBox.setMargin(vocabLeft, new Insets(5));
 
@@ -74,6 +75,7 @@ public class ConnectTrainerController extends StageAwareController {
             connRight.setTranslateX(10);
 
             Label vocabRight = new Label(pair.right);
+            vocabRight.setId("rightLabel");
             vocabRight.getStyleClass().add("vocab-box");
             VBox.setMargin(vocabRight, new Insets(5));
 

@@ -3,7 +3,7 @@
   "preferences": {
     "vocabFile": "defaultvocab.json",
     "vocabMode": "Deutsch zu Englisch",
-    "darkMode": true
+    "darkMode": false
   },
   "users": [
     {
