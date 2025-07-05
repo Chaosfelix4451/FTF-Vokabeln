@@ -57,6 +57,9 @@ public class TrainerController extends StageAwareController {
         String difficulty;
     }
 
+    /**
+     * Initialisiert das Training und lädt die eingestellte Vokabelliste.
+     */
     @FXML
     private void initialize() {
         UserSys.loadFromJson();
@@ -92,6 +95,9 @@ public class TrainerController extends StageAwareController {
         }
     }
 
+    /**
+     * Lädt die nächste Runde an Fragen und baut die Eingabefelder auf.
+     */
     private void loadNextVocabSet() {
         vocabBox.getChildren().clear();
         vocabEntries.clear();
@@ -143,6 +149,9 @@ public class TrainerController extends StageAwareController {
         // Keep the window size from the previous scene
     }
 
+    /**
+     * Wandelt einen Sprachcode in einen lesbaren Namen um.
+     */
     private String langName(String code) {
         return switch (code) {
             case "de" -> "Deutsch";
@@ -153,6 +162,9 @@ public class TrainerController extends StageAwareController {
         };
     }
 
+    /**
+     * Berechnet die Punktzahl abhängig vom Schwierigkeitsgrad.
+     */
     private int pointsForDifficulty(String diff) {
         if (diff == null) return 1;
         return switch (diff.toLowerCase()) {
@@ -161,6 +173,9 @@ public class TrainerController extends StageAwareController {
             default -> 1;
         };
     }
+    /**
+     * Ermittelt den Prozentsatz korrekt beantworteter Fragen.
+     */
     private double calculatePercentage() {
         int correctCount = 0;
         for (VocabEntry entry : vocabEntries) {
@@ -175,6 +190,9 @@ public class TrainerController extends StageAwareController {
         return prozentKorrekt;
     }
 
+    /**
+     * Prüft alle Benutzereingaben, vergibt Punkte und spielt passende Sounds ab.
+     */
     public void checkAnswers() {
         boolean allCorrect = true;
         int correctCount = 0;
@@ -289,6 +307,9 @@ public class TrainerController extends StageAwareController {
         warteThread.start();
     }
 
+        /**
+         * Schließt das Training ab und zeigt das Scoreboard an.
+         */
         private void finishTraining() {
             ScoreBoard.ScoreBoardController.setLastSessionList(listId);
 

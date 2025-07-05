@@ -10,8 +10,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Hilfsklasse zum Laden von FXML-Szenen und Registrieren der zugehörigen Stage.
+ */
 public class SceneLoader {
 
+    /** Verwaltung der Hauptstage. */
     private static class StageManager {
         private static Stage primaryStage;
 
@@ -24,11 +28,17 @@ public class SceneLoader {
         }
     }
 
+    /**
+     * Legt die Hauptstage fest.
+     */
     public static void setPrimaryStage(Stage stage) {
         StageManager.setPrimaryStage(stage);
         StageRegistry.register(stage);
     }
 
+    /**
+     * Lädt eine FXML-Datei in die primäre Stage.
+     */
     public static void load(String fxmlPath) {
         Stage stage = StageManager.getPrimaryStage();
         if (stage == null) {
@@ -37,6 +47,9 @@ public class SceneLoader {
         load(stage, fxmlPath);
     }
 
+    /**
+     * Lädt eine FXML-Datei in die angegebene Stage und wendet das passende CSS an.
+     */
     public static void load(Stage stage, String fxmlPath) {
         try {
             URL url = SceneLoader.class.getResource(fxmlPath);
@@ -81,6 +94,9 @@ public class SceneLoader {
         }
     }
 
+    /**
+     * Schnittstelle für Controller, die ihre Stage vom SceneLoader erhalten.
+     */
     public interface HasStage {
         void setStage(Stage stage);
     }

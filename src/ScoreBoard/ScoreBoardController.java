@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 /**
- * Displays vocabulary statistics using bar charts.
+ * Zeigt Vokabelstatistiken mithilfe von Balkendiagrammen an.
  */
 public class ScoreBoardController extends StageAwareController implements Initializable {
     @FXML
@@ -42,12 +42,15 @@ public class ScoreBoardController extends StageAwareController implements Initia
     private static String lastSessionList;
 
     /**
-     * Called by the trainer when a round finished to remember the list.
+     * Wird vom Trainer aufgerufen, um die zuletzt gespielte Liste zu merken.
      */
     public static void setLastSessionList(String listId) {
         lastSessionList = listId;
     }
 
+    /**
+     * Initialisiert die Ansicht und füllt Diagramme sowie Auswahlfelder.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         userLabel.setText("Statistik für " + UserSys.getCurrentUser());
@@ -65,6 +68,9 @@ public class ScoreBoardController extends StageAwareController implements Initia
                 .addListener((o, ov, nv) -> updateComparisonChart());
     }
 
+    /**
+     * Füllt die Auswahlliste der verfügbaren Vokabeldateien.
+     */
     private void fillChoiceBox() {
         List<String> lists = new java.util.ArrayList<>(UserSys.getAllListIds(UserSys.getCurrentUser()));
         listChoiceBox.setItems(FXCollections.observableArrayList(lists));
@@ -75,6 +81,9 @@ public class ScoreBoardController extends StageAwareController implements Initia
         }
     }
 
+    /**
+     * Aktualisiert das Gesamtdiagramm mit allen bisher erreichten Ergebnissen.
+     */
     private void updateOverallChart() {
         overallChart.getData().clear();
         XYChart.Series<String, Number> correct = new XYChart.Series<>();
@@ -97,6 +106,9 @@ public class ScoreBoardController extends StageAwareController implements Initia
         overallChart.getData().addAll(correct, wrong);
     }
 
+    /**
+     * Baut das Vergleichsdiagramm abhängig vom gewählten Modus auf.
+     */
     @FXML
     private void updateComparisonChart() {
         comparisonChart.getData().clear();
@@ -138,12 +150,18 @@ public class ScoreBoardController extends StageAwareController implements Initia
         comparisonChart.getData().add(series);
     }
 
+    /**
+     * Zurück zum Hauptmenü wechseln.
+     */
     @FXML
     private void backToMenu() {
         lastSessionList = null;
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
 
+    /**
+     * Übergibt die Stage und passt die Größe des Wurzelelements an.
+     */
     @Override
     public void setStage(Stage stage) {
         super.setStage(stage);

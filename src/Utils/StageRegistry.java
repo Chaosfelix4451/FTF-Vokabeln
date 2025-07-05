@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility class that keeps track of all currently opened {@link Stage}s and
- * allows applying the dark stylesheet to each of them.
+ * Hält alle geöffneten {@link Stage}s fest und ermöglicht das Aktivieren des
+ * Dark‑Mode‑Stylesheets.
  */
 public class StageRegistry {
     private static final List<Stage> STAGES = new ArrayList<>();
     private static String darkCss;
 
-    /** Registers a stage to be managed. */
+    /** Meldet eine Stage zur Verwaltung an. */
     public static void register(Stage stage) {
         if (stage == null || STAGES.contains(stage)) return;
         STAGES.add(stage);
@@ -22,9 +22,9 @@ public class StageRegistry {
     }
 
     /**
-     * Applies or removes the dark stylesheet for all registered stages.
+     * Schaltet das dunkle Design für alle registrierten Stages ein oder aus.
      *
-     * @param enable true to enable dark mode, false to disable
+     * @param enable {@code true} aktiviert den Modus, {@code false} deaktiviert ihn
      */
     public static void applyDarkMode(boolean enable) {
         String css = getDarkCss();

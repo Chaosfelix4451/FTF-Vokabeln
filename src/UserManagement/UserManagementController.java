@@ -64,7 +64,9 @@ public class UserManagementController extends StageAwareController implements In
     }
 
     /**
-     * Aktualisiert die Liste der Benutzer unter Berücksichtigung eines Filters.
+     * Aktualisiert die Benutzerliste entsprechend dem Suchfilter.
+     *
+     * @param filter Suchbegriff
      */
 
     private void refreshList(String filter) {

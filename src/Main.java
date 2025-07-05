@@ -15,11 +15,26 @@ Soon:
 Vokabel Kategorien
 Design via. CSS
  */
-//Test 123 String
+/**
+ * Startpunkt der Anwendung. Diese Klasse initialisiert die erste Szene
+ * und stellt das Hauptfenster bereit.
+ */
 public class Main extends Application {
+
+    /**
+     * Einstiegsmethode, die JavaFX startet.
+     *
+     * @param args übergebene Programmargumente
+     */
     public static void main(String[] args) {
         launch(args);
     }
+
+    /**
+     * Lädt das Hauptmenü und richtet das Anwendungsfenster ein.
+     *
+     * @param primaryStage von JavaFX bereitgestellte Hauptbühne
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Main: application start");
