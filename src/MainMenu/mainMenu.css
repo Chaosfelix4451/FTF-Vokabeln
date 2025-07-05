@@ -36,11 +36,10 @@
     -fx-padding: 5 10;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-min-width: 15%;
-    -fx-min-height: 8%;
-    -fx-pref-width: 15%;
-    -fx-pref-height: 8%;
-
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-pref-width: 40;
+    -fx-pref-height: 40;
 }
 
 /* Textfeld */
@@ -115,8 +114,8 @@ VBox > Button {
     -fx-min-width: 40%;
     -fx-pref-width: 50%;
     -fx-max-width: Infinity;
-    -fx-min-height: 10%;
-    -fx-pref-height: 10%;
+    -fx-min-height: 40;
+    -fx-pref-height: 40;
 }
 
 /* Hover und Pressed Effekte */
