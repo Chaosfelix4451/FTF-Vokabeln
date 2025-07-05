@@ -48,7 +48,6 @@ public class TrainerController extends StageAwareController {
     private List<String> remainingIds = new ArrayList<>();
     private String currentUser = "user";
     private String mode = "Englisch zu Deutsch";
-    private int questionsPerRound = 5;
     private int sessionPoints = 0;
 
     private static class VocabEntry {
@@ -102,6 +101,7 @@ public class TrainerController extends StageAwareController {
             return;
         }
 
+        int questionsPerRound = 5;
         int count = Math.min(questionsPerRound, remainingIds.size());
         List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, count));
         remainingIds.subList(0, count).clear();
