@@ -141,7 +141,12 @@ public class SceneLoader {
 
     private static void applyResponsiveFontScale(Parent content, Stage stage, String fxmlPath) {
         ChangeListener<Number> listener = (obs, o, n) -> {
-            double scale = Math.min(stage.getWidth() / 800.0, stage.getHeight() / 600.0);
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+            if (Double.isNaN(width) || Double.isNaN(height)) {
+                return; // ignore until stage has valid dimensions
+            }
+            double scale = Math.min(width / 800.0, height / 600.0);
             scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
             content.setStyle("-fx-font-size: " + (14 * scale) + "px;");
         };
