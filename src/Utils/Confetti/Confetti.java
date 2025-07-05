@@ -9,9 +9,15 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
+/**
+ * Erzeugt einfache Konfetti-Animationen zur Belohnung.
+ */
 public class Confetti {
     private static final Random random = new Random();
 
+    /**
+     * Startet eine Konfetti-Animation auf dem angegebenen Pane.
+     */
     public static void show(Pane pane) {
         if (pane == null) {
             return;
@@ -20,6 +26,9 @@ public class Confetti {
         javafx.application.Platform.runLater(() -> spawnConfetti(pane));
     }
 
+    /**
+     * Legt die Partikel an und animiert sie.
+     */
     private static void spawnConfetti(Pane pane) {
         double width = pane.getWidth();
         double height = pane.getHeight();
@@ -64,6 +73,9 @@ public class Confetti {
         }
     }
 
+    /**
+     * Liefert eine zufällige, satte Farbe.
+     */
     private static Color randomColor() {
         return Color.hsb(random.nextDouble() * 360, 1.0, 1.0);
     }

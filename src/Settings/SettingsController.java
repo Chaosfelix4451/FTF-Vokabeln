@@ -31,7 +31,7 @@ public class SettingsController extends StageAwareController implements Initiali
 
 
     /**
-     * Zurück zum Hauptmenü.
+     * Schließt das Einstellungsfenster und kehrt zum Hauptmenü zurück.
      */
     @FXML
     public void openMainMenu(ActionEvent event) {
@@ -50,6 +50,9 @@ public class SettingsController extends StageAwareController implements Initiali
             "es", "Spanisch"
     );
 
+    /**
+     * Erstellt eine Liste möglicher Sprachmodi aus den vorhandenen Sprachen.
+     */
     private java.util.List<String> generateModes(java.util.Set<String> langs) {
         java.util.List<String> codes = new java.util.ArrayList<>(LANG_NAMES.keySet());
         codes.removeIf(code -> !langs.contains(code));
@@ -73,6 +76,9 @@ public class SettingsController extends StageAwareController implements Initiali
         return modes;
     }
 
+    /**
+     * Aktualisiert die Auswahl der Sprachmodi anhand der gewählten Vokabelliste.
+     */
     private void updateVocabModes() {
         String file = vocabListBox.getValue();
         if (file == null) return;
@@ -98,12 +104,8 @@ public class SettingsController extends StageAwareController implements Initiali
      */
 
     /**
-     * Initializes the settings view and sets up the necessary components such as vocab lists, vocab modes,
-     * and the dark mode toggle. This method handles loading preferences, updating UI elements, and
-     * adding event listeners for interactive elements.
-     *
-     * @param location The location used to resolve relative paths for the root object, or null if the location is not known.
-     * @param resources The resources used to localize the root object, or null if undefined.
+     * Lädt gespeicherte Einstellungen und bereitet die Auswahlfelder sowie den
+     * Dark‑Mode‑Schalter vor.
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -171,7 +173,8 @@ public class SettingsController extends StageAwareController implements Initiali
     }
 
     /**
-     * Beispiel-Handler für den Startknopf.
+     * Beispielhafter Handler für den Startknopf. Hier könnte später der
+     * ausgewählte Trainingsmodus gestartet werden.
      */
     @FXML
     private void handleStart(ActionEvent event) {
@@ -190,6 +193,10 @@ public class SettingsController extends StageAwareController implements Initiali
         }
     }
 
+    /**
+     * Durchsucht den lokalen Ordner nach Vokabellisten und ergänzt
+     * eingebettete Ressourcen.
+     */
     private java.util.List<String> listVocabFiles() {
         java.io.File vocabDir = new java.io.File("src/Trainer/Vocabsets");
         java.io.File[] files = vocabDir.listFiles((dir, name) -> name.toLowerCase().endsWith(".json"));
@@ -204,6 +211,9 @@ public class SettingsController extends StageAwareController implements Initiali
         return result;
     }
 
+    /**
+     * Listet alle Ressourcen-Dateien eines Pfades innerhalb des JAR auf.
+     */
     private java.util.List<String> listResourceFiles(String path) {
         java.util.List<String> result = new java.util.ArrayList<>();
         try {
@@ -231,16 +241,25 @@ public class SettingsController extends StageAwareController implements Initiali
         return result;
     }
 
+    /**
+     * Aktiviert oder deaktiviert das dunkle Design für alle Fenster.
+     */
     private void updateDarkThemeState() {
         boolean enableDarkMode = darkModeToggle.isSelected();
         Utils.StageRegistry.applyDarkMode(enableDarkMode);
     }
 
+    /**
+     * Zeigt zur Demonstration Konfetti im aktuellen Fenster.
+     */
     @FXML
     private void adminConfetti() {
         Confetti.show((Pane) confettibutton.getScene().getRoot());
     }
 
+    /**
+     * Öffnet direkt den ConnectTrainer aus den Einstellungen heraus.
+     */
     @FXML
     public void openConnectTrainer() {
         SceneLoader.load("/ConnectTrainer/ConnectTrainer.fxml");

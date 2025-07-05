@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- *
+ * Veraltetes Benutzer- und Punktesystem zur Archivierung.
  */
 public final class UserSystem {
 

@@ -16,6 +16,10 @@ import javafx.beans.value.ObservableValue;
 import java.util.List;
 
 
+/**
+ * Controller des Hauptmenüs. Hier können Benutzer angelegt, ausgewählt
+ * und weitere Ansichten geöffnet werden.
+ */
 public class MainMenuController extends StageAwareController {
     public Button exitButton;
     public Button buttonSettings;
@@ -38,6 +42,10 @@ public class MainMenuController extends StageAwareController {
     @FXML
     private Label statusLabel; // OPTIONAL für Rückmeldung
 
+    /**
+     * Lädt die Benutzerinformationen und befüllt das Eingabefeld
+     * mit dem aktuell gespeicherten Benutzer.
+     */
     @FXML
     private void initialize() {
         System.out.println("MainMenu: initialize");
@@ -48,17 +56,27 @@ public class MainMenuController extends StageAwareController {
         }
     }
 
+    /**
+     * Öffnet den normalen Trainer mit dem aktuell ausgewählten Benutzer.
+     */
     @FXML
     public void openTrainer() {
         // Benutzer wird automatisch verwendet, der vorher über create/search gesetzt wurde
         SceneLoader.load("/Trainer/Trainer.fxml");
     }
 
+    /**
+     * Startet den Connect-Trainer für Zuordnungsaufgaben.
+     */
     @FXML
     public void openConnectTrainer() {
         SceneLoader.load("/ConnectTrainer/ConnectTrainer.fxml");
     }
 
+    /**
+     * Öffnet das Einstellungsfenster in einem separaten Stage.
+     * Existiert bereits ein Fenster, wird dieses nur in den Vordergrund gebracht.
+     */
     public void openSettings() {
         System.out.println("MainMenu: opening settings window");
         if (settingsStage != null && settingsStage.isShowing()) {
@@ -84,23 +102,38 @@ public class MainMenuController extends StageAwareController {
         }
     }
 
+    /**
+     * Wechsel zur Benutzerverwaltung.
+     */
     public void openUserManagement() {
         SceneLoader.load("/UserManagement/UserManagement.fxml");
     }
 
+    /**
+     * Zeigt die Statistiken und Highscores an.
+     */
     public void openScoreBoard() {
         ScoreBoard.ScoreBoardController.setLastSessionList(null);
         SceneLoader.load("/ScoreBoard/ScoreBoard.fxml");
     }
 
+    /**
+     * Liefert den Text aus dem Eingabefeld bereinigt zurück.
+     */
     public String getUserInput() {
         return userField.getText().trim().toLowerCase();
     }
 
+    /**
+     * Trägt einen Benutzernamen in das Eingabefeld ein.
+     */
     public void setUserField(String username) {
         userField.setText(username);
     }
 
+    /**
+     * Blendet das seitliche Menü ein oder aus.
+     */
     @FXML
     private void toggleSideMenu() {
         boolean isVisible = sideMenu.isVisible();
@@ -108,14 +141,15 @@ public class MainMenuController extends StageAwareController {
         sideMenu.setManaged(!isVisible);
     }
 
+    /** Beendet die Anwendung. */
     @FXML
     private void handleExit() {
         Platform.exit();
     }
 
     /**
-     * Erstellt einen neuen Benutzer, sofern dieser noch nicht existiert.
-     * Gibt Rückmeldung im GUI-Label und speichert Änderungen in der JSON-Datei.
+     * Erstellt einen neuen Benutzer, falls der Name noch nicht vergeben ist.
+     * Die Auswahl wird gespeichert und eine Statusmeldung ausgegeben.
      */
     @FXML
     private void handleCreateUser() {
@@ -152,6 +186,9 @@ public class MainMenuController extends StageAwareController {
     }
 
 
+    /**
+     * Sucht nach Benutzernamen und wählt einen Treffer aus.
+     */
     @FXML
     private void handleSearchUser() {
         String error = null;

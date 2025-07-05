@@ -17,8 +17,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Verwaltet die Vokabellisten des Trainers. Beim Erzeugen werden die
- * Einträge aus einer JSON-Datei geladen.
+ * Modellklasse für den Trainer. Sie lädt Vokabellisten aus JSON-Dateien
+ * und stellt Methoden zum Zugriff auf Übersetzungen bereit.
  */
 
 public class TrainerModel {
@@ -26,8 +26,8 @@ public class TrainerModel {
     private final Set<String> availableLanguages = new HashSet<>();
 
     /**
-     * Open the vocabulary file either from the filesystem (development) or
-     * bundled resources when running from a JAR.
+     * Öffnet die angegebene Vokabeldatei. Zunächst wird im Dateisystem gesucht,
+     * anschließend in den eingebetteten Ressourcen.
      */
     private InputStream openVocabStream(String fileName) throws IOException {
         System.out.println("TrainerModel: opening vocab file " + fileName);
@@ -47,6 +47,11 @@ public class TrainerModel {
         throw new IOException("Vokabelliste nicht gefunden: " + fileName);
     }
 
+    /**
+     * Lädt die angegebenen Vokabeldaten und speichert sie intern.
+     *
+     * @param fileName Name der JSON-Datei
+     */
     public void LoadJSONtoDataObj(String fileName) {
         System.out.println("TrainerModel: loading data from " + fileName);
         vocabData.clear();
@@ -75,20 +80,36 @@ public class TrainerModel {
         }
     }
 
+    /**
+     * Liefert einen bestimmten Wert zu einer ID zurück.
+     *
+     * @param id    eindeutige Vokabel-ID
+     * @param field gewünschtes Feld, z. B. Sprachcode
+     * @return Inhalt des Feldes oder leerer String
+     */
     public String get(String id, String field) {
         Map<String, String> entry = vocabData.get(id);
         if (entry == null) return "";
         return entry.getOrDefault(field, "");
     }
 
+    /**
+     * @return Menge aller geladenen Vokabel-IDs
+     */
     public Set<String> getAllIds() {
         return vocabData.keySet();
     }
 
+    /**
+     * @return verfügbare Sprachcodes der aktuellen Liste
+     */
     public Set<String> getAvailableLanguages() {
         return new HashSet<>(availableLanguages);
     }
 
+    /**
+     * Prüft, ob für eine ID im angegebenen Modus beide Übersetzungen vorhanden sind.
+     */
     public boolean hasValidTranslation(String id, String mode) {
         String[] langPair = getLangPairForMode(mode);
         if (langPair == null) return false;
@@ -97,6 +118,12 @@ public class TrainerModel {
         return entry.containsKey(langPair[0]) && entry.containsKey(langPair[1]);
     }
 
+    /**
+     * Ermittelt das Sprachpaar für den gewählten Modus.
+     *
+     * @param mode Bezeichner wie "Deutsch zu Englisch" oder "Zufällig"
+     * @return Array mit Quell- und Zielsprache oder {@code null}
+     */
     public String[] getLangPairForMode(String mode) {
         if (mode == null) return null;
         if ("Zufällig".equalsIgnoreCase(mode)) {
@@ -127,6 +154,9 @@ public class TrainerModel {
             "Spanisch", "es"
     );
 
+    /**
+     * Wandelt einen Sprachnamen in seinen Code um.
+     */
     private String langCode(String name) {
         return LANG_NAME_TO_CODE.getOrDefault(name, name.toLowerCase());
     }
