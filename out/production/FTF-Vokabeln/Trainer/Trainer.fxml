@@ -7,10 +7,10 @@
 
     <VBox alignment="CENTER" spacing="20.0" StackPane.alignment="CENTER">
         <!-- Anzeige der aktuellen Punkte -->
-        <Label fx:id="pointsLabel" maxWidth="Infinity" text="Punkte: 0" wrapText="true" VBox.vgrow="ALWAYS" />
+        <Label fx:id="pointsLabel" maxWidth="Infinity" text="Punkte: 0" wrapText="true" />
 
         <!-- Dynamischer Vokabel-Container -->
-        <VBox fx:id="vocabBox" maxWidth="Infinity" VBox.vgrow="ALWAYS" />
+        <VBox fx:id="vocabBox" maxWidth="Infinity" spacing="10" />
 
         <!-- Navigation -->
         <HBox fx:id="hBoxButtons" alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">

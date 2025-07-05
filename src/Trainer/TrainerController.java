@@ -151,10 +151,6 @@ public class TrainerController extends StageAwareController {
             // Optional: Wenn das Label auch mitwachsen soll, sonst auskommentieren:
             // HBox.setHgrow(label, Priority.ALWAYS);
 
-            Region spacer = new Region();
-            VBox.setVgrow(spacer, Priority.ALWAYS);
-            vocabBox.getChildren().add(spacer);
-
 
             VocabEntry entry = new VocabEntry();
             entry.solution = answer;
