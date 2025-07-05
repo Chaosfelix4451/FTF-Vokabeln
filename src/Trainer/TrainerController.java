@@ -130,7 +130,8 @@ public class TrainerController extends StageAwareController {
             TextField input = new TextField();
             input.setPromptText("Antwort eingeben...");
             input.setMinWidth(200);
-            input.setMaxWidth(Double.MAX_VALUE);
+            input.prefWidthProperty().bind(vocabBox.widthProperty().multiply(0.3));
+            input.maxWidthProperty().bind(vocabBox.widthProperty().multiply(0.5));
 
             int indexForEnter = i;
             input.setOnKeyPressed(event -> {
@@ -146,7 +147,7 @@ public class TrainerController extends StageAwareController {
 
             HBox box = new HBox(10, label, input);
             box.setAlignment(Pos.CENTER_LEFT);
-            HBox.setHgrow(input, Priority.ALWAYS);
+            HBox.setHgrow(input, Priority.NEVER);
             // Optional: Wenn das Label auch mitwachsen soll, sonst auskommentieren:
             // HBox.setHgrow(label, Priority.ALWAYS);
 

@@ -1,35 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="Trainer.TrainerController"
-           alignment="CENTER">
+<StackPane fx:id="rootPane" alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Trainer.TrainerController">
 
     <VBox alignment="CENTER" spacing="20.0" StackPane.alignment="CENTER">
         <!-- Anzeige der aktuellen Punkte -->
-        <Label fx:id="pointsLabel" text="Punkte: 0" wrapText="true"
-               maxWidth="Infinity"
-               VBox.vgrow="NEVER" />
+        <Label fx:id="pointsLabel" maxWidth="Infinity" text="Punkte: 0" wrapText="true" VBox.vgrow="ALWAYS" />
 
         <!-- Dynamischer Vokabel-Container -->
-        <VBox fx:id="vocabBox" spacing="10.0"
-              VBox.vgrow="ALWAYS"
-              maxWidth="Infinity"/>
+        <VBox fx:id="vocabBox" maxWidth="Infinity" VBox.vgrow="ALWAYS" />
 
         <!-- Navigation -->
-        <HBox spacing="10.0" alignment="CENTER" VBox.vgrow="NEVER">
-            <Button fx:id="backButton" text="Zurück zum Menü" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-            <Button fx:id="nextButton" text="Weiter" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-            <Button fx:id="finishButton" text="Vorzeitig beenden" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+        <HBox fx:id="hBoxButtons" alignment="CENTER" spacing="10.0" VBox.vgrow="NEVER">
+            <Button fx:id="backButton" maxWidth="Infinity" text="Zurück zum Menü" HBox.hgrow="ALWAYS" />
+            <Button fx:id="nextButton" maxWidth="Infinity" text="Weiter" HBox.hgrow="ALWAYS" />
+            <Button fx:id="finishButton" maxWidth="Infinity" text="Vorzeitig beenden" HBox.hgrow="ALWAYS" />
         </HBox>
     </VBox>
-    <Pane fx:id="confettiPane" mouseTransparent="true" StackPane.alignment="CENTER"/>
+    <Pane fx:id="confettiPane" mouseTransparent="true" StackPane.alignment="CENTER" />
 </StackPane>

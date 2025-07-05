@@ -97,3 +97,13 @@ HBox {
 .button:disabled {
     -fx-opacity: 0.7;
 }
+
+#hBoxButtons {
+    -fx-alignment: CENTER;
+    -fx-max-width: 500;
+    -fx-max-height: 100;
+}
+
+#pointsLabel {
+    -fx-alignment: CENTER;
+}
