@@ -4,13 +4,17 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
+/**
+ * Einfache Hilfsklasse zum Abspielen von kurzen Soundeffekten.
+ */
 public class SoundModel {
 
     private MediaPlayer mediaPlayer;
 
     /**
      * Spielt eine Sounddatei ab.
-     * @param /src/Utils/Sound/ Dateipfad zur .mp3-Datei
+     *
+     * @param pfad Dateipfad zur MP3-Datei
      */
     public void playSound(String pfad) {
         // Wenn bereits ein Ton läuft, stoppen

@@ -11,6 +11,9 @@ import javafx.geometry.Pos;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Alte Implementierung der Trainingsansicht zur Referenz.
+ */
 public class TrainerView_old {
 
     private final TrainerModel model;
@@ -37,6 +40,9 @@ public class TrainerView_old {
         this.answerLang = answerLang;
     }
 
+    /**
+     * Baut eine einfache Benutzeroberfläche für die Trainingsrunde auf.
+     */
     public void buildUI(GridPane rootPane) {
         VBox mainLayout = new VBox(20);
         mainLayout.setPadding(new Insets(20));

@@ -19,12 +19,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Verwaltet Benutzer, Punkte und Einstellungen. Alle Daten werden in einer
+ * JSON-Datei gesichert.
+ */
 public class UserSys {
 
     private static final List<User> users = new ArrayList<>();
     private static String currentUser = "user";
     private static final Map<String, Object> preferences = new HashMap<>();
 
+    /**
+     * Lädt alle Benutzerdaten und Einstellungen aus der JSON-Datei.
+     */
     public static void loadFromJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
         System.out.println("UserSys: loading JSON from " + path.toString());
@@ -64,6 +71,9 @@ public class UserSys {
     }
 
 
+    /**
+     * Speichert aktuelle Benutzerdaten und Einstellungen in die JSON-Datei.
+     */
     public static void saveToJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
         System.out.println("UserSys: saving JSON to " + path.toString());
@@ -91,7 +101,7 @@ public class UserSys {
     }
 
     /**
-     * Create a new user if the name does not already exist.
+     * Legt einen neuen Benutzer an, sofern der Name noch nicht vergeben ist.
      */
     public static void createUser(String name) {
         System.out.println("UserSys: create user " + name);
@@ -105,7 +115,9 @@ public class UserSys {
         createUser(name);
     }
 
-    /** Search for all users containing the query (case insensitive). */
+    /**
+     * Sucht nach Benutzernamen, die den Suchbegriff enthalten.
+     */
     public static List<String> searchUsers(String query) {
         System.out.println("UserSys: search users for '" + query + "'");
         if (query == null || query.isBlank()) {
@@ -122,7 +134,7 @@ public class UserSys {
     }
 
     /**
-     * Delete a user by name. Special command "@all_admin_1234" clears all users.
+     * Löscht einen Benutzer. Der Spezialname "@all_admin_1234" entfernt alle Benutzer.
      */
     public static void deleteUser(String name) {
         System.out.println("UserSys: delete user " + name);
@@ -211,7 +223,7 @@ public class UserSys {
     }
 
     /**
-     * Set the score for a user or all users if name equals "@all".
+     * Setzt den Punktestand eines Benutzers. Wird "@all" übergeben, betrifft es alle.
      */
     public static void setScore(String name, int points) {
         points = Math.max(0, points);

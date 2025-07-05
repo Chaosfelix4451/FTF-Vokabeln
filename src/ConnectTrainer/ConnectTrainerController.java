@@ -23,6 +23,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Controller für den ConnectTrainer. Hier werden Vokabeln
+ * per Drag & Drop miteinander verbunden.
+ */
 public class ConnectTrainerController extends StageAwareController {
 
     @FXML private GridPane mainGrid;
@@ -35,6 +39,9 @@ public class ConnectTrainerController extends StageAwareController {
     private Line currentLine;
     private final ConnectTrainerModel model = new ConnectTrainerModel();
 
+    /**
+     * Initialisiert die Ansicht und erzeugt die zu verbindenden Vokabeln.
+     */
     @FXML
     private void initialize() {
         String listId = UserSys.getPreference("vocabFile", "defaultvocab.json");
@@ -80,6 +87,10 @@ public class ConnectTrainerController extends StageAwareController {
         bindResizeListeners();
     }
 
+    /**
+     * Bindet diverse Listener, um die gezeichneten Linien bei Größenänderungen
+     * korrekt neu zu positionieren.
+     */
     private void bindResizeListeners() {
         // Redraw on pane resize
         drawPane.widthProperty().addListener((obs, oldVal, newVal) ->
@@ -131,6 +142,9 @@ public class ConnectTrainerController extends StageAwareController {
         }
     }
 
+    /**
+     * Richtet das Ziehen einer Linie von einem Verbindungsfeld ein.
+     */
     private void setupDrag(Label connector) {
         connector.setOnMousePressed(e -> {
             removeOldLines(connector);
@@ -168,6 +182,10 @@ public class ConnectTrainerController extends StageAwareController {
         });
     }
 
+    /**
+     * Entfernt bereits existierende Linien, die an einem bestimmten Punkt
+     * beginnen oder enden.
+     */
     private void removeOldLines(Label connector) {
         List<Line> toRemove = new ArrayList<>();
         for (Line l : lines) {
@@ -183,6 +201,9 @@ public class ConnectTrainerController extends StageAwareController {
         }
     }
 
+    /**
+     * Aktualisiert alle bestehenden Linien auf ihre aktuellen Positionen.
+     */
     private void redrawAllLines() {
         for (Map.Entry<Line, Label[]> entry : lineEndpoints.entrySet()) {
             Line line = entry.getKey();
@@ -196,6 +217,13 @@ public class ConnectTrainerController extends StageAwareController {
         }
     }
 
+    /**
+     * Sucht nach einem Verbindungsfeld an der angegebenen Position.
+     *
+     * @param scenePoint Koordinaten im Szenenraum
+     * @param ignore zu ignorierendes Label
+     * @return gefundenes Label oder {@code null}
+     */
     private Label findConnectorAt(Point2D scenePoint, Label ignore) {
         for (javafx.scene.Node node : drawPane.lookupAll(".connector-box")) {
             if (!(node instanceof Label conn) || conn == ignore) continue;
@@ -205,6 +233,9 @@ public class ConnectTrainerController extends StageAwareController {
         return null;
     }
 
+    /**
+     * Erzeugt eine zufällige Farbe für neue Linien.
+     */
     private Color randomColor() {
         double hue = Math.random() * 360;
         double saturation = 0.5 + Math.random() * 0.3;
@@ -212,6 +243,9 @@ public class ConnectTrainerController extends StageAwareController {
         return Color.hsb(hue, saturation, brightness);
     }
 
+    /**
+     * Berechnet die Mittelpunktskoordinaten eines Labels relativ zum Zeichenbereich.
+     */
     private Point2D getCenter(Label node) {
         Bounds bounds = node.localToScene(node.getBoundsInLocal());
         Point2D scenePoint = new Point2D(bounds.getMinX() + bounds.getWidth() / 2,
@@ -219,10 +253,16 @@ public class ConnectTrainerController extends StageAwareController {
         return drawPane.sceneToLocal(scenePoint);
     }
 
+    /**
+     * Wandelt Szenenkoordinaten in Pane-Koordinaten um.
+     */
     private Point2D sceneToPane(double x, double y) {
         return drawPane.sceneToLocal(x, y);
     }
 
+    /**
+     * Kehren zum Hauptmenü zurück.
+     */
     @FXML
     private void handleBack() {
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");

@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Model for the ConnectTrainer. It loads vocabulary pairs and provides
- * random pairs for the controller.
+ * Datenmodell des ConnectTrainers. Es lädt Vokabelpaare und stellt
+ * zufällige Kombinationen für den Controller bereit.
  */
 public class ConnectTrainerModel {
 
@@ -25,7 +25,10 @@ public class ConnectTrainerModel {
     private final List<String> ids = new ArrayList<>();
     private String[] langPair = {"de", "en"};
 
-    /** Load vocabulary file and prepare language pair according to mode. */
+    /**
+     * Lädt die gewünschte Vokabelliste und bereitet das Sprachpaar entsprechend
+     * dem gewählten Modus vor.
+     */
     public void loadData(String vocabFile, String mode) {
         trainerModel.LoadJSONtoDataObj(vocabFile);
         String[] pair = trainerModel.getLangPairForMode(mode);
@@ -38,7 +41,7 @@ public class ConnectTrainerModel {
     }
 
     /**
-     * Return up to {@code count} random pairs from the loaded vocabulary list.
+     * Gibt bis zu {@code count} zufällige Paare aus der geladenen Liste zurück.
      */
     public List<VocabPair> getRandomPairs(int count) {
         List<VocabPair> result = new ArrayList<>();
@@ -51,6 +54,11 @@ public class ConnectTrainerModel {
         return result;
     }
 
+    /**
+     * Liefert das aktuell verwendete Sprachpaar.
+     *
+     * @return Array mit Quell- und Zielsprache
+     */
     public String[] getLangPair() {
         return langPair.clone();
     }
