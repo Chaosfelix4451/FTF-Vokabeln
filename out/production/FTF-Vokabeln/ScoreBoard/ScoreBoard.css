@@ -55,6 +55,9 @@
     -fx-background-color: #ecf0f1;
     -fx-cursor: hand;
 }
+#listChoiceBox .context-menu, #modeChoiceBox .context-menu {
+    -fx-cursor: hand;
+}
 
 /* TextField */
 .text-field {
