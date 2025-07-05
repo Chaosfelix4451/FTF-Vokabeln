@@ -5,11 +5,63 @@
 }
 
 /* Hauptüberschrift "Einstellungen" */
-#mainLable {
-    -fx-font-size: 140%;
+.mainTitle, #mainLable {
+    -fx-font-size: 150%;
     -fx-font-weight: bold;
-    -fx-text-fill: black;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 1, 0, 0, 1);
+    -fx-text-fill: #222;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 2, 0, 0, 1);
+    -fx-alignment: center;
+    -fx-padding: 0 0 0 0;
+}
+
+/* VBox Container */
+.settingsVBox {
+    -fx-spacing: 18;
+    -fx-padding: 30 0 30 0;
+}
+
+/* Labels für Einstellungsoptionen */
+.label {
+    -fx-font-size: 100%;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: normal;
+    -fx-padding: 0 0 5 0;
+}
+
+/* Vokabelliste/Vokabelmodus ChoiceBox Styling */
+#vocabListBox, #vocabModeBox {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 6 10;
+    -fx-font-size: 108%;
+    -fx-pref-width: 220;
+    -fx-max-width: 250;
+    -fx-min-width: 180;
+    -fx-cursor: hand;
+}
+
+#vocabListBox .label, #vocabModeBox .label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 108%;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #f8f9fa;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 108%;
 }
 
 /* Zurück-Button (Pfeil) */
@@ -34,58 +86,15 @@
     -fx-text-fill: #2980b9;
 }
 
-/* Labels für Einstellungsoptionen */
-.label {
-    -fx-font-size: 100%;
-    -fx-text-fill: #2c3e50;
-    -fx-font-weight: normal;
-    -fx-padding: 0 0 5 0;
-}
-
-/* ChoiceBox Styling */
-.choice-box {
-    -fx-background-color: white;
-    -fx-border-color: #e0e0e0;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-padding: 5;
-    -fx-pref-height: 7%;
-    -fx-pref-width: 60%;
-    -fx-cursor: hand;
-}
-
-.choice-box:hover, .choice-box:showing {
-    -fx-border-color: #3498db;
-    -fx-cursor: hand;
-}
-
-.choice-box .context-menu {
-    -fx-background-color: white;
-    -fx-border-color: #e0e0e0;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-    -fx-cursor: hand;
-}
-
-.choice-box .menu-item:focused {
-    -fx-background-color: #f8f9fa;
-}
-
-.choice-box .menu-item > .label {
-    -fx-text-fill: #2c3e50;
-}
-
 #darkModeToggle {
-    -fx-font-size: 100%;
+    -fx-font-size: 102%;
     -fx-text-fill: #2c3e50;
     -fx-padding: 7 0 7 0;
 }
 
-/* VBox Container */
-.vbox {
-    -fx-spacing: 15;
-    -fx-padding: 20;
-}
-#vDark {
+.vDarkLabel, #vDark {
     -fx-padding: 20 0 0 0;
+    -fx-font-size: 104%;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
 }
