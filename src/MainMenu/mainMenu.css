@@ -23,8 +23,6 @@
 }
 
 .border-pane {
-    -fx-pref-width: USE_COMPUTED_SIZE;
-    -fx-pref-height: USE_COMPUTED_SIZE;
     -fx-alignment: center;
     -fx-padding: 20;
 }
