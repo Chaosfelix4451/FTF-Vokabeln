@@ -17,6 +17,11 @@
             <Button text="Auswählen" onAction="#selectUser"/>
         </HBox>
         <ListView fx:id="userList" />
+        <HBox spacing="5">
+            <Button text="Statistiken" onAction="#showStats"/>
+            <Button text="Löschen" onAction="#deleteUser"/>
+            <Button text="Alle löschen" onAction="#deleteAllUsers"/>
+        </HBox>
         <Button fx:id="backButton" text="Zurück" onAction="#backToMenu"/>
     </VBox>
 </AnchorPane>

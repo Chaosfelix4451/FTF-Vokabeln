@@ -32,6 +32,7 @@
 .button:hover {
     -fx-background-color: #2980b9;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-cursor: hand;
 }
 
 .button:pressed {
@@ -48,6 +49,11 @@
     -fx-padding: 4;
     -fx-pref-height: 5%;
     -fx-font-size: 80%;
+}
+
+#listChoiceBox:hover, #modeChoiceBox:hover {
+    -fx-background-color: #ecf0f1;
+    -fx-cursor: hand;
 }
 
 /* TextField */
@@ -88,7 +94,6 @@
 }
 
 .chart-legend {
-    -fx-background-color: white;
     -fx-border-color: #bdc3c7;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;

@@ -3,7 +3,7 @@
   "preferences": {
     "vocabFile": "defaultvocab.json",
     "vocabMode": "Zufällig",
-    "darkMode": true
+    "darkMode": false
   },
   "users": [
     {
@@ -43,18 +43,6 @@
       },
       "name": "Felix",
       "points": 268
-    },
-    {
-      "stats": {"defaultvocab.json": {
-        "total": 0,
-        "lastIncorrect": 0,
-        "correct": 0,
-        "incorrect": 0,
-        "lastCorrect": 0,
-        "lastTotal": 0
-      }},
-      "name": "adssd",
-      "points": 0
     },
     {
       "stats": {
