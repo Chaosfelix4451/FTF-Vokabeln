@@ -5,44 +5,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController" styleClass="border-pane" spacing="10" alignment="TOP_CENTER">
-    <HBox alignment="CENTER_LEFT">
-        <Button fx:id="burgerMenu" onAction="#toggleSideMenu" text="≡" />
-    </HBox>
-
-    <HBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
-        <VBox fx:id="sideMenu" visible="false" managed="false" spacing="10">
-            <Button fx:id="buttonSettings" onAction="#openSettings" text="Einstellungen" />
-        </VBox>
-
-        <VBox fx:id="centerBox" alignment="CENTER" spacing="20" HBox.hgrow="ALWAYS">
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20" />
-            </padding>
-
-            <Label fx:id="mainLabel" wrapText="true" text="Vokabeltrainer">
-                <font>
-                    <Font size="28.0" />
-                </font>
-            </Label>
-
-            <VBox alignment="CENTER" spacing="10">
-                <HBox alignment="CENTER" spacing="10">
-                    <TextField fx:id="userField" promptText="Benutzername" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
-                    <VBox alignment="CENTER_LEFT" spacing="5">
-                        <Button fx:id="searchButton" onAction="#handleSearchUser" text="🔍" />
-                        <Button fx:id="addButton" onAction="#handleCreateUser" text="+" />
-                    </VBox>
-                </HBox>
-                <Label fx:id="statusLabel" wrapText="true" />
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuController" styleClass="border-pane">
+    <top>
+        <HBox alignment="CENTER_LEFT">
+            <Button fx:id="burgerMenu" onAction="#toggleSideMenu" text="≡" />
+        </HBox>
+    </top>
+    <center>
+        <HBox alignment="CENTER" spacing="20">
+            <VBox fx:id="sideMenu" visible="false" managed="false" spacing="10">
+                <Button fx:id="buttonSettings" onAction="#openSettings" text="Einstellungen" />
             </VBox>
-
-            <Button onAction="#openTrainer" text="Vokabeltrainer starten" />
-<!--            <Button maxWidth="Infinity" onAction="#openConnectTrainer" text="Verbindungsmodus" />-->
-            <Button onAction="#openUserManagement" text="Benutzer verwalten" />
-            <Button onAction="#openScoreBoard" text="Highscore" />
-            <Button fx:id="exitButton" onAction="#handleExit" text="Beenden" />
-<!--            <Button fx:id="confettiButton" maxWidth="Infinity" onAction="#adminConfetti" text="🎉" />-->
-        </VBox>
-    </HBox>
-</VBox>
+            <VBox fx:id="centerBox" alignment="CENTER" spacing="20" HBox.hgrow="ALWAYS">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20" />
+                </padding>
+                <Label fx:id="mainLabel" wrapText="true" text="Vokabeltrainer">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" spacing="10">
+                    <HBox alignment="CENTER" spacing="10">
+                        <TextField fx:id="userField" promptText="Benutzername" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                        <VBox alignment="CENTER_LEFT" spacing="5">
+                            <Button fx:id="searchButton" onAction="#handleSearchUser" text="🔍" />
+                            <Button fx:id="addButton" onAction="#handleCreateUser" text="+" />
+                        </VBox>
+                    </HBox>
+                    <Label fx:id="statusLabel" wrapText="true" />
+                </VBox>
+                <Button onAction="#openTrainer" text="Vokabeltrainer starten" />
+                <!--            <Button maxWidth="Infinity" onAction="#openConnectTrainer" text="Verbindungsmodus" />-->
+                <Button onAction="#openUserManagement" text="Benutzer verwalten" />
+                <Button onAction="#openScoreBoard" text="Highscore" />
+                <Button fx:id="exitButton" onAction="#handleExit" text="Beenden" />
+                <!--            <Button fx:id="confettiButton" maxWidth="Infinity" onAction="#adminConfetti" text="🎉" />-->
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>
