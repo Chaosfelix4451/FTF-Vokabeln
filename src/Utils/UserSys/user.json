@@ -67,10 +67,10 @@
           "lastTotal": 0
         },
         "animals.json": {
-          "total": 55,
+          "total": 60,
           "lastIncorrect": 0,
           "correct": 0,
-          "incorrect": 55,
+          "incorrect": 60,
           "lastCorrect": 0,
           "lastTotal": 0
         }
