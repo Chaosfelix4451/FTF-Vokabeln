@@ -294,3 +294,13 @@
     -fx-tick-mark-stroke: #ffffff;
     -fx-minor-tick-mark-stroke: #888888;
 }
+
+.chart-legend {
+    -fx-background-color: #23272e;
+    -fx-border-color: #34495e;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+    -fx-text-fill: #ecf0f1;
+}
