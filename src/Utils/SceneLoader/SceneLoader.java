@@ -59,9 +59,8 @@ public class SceneLoader {
             StackPane wrapper = new StackPane(content);
             wrapper.getStyleClass().add("responsive-wrapper");
             Scene scene = new Scene(wrapper);
-        applyResponsivePadding(wrapper, stage, fxmlPath);
-        applyResponsiveSize(wrapper, content, stage, fxmlPath);
-        applyResponsiveFontScale(content, stage, fxmlPath);
+            applyResponsivePadding(wrapper, stage, fxmlPath);
+            applyResponsiveSize(wrapper, stage, fxmlPath);
 
             // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
@@ -88,7 +87,7 @@ public class SceneLoader {
 
             boolean isSettings = fxmlPath.contains("Settings");
             stage.setScene(scene);
-            stage.setFullScreen(!isSettings);
+            stage.setFullScreen(false); // avoid movie style fullscreen
             stage.setMaximized(!isSettings);
             stage.setResizable(true);
             stage.show();
@@ -103,7 +102,10 @@ public class SceneLoader {
             return;
         }
         ChangeListener<Number> listener = (obs, o, n) -> {
-            wrapper.setPadding(Insets.EMPTY);
+            double w = stage.getWidth();
+            double h = stage.getHeight();
+            double ratio = (w < 800 || h < 600) ? 0.05 : 0.1;
+            wrapper.setPadding(new Insets(h * ratio, w * ratio, h * ratio, w * ratio));
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
@@ -111,37 +113,19 @@ public class SceneLoader {
         listener.changed(null, null, null);
     }
 
-    private static void applyResponsiveSize(StackPane wrapper, Parent content, Stage stage, String fxmlPath) {
+    private static void applyResponsiveSize(StackPane wrapper, Stage stage, String fxmlPath) {
         if (fxmlPath.contains("Settings")) {
             return;
         }
         ChangeListener<Number> listener = (obs, o, n) -> {
             double w = stage.getWidth();
             double h = stage.getHeight();
-            double targetW = w * 0.8;
-            double targetH = h * 0.8;
-            wrapper.setMinWidth(targetW);
-            wrapper.setMinHeight(targetH);
-            wrapper.setPrefWidth(targetW);
-            wrapper.setPrefHeight(targetH);
-            wrapper.setMaxWidth(targetW);
-            wrapper.setMaxHeight(targetH);
-            double scale = Math.min(targetW / 800.0, targetH / 600.0);
-            content.setScaleX(scale);
-            content.setScaleY(scale);
-        };
-        stage.widthProperty().addListener(listener);
-        stage.heightProperty().addListener(listener);
-        listener.changed(null, null, null);
-    }
-
-    private static void applyResponsiveFontScale(Parent content, Stage stage, String fxmlPath) {
-        if (fxmlPath.contains("Settings")) {
-            return;
-        }
-        ChangeListener<Number> listener = (obs, o, n) -> {
-            double scale = Math.min(stage.getWidth() / 800.0, stage.getHeight() / 600.0);
-            content.setStyle("-fx-font-size: " + (14 * scale) + "px;");
+            wrapper.setMinWidth(w * 0.7);
+            wrapper.setMinHeight(h * 0.7);
+            wrapper.setPrefWidth(w * 0.8);
+            wrapper.setPrefHeight(h * 0.8);
+            wrapper.setMaxWidth(w * 0.9);
+            wrapper.setMaxHeight(h * 0.9);
         };
         stage.widthProperty().addListener(listener);
         stage.heightProperty().addListener(listener);
