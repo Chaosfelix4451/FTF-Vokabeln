@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -124,9 +125,12 @@ public class TrainerController extends StageAwareController {
             String diff = model.get(id, "difficulty");
 
             Label label = new Label((i + 1) + ". (" + langName(langPair[0]) + " -> " + langName(langPair[1]) + ") " + question);
+            label.setMaxWidth(Double.MAX_VALUE);
+
             TextField input = new TextField();
             input.setPromptText("Antwort eingeben...");
             input.setMinWidth(200);
+            input.setMaxWidth(Double.MAX_VALUE);
 
             int indexForEnter = i;
             input.setOnKeyPressed(event -> {
@@ -141,6 +145,11 @@ public class TrainerController extends StageAwareController {
             });
 
             HBox box = new HBox(10, label, input);
+            box.setAlignment(Pos.CENTER_LEFT);
+            HBox.setHgrow(input, Priority.ALWAYS);
+            // Optional: Wenn das Label auch mitwachsen soll, sonst auskommentieren:
+            // HBox.setHgrow(label, Priority.ALWAYS);
+
             VocabEntry entry = new VocabEntry();
             entry.solution = answer;
             entry.inputField = input;
@@ -149,8 +158,6 @@ public class TrainerController extends StageAwareController {
             vocabEntries.add(entry);
             vocabBox.getChildren().add(box);
         }
-
-        // Keep the window size from the previous scene
     }
 
     /**
@@ -274,7 +281,7 @@ public class TrainerController extends StageAwareController {
                             // Zeige Konfetti und spiele Sound ab bei >=75%
                             Confetti.show(confettiPane != null ? confettiPane : rootPane);
                             soundModel.playSound("src/Utils/Sound/super.mp3");
-                            
+
                             // Warte 5 Sekunden, dann zum Highscore
                             Thread delayThread = new Thread(() -> {
                                 try {
@@ -295,7 +302,7 @@ public class TrainerController extends StageAwareController {
             }
         };
 
-// Neuer Thread mit einfacher Wartezeit für die Anzeige der Ergebnisse
+        // Neuer Thread mit einfacher Wartezeit für die Anzeige der Ergebnisse
         Thread warteThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -313,12 +320,12 @@ public class TrainerController extends StageAwareController {
         System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] ➡️ Runde beendet. Gesamtpunkte: " + sessionPoints);
     }
 
-        /**
-         * Schließt das Training ab und zeigt das Scoreboard an.
-         */
-        private void finishTraining() {
-            System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🏁 Training beendet, öffne Scoreboard");
-            ScoreBoard.ScoreBoardController.setLastSessionList(listId);
+    /**
+     * Schließt das Training ab und zeigt das Scoreboard an.
+     */
+    private void finishTraining() {
+        System.out.println("[" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + "] 🏁 Training beendet, öffne Scoreboard");
+        ScoreBoard.ScoreBoardController.setLastSessionList(listId);
 
         if (stage != null) {
             SceneLoader.load(stage, "/ScoreBoard/ScoreBoard.fxml");

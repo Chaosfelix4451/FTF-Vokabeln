@@ -44,12 +44,11 @@ public class Main extends Application {
         SceneLoader.load("/MainMenu/mainMenu.fxml");
         primaryStage.setTitle("FTF-Vokabeln");
 
-        // Fenstergröße setzen - wegen mvc verschieben?
-        /*primaryStage.setWidth(800);  // Breite in Pixeln
-        primaryStage.setHeight(600); // Höhe in Pixeln
-        
-        //Fenster zentrieren
-        primaryStage.centerOnScreen();*/
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+        primaryStage.setMinWidth(400);
+        primaryStage.setMinHeight(300);
+        primaryStage.centerOnScreen();
 
         Image icon = new Image(Objects.requireNonNull(
                 getClass().getResourceAsStream("/Utils/media/Logo.png")),
@@ -59,9 +58,8 @@ public class Main extends Application {
         } else {
             primaryStage.getIcons().add(icon);
         }
-        
+
         // Fenster anzeigen
         primaryStage.show();
     }
-
 }

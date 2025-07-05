@@ -39,6 +39,9 @@ HBox {
     -fx-font-size: 95%;
     -fx-min-width: 150;
     -fx-pref-height: 28;
+    -fx-pref-width: 100%;
+    -fx-max-width: Infinity;
+
 }
 
 .text-field:focused {

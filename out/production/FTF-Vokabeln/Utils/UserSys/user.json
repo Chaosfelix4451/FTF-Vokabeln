@@ -59,10 +59,10 @@
     {
       "stats": {
         "defaultvocab.json": {
-          "total": 65,
+          "total": 75,
           "lastIncorrect": 0,
           "correct": 37,
-          "incorrect": 28,
+          "incorrect": 38,
           "lastCorrect": 0,
           "lastTotal": 0
         },
