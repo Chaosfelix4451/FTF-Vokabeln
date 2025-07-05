@@ -158,66 +158,42 @@
     -fx-background-color: #3b3b3b !important;
 }
 
-#vocabListBox {
+#vocabListBox, #vocabModeBox {
     -fx-background-color: #3b3b3b !important;
     -fx-border-color: #e0e0e0;
-    -fx-text-fill: #aaaaaa !important;
+    -fx-text-fill: #f0f0f0 !important;
+    -fx-prompt-text-fill: #bbbbbb;
 }
 
-#vocabListBox:focused {
+#vocabListBox:focused, #vocabModeBox:focused {
     -fx-border-color: #3498db;
-    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.15), 3, 0, 0, 0);
 }
 
-#vocabListBox .context-menu {
+#vocabListBox .context-menu, #vocabModeBox .context-menu {
     -fx-background-color: #3b3b3b !important;
 }
 
-#vocabListBox:hover, #vocabListBox:showing {
-    -fx-background-color: #444444 !important;
-}
-
-#vocabListBox .menu-item > .label {
-    -fx-text-fill: #e0e0e0 !important;
-}
-
-#vocabListBox .menu-item:hover {
-    -fx-background-color: #555555 !important;
-}
-
-#vocabListBox .menu-item:focused {
-    -fx-background-color: #3498db !important;
-}
-
-#vocabModeBox {
-    -fx-background-color: #3b3b3b !important;
-    -fx-border-color: #e0e0e0;
-    -fx-prompt-text-fill: #aaaaaa;
-}
-
-#vocabModeBox:focused {
-    -fx-border-color: #3498db;
-    -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.1), 3, 0, 0, 0);
-}
-
-#vocabModeBox .context-menu {
-    -fx-background-color: #3b3b3b !important;
-}
-
+#vocabListBox:hover, #vocabListBox:showing,
 #vocabModeBox:hover, #vocabModeBox:showing {
     -fx-background-color: #444444 !important;
 }
 
-#vocabModeBox .menu-item > .label {
-    -fx-text-fill: #e0e0e0 !important;
+#vocabListBox .label, #vocabModeBox .label {
+    -fx-text-fill: #f0f0f0 !important;
 }
 
-#vocabModeBox .menu-item:hover {
+#vocabListBox .menu-item > .label, #vocabModeBox .menu-item > .label {
+    -fx-text-fill: #f0f0f0 !important;
+}
+
+#vocabListBox .menu-item:hover, #vocabModeBox .menu-item:hover {
     -fx-background-color: #555555 !important;
 }
 
-#vocabModeBox .menu-item:focused {
+#vocabListBox .menu-item:focused, #vocabModeBox .menu-item:focused {
     -fx-background-color: #3498db !important;
+    -fx-text-fill: #ffffff !important;
 }
 
 /* Titel-Label */
@@ -302,5 +278,9 @@
     -fx-border-radius: 5px;
     -fx-border-width: 1px;
     -fx-padding: 0;
+    -fx-text-fill: #ecf0f1;
+}
+
+#vDark {
     -fx-text-fill: #ecf0f1;
 }
