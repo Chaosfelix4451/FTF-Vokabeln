@@ -284,3 +284,17 @@
 #vDark {
     -fx-text-fill: #ecf0f1;
 }
+
+#scrollContainer {
+    -fx-background: #2b2b2b !important;
+    -fx-background-color: #2b2b2b !important;
+    -fx-text-fill: #ecf0f1;
+}
+
+#scrollContainer .scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: #2b2b2b !important;
+}
+
+#scrollContainer .scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: #e0e0e0 !important;
+}

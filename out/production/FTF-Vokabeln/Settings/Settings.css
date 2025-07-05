@@ -4,6 +4,11 @@
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 }
 
+.borderPane {
+    -fx-pref-height: 100%;
+    -fx-pref-width: 100%;
+}
+
 /* Hauptüberschrift "Einstellungen" */
 .mainTitle, #mainLable {
     -fx-font-size: 150%;

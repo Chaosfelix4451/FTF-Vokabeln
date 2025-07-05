@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Settings.SettingsController">
+
     <top>
         <StackPane>
-            <HBox spacing="10" alignment="CENTER_LEFT" StackPane.alignment="CENTER_LEFT" style="-fx-padding: 15 15 10 15;">
+            <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 15 15 10 15;" StackPane.alignment="CENTER_LEFT">
                 <Button fx:id="Button" onAction="#openMainMenu" text="←">
                     <font>
                         <Font size="14.0" />
                     </font>
                 </Button>
             </HBox>
-            <Label fx:id="mainLable" text="Einstellungen" styleClass="mainTitle" StackPane.alignment="CENTER">
+            <Label fx:id="mainLable" styleClass="mainTitle" text="Einstellungen" StackPane.alignment="CENTER">
                 <font>
                     <Font size="20.0" />
                 </font>
             </Label>
         </StackPane>
     </top>
+
     <center>
-        <VBox spacing="18" alignment="CENTER" BorderPane.alignment="CENTER" styleClass="settingsVBox">
-            <Label text="Vokabelliste:" />
-            <ChoiceBox fx:id="vocabListBox" maxWidth="250" minWidth="180" prefWidth="220" />
-            <Label text="Vokabelmodus:" />
-            <ChoiceBox fx:id="vocabModeBox" maxWidth="250" minWidth="180" prefWidth="220" />
-            <Label text="Confetti" />
-            <Button fx:id="confettibutton" onAction="#adminConfetti" text="🎉" />
-            <Label prefHeight="17.0" prefWidth="272.0" text="Secret Game Mode (Alpha Connect Vocabluar)" />
-            <Button onAction="#openConnectTrainer" text="Verbindungsmodus" />
-            <Label fx:id="vDark" text="Erscheinungsbild:" styleClass="vDarkLabel">
-                <padding>
-                    <Insets top="20.0" />
-                </padding>
-            </Label>
-            <CheckBox fx:id="darkModeToggle" text="Dark Mode" />
-        </VBox>
+        <ScrollPane fx:id="scrollContainer" fitToWidth="true" style="-fx-padding: 20;" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefWidth="400" spacing="10" styleClass="settingsVBox">
+                <Label text="Vokabelliste:" />
+                <ChoiceBox fx:id="vocabListBox" maxWidth="250" minWidth="180" prefWidth="220" />
+
+                <Label text="Vokabelmodus:" />
+                <ChoiceBox fx:id="vocabModeBox" maxWidth="250" minWidth="180" prefWidth="220" />
+
+                <Label text="Confetti" />
+                <Button fx:id="confettibutton" onAction="#adminConfetti" text="🎉" />
+
+                <Label maxWidth="250" text="Secret Game Mode (Alpha Connect Vocabluar)" wrapText="true" />
+                <Button onAction="#openConnectTrainer" text="Verbindungsmodus" />
+
+                <Label fx:id="vDark" styleClass="vDarkLabel" text="Erscheinungsbild:" />
+                <CheckBox fx:id="darkModeToggle" text="Dark Mode" />
+            </VBox>
+        </ScrollPane>
     </center>
+
 </BorderPane>
