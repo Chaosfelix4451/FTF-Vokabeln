@@ -6,28 +6,30 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.Pane?>
+
 <StackPane fx:id="rootPane" xmlns="http://javafx.com/javafx/17.0.12"
            xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="Trainer.TrainerController"
            alignment="CENTER">
 
-    <VBox alignment="CENTER" spacing="20.0">
-
+    <VBox alignment="CENTER" spacing="20.0" StackPane.alignment="CENTER">
         <!-- Anzeige der aktuellen Punkte -->
-        <Label fx:id="pointsLabel" text="Punkte: 0" wrapText="true" />
+        <Label fx:id="pointsLabel" text="Punkte: 0" wrapText="true"
+               maxWidth="Infinity"
+               VBox.vgrow="NEVER" />
 
         <!-- Dynamischer Vokabel-Container -->
-        <VBox fx:id="vocabBox" spacing="10.0" />
+        <VBox fx:id="vocabBox" spacing="10.0"
+              VBox.vgrow="ALWAYS"
+              maxWidth="Infinity"/>
 
         <!-- Navigation -->
-        <HBox spacing="10.0">
-            <Button fx:id="backButton" text="Zurück zum Menü" />
-            <Button fx:id="nextButton" text="Weiter" />
-            <Button fx:id="finishButton" text="Vorzeitig beenden" />
+        <HBox spacing="10.0" alignment="CENTER" VBox.vgrow="NEVER">
+            <Button fx:id="backButton" text="Zurück zum Menü" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="nextButton" text="Weiter" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="finishButton" text="Vorzeitig beenden" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
         </HBox>
     </VBox>
-    <Pane fx:id="confettiPane" mouseTransparent="true" />
-
+    <Pane fx:id="confettiPane" mouseTransparent="true" StackPane.alignment="CENTER"/>
 </StackPane>
