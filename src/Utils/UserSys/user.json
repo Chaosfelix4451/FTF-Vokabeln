@@ -3,7 +3,7 @@
   "preferences": {
     "vocabFile": "defaultvocab.json",
     "vocabMode": "Zufällig",
-    "darkMode": "true"
+    "darkMode": false
   },
   "users": [
     {

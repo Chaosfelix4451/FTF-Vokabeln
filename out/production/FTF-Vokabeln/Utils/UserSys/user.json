@@ -1,8 +1,8 @@
 {
   "currentUser": "Toby",
   "preferences": {
-    "vocabFile": "animals.json",
-    "vocabMode": "Deutsch zu Englisch",
+    "vocabFile": "defaultvocab.json",
+    "vocabMode": "Zufällig",
     "darkMode": false
   },
   "users": [
@@ -59,18 +59,18 @@
     {
       "stats": {
         "defaultvocab.json": {
-          "total": 60,
+          "total": 65,
           "lastIncorrect": 0,
           "correct": 37,
-          "incorrect": 23,
+          "incorrect": 28,
           "lastCorrect": 0,
           "lastTotal": 0
         },
         "animals.json": {
-          "total": 55,
+          "total": 60,
           "lastIncorrect": 0,
           "correct": 0,
-          "incorrect": 55,
+          "incorrect": 60,
           "lastCorrect": 0,
           "lastTotal": 0
         }

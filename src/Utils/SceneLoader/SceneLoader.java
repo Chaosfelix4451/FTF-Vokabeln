@@ -1,7 +1,6 @@
 package Utils.SceneLoader;
 
 import Utils.UserSys.UserSys;
-import Utils.StageRegistry;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +25,6 @@ public class SceneLoader {
 
     public static void setPrimaryStage(Stage stage) {
         StageManager.setPrimaryStage(stage);
-        StageRegistry.register(stage);
     }
 
     public static void load(String fxmlPath) {
@@ -39,6 +37,14 @@ public class SceneLoader {
 
     public static void load(Stage stage, String fxmlPath) {
         try {
+            // Status speichern
+            boolean wasMaximized = stage.isMaximized();
+            boolean wasFullScreen = stage.isFullScreen();
+            double oldWidth = stage.getWidth();
+            double oldHeight = stage.getHeight();
+            double oldX = stage.getX();
+            double oldY = stage.getY();
+
             URL url = SceneLoader.class.getResource(fxmlPath);
             System.out.println("SceneLoader: Lade " + fxmlPath + " -> " + url);
             if (url == null) {
@@ -55,7 +61,6 @@ public class SceneLoader {
 
             Scene scene = new Scene(root);
 
-            // CSS-Dateipfad berechnen: gleicher Pfad wie FXML, aber mit .css statt .fxml
             String cssPath = fxmlPath.replace(".fxml", ".css");
             URL cssUrl = SceneLoader.class.getResource(cssPath);
             if (cssUrl != null) {
@@ -73,7 +78,23 @@ public class SceneLoader {
 
             stage.setResizable(true);
             stage.setScene(scene);
-            StageRegistry.register(stage);
+
+            // Status wiederherstellen (Reihenfolge ist wichtig!)
+            if (wasFullScreen) {
+                stage.setFullScreen(true);
+            } else {
+                stage.setFullScreen(false);
+                if (wasMaximized) {
+                    stage.setMaximized(true);
+                } else {
+                    stage.setMaximized(false);
+                    stage.setWidth(oldWidth);
+                    stage.setHeight(oldHeight);
+                    stage.setX(oldX);
+                    stage.setY(oldY);
+                }
+            }
+
             stage.show();
 
         } catch (IOException e) {
