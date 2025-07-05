@@ -12,11 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.time.LocalTime;
@@ -117,6 +113,10 @@ public class TrainerController extends StageAwareController {
         List<String> selectedIds = new ArrayList<>(remainingIds.subList(0, count));
         remainingIds.subList(0, count).clear();
 
+        Region topSpacer = new Region();
+        VBox.setVgrow(topSpacer, Priority.ALWAYS);
+        vocabBox.getChildren().add(topSpacer);
+
         for (int i = 0; i < selectedIds.size(); i++) {
             String id = selectedIds.get(i);
             var langPair = model.getLangPairForMode(mode);
@@ -150,6 +150,11 @@ public class TrainerController extends StageAwareController {
             HBox.setHgrow(input, Priority.NEVER);
             // Optional: Wenn das Label auch mitwachsen soll, sonst auskommentieren:
             // HBox.setHgrow(label, Priority.ALWAYS);
+
+            Region spacer = new Region();
+            VBox.setVgrow(spacer, Priority.ALWAYS);
+            vocabBox.getChildren().add(spacer);
+
 
             VocabEntry entry = new VocabEntry();
             entry.solution = answer;
