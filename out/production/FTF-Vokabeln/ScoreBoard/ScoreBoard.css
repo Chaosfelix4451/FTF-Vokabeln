@@ -1,103 +1,32 @@
-/* Grundlegende Styling für den Hintergrund */
+/* Hintergrund */
 .root {
     -fx-background-color: white;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 10.8pt; /* vorher 11.4pt */
 }
 
-/* Überschrift "Highscore" */
-.label {
+/* Titel-Label */
+.title-label {
     -fx-text-fill: #2c3e50;
-    -fx-font-size: 20px;
+    -fx-font-size: 17px; /* vorher 18px */
     -fx-font-weight: bold;
-    -fx-padding: 0 0 5 0;
+    -fx-padding: 0 0 4 0;
 }
 
-/* Fortschritts-Label speziell stylen */
+/* Fortschrittslabel */
 #progressLabel {
     -fx-text-fill: #7f8c8d;
-    -fx-font-size: 13px;
-    -fx-padding: 5 0;
+    -fx-font-size: 11px; /* vorher 12px */
+    -fx-padding: 4 0;
 }
 
-/* TableView Styling */
-.table-view {
-    -fx-background-color: white;
-    -fx-table-cell-border-color: #ecf0f1;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-    -fx-border-color: #ecf0f1;
-    -fx-border-width: 1px;
-    -fx-padding: 0;
-    -fx-fixed-cell-size: 35; /* Reduzierte Zeilenhöhe */
-}
-
-/* TableView Header Styling */
-.table-view .column-header-background {
-    -fx-background-color: #f8f9fa;
-    -fx-background-radius: 5px 5px 0 0;
-    -fx-padding: 0;
-}
-
-.table-view .column-header, .table-view .filler {
-    -fx-background-color: transparent;
-    -fx-size: 35px; /* Reduzierte Header-Höhe */
-    -fx-border-color: transparent;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: #2c3e50;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-padding: 5 10;
-}
-
-/* TableView Zellen */
-.table-view .table-cell {
-    -fx-text-fill: #34495e;
-    -fx-alignment: center-left;
-    -fx-padding: 2 10;
-    -fx-font-size: 13px;
-}
-
-.table-row-cell {
-    -fx-background-color: white;
-    -fx-table-cell-border-color: #ecf0f1;
-}
-
-.table-row-cell:odd {
-    -fx-background-color: #f8f9fa;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #e3f2fd;
-    -fx-text-fill: #2c3e50;
-}
-
-/* Scrollbar Styling */
-.table-view .scroll-bar:vertical,
-.table-view .scroll-bar:horizontal {
-    -fx-background-color: white;
-}
-
-.table-view .increment-button,
-.table-view .decrement-button {
-    -fx-background-color: transparent;
-}
-
-.table-view .scroll-bar:vertical .thumb,
-.table-view .scroll-bar:horizontal .thumb {
-    -fx-background-color: #bdc3c7;
-    -fx-background-radius: 5em;
-}
-
-/* Zurück-Button Styling */
+/* Buttons */
 .button {
     -fx-background-color: #3498db;
     -fx-text-fill: white;
-    -fx-font-size: 13px;
-    -fx-padding: 8 15;
+    -fx-font-size: 11px; /* vorher 12px */
+    -fx-padding: 6 11;   /* vorher 6 12 */
     -fx-background-radius: 5px;
-    -fx-cursor: hand;
 }
 
 .button:hover {
@@ -110,34 +39,56 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0, 0, 0);
 }
 
-/* VBox Styling */
-.vbox {
-    -fx-spacing: 10;
-    -fx-padding: 15;
+/* ChoiceBoxes */
+#listChoiceBox, #modeChoiceBox {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 4;
+    -fx-pref-height: 30px; /* vorher 32px */
+    -fx-font-size: 11px;   /* vorher 12px */
 }
 
-#listChoiceBox {
- -fx-background-color: white;
- -fx-border-color: #bdc3c7;
- -fx-border-radius: 5px;
- -fx-background-radius: 5px;
- -fx-padding: 5;
- -fx-pref-height: 35px;
-}
-/* Styling für die Balken im oberen Chart (overallChart) */
-#overallChart .default-color0.chart-bar {
-    -fx-bar-fill: #2ecc71; /* Grün */
+/* TextField */
+.text-field {
+    -fx-font-size: 11px; /* vorher 12px */
+    -fx-padding: 4;
 }
 
-#overallChart .default-color1.chart-bar {
-    -fx-bar-fill: #e74c3c; /* Rot */
+/* TableView */
+.table-view {
+    -fx-background-color: white;
+    -fx-table-cell-border-color: #ecf0f1;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+    -fx-fixed-cell-size: 31; /* vorher 33 */
 }
 
-/* Styling für die Balken im unteren Chart (comparisonChart) */
-#comparisonChart .default-color0.chart-bar {
-    -fx-bar-fill: #3498db; /* Blau */
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 0;
 }
 
-#comparisonChart .default-color1.chart-bar {
-    -fx-bar-fill: #e84393; /* Pink */
+.table-view .column-header .label {
+    -fx-text-fill: #2c3e50;
+    -fx-font-size: 11px; /* vorher 12px */
+    -fx-font-weight: bold;
+    -fx-padding: 3 7;
 }
+
+.table-view .table-cell {
+    -fx-text-fill: #34495e;
+    -fx-alignment: center-left;
+    -fx-padding: 2 7;
+    -fx-font-size: 11px; /* vorher 12px */
+}
+
+/* Balkenfarben für Charts */
+#overallChart .default-color0.chart-bar { -fx-bar-fill: #2ecc71; }
+#overallChart .default-color1.chart-bar { -fx-bar-fill: #e74c3c; }
+#comparisonChart .default-color0.chart-bar { -fx-bar-fill: #3498db; }
+#comparisonChart .default-color1.chart-bar { -fx-bar-fill: #e84393; }

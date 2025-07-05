@@ -2,23 +2,40 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.*?>
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoard.ScoreBoardController">
-    <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-        <Label fx:id="userLabel" text="Statistik" wrapText="true" />
-        <BarChart fx:id="overallChart" prefHeight="200">
-            <xAxis><CategoryAxis label="Liste"/></xAxis>
-            <yAxis><NumberAxis label="Anzahl"/></yAxis>
-        </BarChart>
-        <HBox spacing="5">
-            <ChoiceBox fx:id="listChoiceBox" />
-            <ChoiceBox fx:id="modeChoiceBox" />
-            <TextField fx:id="countField" prefWidth="60" />
-            <Button text="Aktualisieren" onAction="#updateComparisonChart" />
-        </HBox>
-        <BarChart fx:id="comparisonChart" prefHeight="200">
-            <xAxis><CategoryAxis /></xAxis>
-            <yAxis><NumberAxis /></yAxis>
-        </BarChart>
-        <Button text="Zurück zum Menü" onAction="#backToMenu" />
-    </VBox>
-</AnchorPane>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ScoreBoard.ScoreBoardController"
+            prefWidth="900" prefHeight="650"
+            stylesheets="@ScoreBoard.css">
+
+    <center>
+        <VBox spacing="15" alignment="CENTER" BorderPane.alignment="CENTER" maxWidth="800">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label fx:id="userLabel" text="Statistik" styleClass="title-label" />
+
+            <BarChart fx:id="overallChart" prefHeight="250" maxWidth="800">
+                <xAxis><CategoryAxis label="Liste"/></xAxis>
+                <yAxis><NumberAxis label="Anzahl"/></yAxis>
+            </BarChart>
+
+            <HBox spacing="10" alignment="CENTER" maxWidth="600">
+                <ChoiceBox fx:id="listChoiceBox" prefWidth="200"/>
+                <ChoiceBox fx:id="modeChoiceBox" prefWidth="120"/>
+                <TextField fx:id="countField" prefWidth="60" />
+                <Button text="Aktualisieren" onAction="#updateComparisonChart" />
+            </HBox>
+
+            <BarChart fx:id="comparisonChart" prefHeight="250" maxWidth="800">
+                <xAxis><CategoryAxis/></xAxis>
+                <yAxis><NumberAxis/></yAxis>
+            </BarChart>
+
+            <Button text="Zurück zum Menü" onAction="#backToMenu" />
+        </VBox>
+    </center>
+</BorderPane>

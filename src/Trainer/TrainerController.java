@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class TrainerController extends StageAwareController {
     @FXML
     private Pane confettiPane;
     @FXML
-    private AnchorPane rootPane;
+    private StackPane rootPane;
 
     private TrainerModel model;
     private String listId = "defaultvocab.json";
@@ -86,6 +86,11 @@ public class TrainerController extends StageAwareController {
         nextButton.setOnAction(event -> checkAnswers());
         finishButton.setOnAction(event -> finishTraining());
         backButton.setOnAction(event -> SceneLoader.load(stage, "/MainMenu/mainMenu.fxml"));
+
+        if (confettiPane != null && rootPane != null) {
+            confettiPane.prefWidthProperty().bind(rootPane.widthProperty());
+            confettiPane.prefHeightProperty().bind(rootPane.heightProperty());
+        }
     }
 
     private void loadNextVocabSet() {
@@ -135,9 +140,7 @@ public class TrainerController extends StageAwareController {
             vocabBox.getChildren().add(box);
         }
 
-        if (stage != null) {
-            Platform.runLater(stage::sizeToScene);
-        }
+        // Keep the window size from the previous scene
     }
 
     private String langName(String code) {

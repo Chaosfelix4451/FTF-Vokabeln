@@ -11,7 +11,7 @@ body {
 a { color: #0066cc; }
 
 #sidebar {
-    width: 260px;
+    width: 25%;
     overflow-y: auto;
     background: #eaeaea;
     border-right: 1px solid #ccc;
@@ -22,7 +22,7 @@ a { color: #0066cc; }
 #content {
     flex: 1;
     padding: 2em;
-    max-width: 900px;
+    max-width: 90%;
 }
 
 pre, code {
@@ -66,4 +66,18 @@ input[type="text"] {
 #sidebar a {
     display: block;
     margin-top: 0.5em;
+}
+
+@media (max-width: 700px) {
+    body {
+        flex-direction: column;
+    }
+    #sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+    #content {
+        padding: 1em;
+    }
 }
