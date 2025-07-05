@@ -90,6 +90,7 @@ VBox > Button {
     -fx-effect: none;
     -fx-pref-height: 35;
     -fx-translate-y: 5;
+    -fx-font-size: 13px;
 }
 
 /* Such- und Hinzufügen-Buttons */

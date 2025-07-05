@@ -108,6 +108,10 @@
     -fx-text-fill: #e0e0e0 !important;
 }
 
+.list-view .list-cell:odd {
+    -fx-background-color: #444444 !important;
+}
+
 .list-view .list-cell:filled:selected {
     -fx-background-color: #3498db !important;
 }

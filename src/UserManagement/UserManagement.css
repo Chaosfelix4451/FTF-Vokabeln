@@ -102,6 +102,10 @@
     -fx-background-color: #95a5a6;
 }
 
+.list-view .list-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
 /* Container Styling */
 Vbox {
     -fx-spacing: 15;
