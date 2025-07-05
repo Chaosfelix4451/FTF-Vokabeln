@@ -1,6 +1,7 @@
 package Utils.SceneLoader;
 
 import Utils.UserSys.UserSys;
+import Utils.StageRegistry;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ public class SceneLoader {
 
     public static void setPrimaryStage(Stage stage) {
         StageManager.setPrimaryStage(stage);
+        StageRegistry.register(stage);
     }
 
     public static void load(String fxmlPath) {
@@ -71,6 +73,7 @@ public class SceneLoader {
 
             stage.setResizable(true);
             stage.setScene(scene);
+            StageRegistry.register(stage);
             stage.show();
 
         } catch (IOException e) {

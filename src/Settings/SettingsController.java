@@ -4,6 +4,7 @@ package Settings;
 import Utils.Confetti.Confetti;
 import Utils.SceneLoader.SceneLoader;
 import Utils.StageAwareController;
+import Utils.StageRegistry;
 import Utils.UserSys.UserSys;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,6 @@ public class SettingsController extends StageAwareController implements Initiali
     public Label vDark;
     public Button confettibutton;
 
-    private String darkCss;
 
     /**
      * Zurück zum Hauptmenü.
@@ -158,7 +158,6 @@ public class SettingsController extends StageAwareController implements Initiali
             UserSys.saveToJson();
         });
 
-        darkCss = getClass().getResource("/dark.css").toExternalForm();
         boolean dark = UserSys.getBooleanPreference("darkMode", false);
         darkModeToggle.setSelected(dark);
         darkModeToggle.selectedProperty().addListener((obs, o, n) -> {
@@ -233,18 +232,8 @@ public class SettingsController extends StageAwareController implements Initiali
     }
 
     private void updateDarkThemeState() {
-        if (stage == null || stage.getScene() == null || darkCss == null) return;
-
-        var scene = stage.getScene();
-        var stylesheets = scene.getStylesheets();
-
         boolean enableDarkMode = darkModeToggle.isSelected();
-
-        if (enableDarkMode && !stylesheets.contains(darkCss)) {
-            stylesheets.add(darkCss);
-        } else if (!enableDarkMode && stylesheets.contains(darkCss)) {
-            stylesheets.remove(darkCss);
-        }
+        Utils.StageRegistry.applyDarkMode(enableDarkMode);
     }
 
     @FXML
