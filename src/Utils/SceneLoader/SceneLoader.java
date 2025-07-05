@@ -61,7 +61,7 @@ public class SceneLoader {
             double oldY = stage.getY();
 
             URL url = SceneLoader.class.getResource(fxmlPath);
-            System.out.println("SceneLoader: Lade " + fxmlPath + " -> " + url);
+            UserSys.log("📄 Lade Szene " + fxmlPath + " -> " + url);
             if (url == null) {
                 throw new IllegalArgumentException("FXML-Datei nicht gefunden: " + fxmlPath);
             }
@@ -81,7 +81,7 @@ public class SceneLoader {
             if (cssUrl != null) {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
             } else {
-                System.out.println("⚠️ Keine CSS-Datei gefunden für " + cssPath);
+                UserSys.log("⚠️ Keine CSS-Datei gefunden für " + cssPath);
             }
             UserSys.loadFromJson();
             if (UserSys.getBooleanPreference("darkMode", false)) {

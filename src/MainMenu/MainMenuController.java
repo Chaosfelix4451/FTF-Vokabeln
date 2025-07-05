@@ -48,7 +48,7 @@ public class MainMenuController extends StageAwareController {
      */
     @FXML
     private void initialize() {
-        System.out.println("MainMenu: initialize");
+        UserSys.log("🏠 Hauptmenü wird geladen");
         UserSys.loadFromJson();
 
         if (userField != null) {
@@ -78,7 +78,7 @@ public class MainMenuController extends StageAwareController {
      * Existiert bereits ein Fenster, wird dieses nur in den Vordergrund gebracht.
      */
     public void openSettings() {
-        System.out.println("MainMenu: opening settings window");
+        UserSys.log("🛠️ Einstellungen öffnen");
         if (settingsStage != null && settingsStage.isShowing()) {
             settingsStage.requestFocus();
             return;
@@ -92,7 +92,7 @@ public class MainMenuController extends StageAwareController {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> obs, Boolean oldVal, Boolean newVal) {
                     if (newVal && settingsStage.isShowing()) {
-                        System.out.println("MainMenu: closing settings window");
+                        UserSys.log("🛠️ Einstellungen geschlossen");
                         settingsStage.close();
                         mainStage.focusedProperty().removeListener(this);
                     }

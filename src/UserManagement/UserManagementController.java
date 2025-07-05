@@ -28,7 +28,7 @@ public class UserManagementController extends StageAwareController implements In
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("UserManagement: initialize");
+        UserSys.log("👥 Benutzerverwaltung gestartet");
         UserSys.loadFromJson();
         refreshList("");
         searchField.textProperty().addListener((obs, o, n) -> refreshList(n));
@@ -39,7 +39,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void createUser() {
-        System.out.println("UserManagement: create user action");
+        UserSys.log("➕ Benutzer erstellen");
         String name = newUserField.getText().trim();
         if (!name.isEmpty()) {
             UserSys.createUser(name);
@@ -55,7 +55,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void selectUser() {
-        System.out.println("UserManagement: select user action");
+        UserSys.log("✅ Benutzer auswählen");
         String selected = userList.getSelectionModel().getSelectedItem();
         if (selected != null) {
             UserSys.setCurrentUser(selected);
@@ -70,7 +70,7 @@ public class UserManagementController extends StageAwareController implements In
      */
 
     private void refreshList(String filter) {
-        System.out.println("UserManagement: refresh list with filter '" + filter + "'");
+        UserSys.log("🔄 Aktualisiere Liste mit Filter '" + filter + "'");
         userList.getItems().clear();
         for (String name : UserSys.searchUsers(filter)) {
             userList.getItems().add(name);
@@ -82,7 +82,7 @@ public class UserManagementController extends StageAwareController implements In
      */
     @FXML
     private void backToMenu() {
-        System.out.println("UserManagement: back to menu");
+        UserSys.log("↩️ Zurück zum Hauptmenü");
         SceneLoader.load(stage, "/MainMenu/mainMenu.fxml");
     }
 }

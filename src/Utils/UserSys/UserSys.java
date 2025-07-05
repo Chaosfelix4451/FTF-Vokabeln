@@ -18,6 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Verwaltet Benutzer, Punkte und Einstellungen. Alle Daten werden in einer
@@ -28,13 +30,22 @@ public class UserSys {
     private static final List<User> users = new ArrayList<>();
     private static String currentUser = "user";
     private static final Map<String, Object> preferences = new HashMap<>();
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+    /**
+     * Prints a log line with timestamp for easier reading.
+     */
+    public static void log(String message) {
+        String time = LocalTime.now().format(TIME_FMT);
+        System.out.println("[" + time + "] " + message);
+    }
 
     /**
      * Lädt alle Benutzerdaten und Einstellungen aus der JSON-Datei.
      */
     public static void loadFromJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
-        System.out.println("UserSys: loading JSON from " + path.toString());
+        log("📥 Lade Benutzerdaten von " + path.toString());
         InputStream in = null;
         try {
             if (Files.exists(path)) {
@@ -76,7 +87,7 @@ public class UserSys {
      */
     public static void saveToJson() {
         Path path = Path.of("src", "Utils", "UserSys", "user.json"); // Dev-Pfad (zur Laufzeit ggf. anpassen)
-        System.out.println("UserSys: saving JSON to " + path.toString());
+        log("💾 Speichere Benutzerdaten nach " + path.toString());
         JSONObject root = new JSONObject();
         root.put("currentUser", currentUser);
         JSONObject prefsObj = new JSONObject(preferences);
@@ -104,7 +115,7 @@ public class UserSys {
      * Legt einen neuen Benutzer an, sofern der Name noch nicht vergeben ist.
      */
     public static void createUser(String name) {
-        System.out.println("UserSys: create user " + name);
+        log("👤 Neuer Benutzer: " + name);
         if (getUser(name) == null) {
             users.add(new User(name));
         }
@@ -119,7 +130,7 @@ public class UserSys {
      * Sucht nach Benutzernamen, die den Suchbegriff enthalten.
      */
     public static List<String> searchUsers(String query) {
-        System.out.println("UserSys: search users for '" + query + "'");
+        log("🔍 Suche nach Benutzern mit '" + query + "'");
         if (query == null || query.isBlank()) {
             return getAllUserNames();
         }
@@ -137,7 +148,7 @@ public class UserSys {
      * Löscht einen Benutzer. Der Spezialname "@all_admin_1234" entfernt alle Benutzer.
      */
     public static void deleteUser(String name) {
-        System.out.println("UserSys: delete user " + name);
+        log("❌ Lösche Benutzer " + name);
         if ("@all_admin_1234".equals(name)) {
             users.clear();
             currentUser = "user";
@@ -150,7 +161,7 @@ public class UserSys {
     }
 
     public static void setCurrentUser(String name) {
-        System.out.println("UserSys: set current user " + name);
+        log("➡️ Aktiver Benutzer: " + name);
         if (getUser(name) != null) currentUser = name;
     }
     public static void resetCurrentUser() {currentUser =""; };
@@ -171,12 +182,12 @@ public class UserSys {
     }
 
     public static void setPreference(String key, String value) {
-        System.out.println("UserSys: set preference " + key + "=" + value);
+        log("⚙️ Setze Einstellung " + key + "=" + value);
         preferences.put(key, value);
     }
 
     public static void setBooleanPreference(String key, boolean value) {
-        System.out.println("UserSys: set boolean preference " + key + "=" + value);
+        log("⚙️ Setze Einstellung " + key + "=" + value);
         preferences.put(key, value);
     }
 

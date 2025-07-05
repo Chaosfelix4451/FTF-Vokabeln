@@ -1,4 +1,5 @@
 import Utils.SceneLoader.SceneLoader;
+import Utils.UserSys.UserSys;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("Main: application start");
+        UserSys.log("🚀 Anwendung startet");
         SceneLoader.setPrimaryStage(primaryStage); // einmalig registrieren
         SceneLoader.load("/MainMenu/mainMenu.fxml");
         primaryStage.setTitle("FTF-Vokabeln");
@@ -53,7 +54,7 @@ public class Main extends Application {
                 getClass().getResourceAsStream("/Utils/media/Logo.png")),
                 128, 128, true, true);
         if (icon.isError()) {
-            System.out.println("Logo konnte nicht geladen werden: " + icon.getException());
+            UserSys.log("⚠️ Logo konnte nicht geladen werden: " + icon.getException());
         } else {
             primaryStage.getIcons().add(icon);
         }

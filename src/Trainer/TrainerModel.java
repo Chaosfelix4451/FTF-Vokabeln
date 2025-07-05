@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import Utils.UserSys.UserSys;
 
 /**
  * Modellklasse für den Trainer. Sie lädt Vokabellisten aus JSON-Dateien
@@ -30,7 +31,7 @@ public class TrainerModel {
      * anschließend in den eingebetteten Ressourcen.
      */
     private InputStream openVocabStream(String fileName) throws IOException {
-        System.out.println("TrainerModel: opening vocab file " + fileName);
+        UserSys.log("📖 Öffne Vokabelliste " + fileName);
         // Try direct path first
         Path path = Path.of(fileName);
         if (!Files.exists(path)) {
@@ -53,7 +54,7 @@ public class TrainerModel {
      * @param fileName Name der JSON-Datei
      */
     public void LoadJSONtoDataObj(String fileName) {
-        System.out.println("TrainerModel: loading data from " + fileName);
+        UserSys.log("⏳ Lade Daten aus " + fileName);
         vocabData.clear();
         availableLanguages.clear();
         try (InputStream in = openVocabStream(fileName)) {

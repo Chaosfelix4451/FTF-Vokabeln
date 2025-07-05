@@ -1,6 +1,7 @@
 package ConnectTrainer;
 
 import Trainer.TrainerModel;
+import Utils.UserSys.UserSys;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class ConnectTrainerModel {
      * dem gewählten Modus vor.
      */
     public void loadData(String vocabFile, String mode) {
+        UserSys.log("🔗 ConnectTrainer lädt " + vocabFile + " im Modus " + mode);
         trainerModel.LoadJSONtoDataObj(vocabFile);
         String[] pair = trainerModel.getLangPairForMode(mode);
         if (pair != null) {
